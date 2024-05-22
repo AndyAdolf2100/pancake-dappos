@@ -35,6 +35,8 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@dappos/checkout": "0.2.5-alpha.11",
+    "@dappos/v2-sdk": "2.0.13-alpha.11",
     "@binance/w3w-utils": "1.1.4",
     "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@cyberlab/cyber-app-sdk": "v3.0.0-beta.5",

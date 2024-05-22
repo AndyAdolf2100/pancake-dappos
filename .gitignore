@@ -61,3 +61,5 @@ scripts/dev/**
 
 # dappOS
 .github
+*.swo
+*.swp
