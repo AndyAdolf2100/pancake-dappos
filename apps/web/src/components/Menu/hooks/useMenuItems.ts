@@ -5,7 +5,8 @@ import { DropdownMenuItems, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import React, { useMemo } from 'react'
 import { multiChainPaths } from 'state/info/constant'
-import config, { ConfigMenuDropDownItemsType, ConfigMenuItemsType } from '../config/config'
+import { ConfigMenuDropDownItemsType, ConfigMenuItemsType } from '../config/config'
+import config from '../config/dappOSHeaderConfig' // dappOS
 import { useMenuItemsStatus } from './useMenuItemsStatus'
 
 export type UseMenuItemsParams = {
