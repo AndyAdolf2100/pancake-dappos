@@ -110,7 +110,7 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
           <Swap.CurrencyInputHeaderSubTitle>{subtitle}</Swap.CurrencyInputHeaderSubTitle>
         </Flex>
         <Flex width="100%" justifyContent="end">
-          {chainId ? (
+          {false && chainId ? ( // dappOS: false
             <Flex alignItems="center" justifyContent="center" px="4px" mt="5px">
               <TooltipText
                 ref={buyCryptoTargetRef}
@@ -125,54 +125,56 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
               {buyCryptoTooltipVisible && (!isMobile || mobileTooltipShow) && buyCryptoTooltip}
             </Flex>
           ) : null}
-          {isChartSupported && (
-            <ColoredIconButton
-              onClick={() => {
-                if (!isChartDisplayed && isSwapHotTokenDisplay) {
-                  setIsSwapHotTokenDisplay(false)
-                }
-                toggleChartDisplayed()
-              }}
-              variant="text"
-              scale="sm"
-              data-dd-action-name="Price chart button"
-            >
-              {isChartDisplayed ? (
-                <ChartDisableIcon color="textSubtle" />
-              ) : (
-                <ChartIcon width="24px" color="textSubtle" />
-              )}
-            </ColoredIconButton>
-          )}
-          {isHotTokenSupported && (
-            <ColoredIconButton
-              variant="text"
-              scale="sm"
-              onClick={() => {
-                if (!isSwapHotTokenDisplay && isChartDisplayed) {
+          {false &&
+            isChartSupported && ( // dappOS: false
+              <ColoredIconButton
+                onClick={() => {
+                  if (!isChartDisplayed && isSwapHotTokenDisplay) {
+                    setIsSwapHotTokenDisplay(false)
+                  }
                   toggleChartDisplayed()
-                }
-                setIsSwapHotTokenDisplay(!isSwapHotTokenDisplay)
-              }}
-              data-dd-action-name="Hot token list button"
-            >
-              {isSwapHotTokenDisplay ? (
-                <HotDisableIcon color="textSubtle" width="24px" />
-              ) : (
-                <>
-                  <TooltipText
-                    ref={targetRef}
-                    onClick={() => setMobileTooltipShow(false)}
-                    display="flex"
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <HotIcon color="textSubtle" width="24px" />
-                  </TooltipText>
-                  {tooltipVisible && (!isMobile || mobileTooltipShow) && tooltip}
-                </>
-              )}
-            </ColoredIconButton>
-          )}
+                }}
+                variant="text"
+                scale="sm"
+                data-dd-action-name="Price chart button"
+              >
+                {isChartDisplayed ? (
+                  <ChartDisableIcon color="textSubtle" />
+                ) : (
+                  <ChartIcon width="24px" color="textSubtle" />
+                )}
+              </ColoredIconButton>
+            )}
+          {false &&
+            isHotTokenSupported && ( // dappOS: false
+              <ColoredIconButton
+                variant="text"
+                scale="sm"
+                onClick={() => {
+                  if (!isSwapHotTokenDisplay && isChartDisplayed) {
+                    toggleChartDisplayed()
+                  }
+                  setIsSwapHotTokenDisplay(!isSwapHotTokenDisplay)
+                }}
+                data-dd-action-name="Hot token list button"
+              >
+                {isSwapHotTokenDisplay ? (
+                  <HotDisableIcon color="textSubtle" width="24px" />
+                ) : (
+                  <>
+                    <TooltipText
+                      ref={targetRef}
+                      onClick={() => setMobileTooltipShow(false)}
+                      display="flex"
+                      style={{ justifyContent: 'center' }}
+                    >
+                      <HotIcon color="textSubtle" width="24px" />
+                    </TooltipText>
+                    {tooltipVisible && (!isMobile || mobileTooltipShow) && tooltip}
+                  </>
+                )}
+              </ColoredIconButton>
+            )}
           <NotificationDot show={expertMode || isRoutingSettingChange}>
             <GlobalSettings
               color="textSubtle"
