@@ -58,3 +58,6 @@ scripts/dev/**
 
 # typescript
 *.tsbuildinfo
+
+# dappOS
+.github
