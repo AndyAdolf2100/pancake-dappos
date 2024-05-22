@@ -146,7 +146,7 @@ export default function Swap() {
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <SwapSelection swapType={SwapType.MARKET} />
+              {/* <SwapSelection swapType={SwapType.MARKET} /> dappOS: hide this tabs */}
               <AppBody>
                 <V3SwapForm />
               </AppBody>
