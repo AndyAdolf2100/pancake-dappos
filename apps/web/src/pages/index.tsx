@@ -1,10 +1,13 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps } from 'next'
 import { getTotalTvl } from 'utils/getTotalTVL'
-import Home from '../views/Home'
+import { useRouter } from 'next/router'
+// import Home from '../views/Home'
 
 const IndexPage = () => {
-  return <Home />
+  // dappOS: replace Home and redirect to swap // TODO style got something wrong when redirect to swap
+  const router = useRouter()
+  router.push('/swap')
 }
 
 export const getStaticProps: GetStaticProps = async () => {
