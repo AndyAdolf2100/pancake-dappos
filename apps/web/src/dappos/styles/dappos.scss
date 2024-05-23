@@ -1,0 +1,12 @@
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  img {
+    animation: loading-rotate 1s linear infinite;
+  }
+  @keyframes loading-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

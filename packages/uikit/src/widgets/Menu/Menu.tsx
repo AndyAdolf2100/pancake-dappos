@@ -91,7 +91,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   chainId,
 }) => {
   const { isMobile } = useMatchBreakpoints();
-  const isMounted = useIsMounted();
+  const isMounted = false; // useIsMounted(); dappOS: hide ad banner
   const [showMenu, setShowMenu] = useState(true);
   const refPrevOffset = useRef(typeof window === "undefined" ? 0 : window.pageYOffset);
 
