@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
 import { getVeCakeAddress } from 'utils/addressHelpers'
 import { Address, erc20Abi } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useBalance, useReadContract } from '@pancakeswap/wagmi'
 import { useActiveChainId } from './useActiveChainId'
 

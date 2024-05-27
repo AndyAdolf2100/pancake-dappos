@@ -4,7 +4,7 @@ import qs from 'qs'
 import useAuthAffiliate from 'views/AffiliatesProgram/hooks/useAuthAffiliate'
 import useAuthAffiliateExist from 'views/AffiliatesProgram/hooks/useAuthAffiliateExist'
 import { MAX_PER_PAGE, UserClaimListResponse } from 'views/AffiliatesProgram/hooks/useUserClaimList'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const useAffiliateClaimList = ({ currentPage }) => {
   const { address } = useAccount()

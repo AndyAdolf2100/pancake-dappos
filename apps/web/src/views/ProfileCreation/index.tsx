@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import Page from 'components/Layout/Page'
 import { useProfile } from 'state/profile/hooks'
 import PageLoader from 'components/Loader/PageLoader'

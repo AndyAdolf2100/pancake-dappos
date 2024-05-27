@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { filterLeaderboard } from 'state/predictions'
 import { useGetLeaderboardFilters, useGetLeaderboardLoadingState } from 'state/predictions/hooks'
 import { usePredictionConfigs } from 'views/Predictions/hooks/usePredictionConfigs'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import Filters from './components/Filters'
 import Hero from './components/Hero'
 import Results from './components/Results'

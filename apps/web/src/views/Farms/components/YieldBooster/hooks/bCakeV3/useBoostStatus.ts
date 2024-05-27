@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useBakeV3farmCanBoost, useUserPositionInfo } from './useBCakeV3Info'
 
 export enum BoostStatus {

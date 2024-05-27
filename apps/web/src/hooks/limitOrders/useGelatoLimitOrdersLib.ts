@@ -2,7 +2,7 @@ import { ChainId as ChainIdType, GelatoLimitOrders } from '@gelatonetwork/limit-
 import { ChainId } from '@pancakeswap/chains'
 import { useQuery } from '@tanstack/react-query'
 import { GELATO_HANDLER } from 'config/constants/exchange'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useActiveChainId } from '../useActiveChainId'
 
 const useGelatoLimitOrdersLib = (): GelatoLimitOrders | undefined => {

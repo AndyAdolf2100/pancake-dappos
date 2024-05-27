@@ -7,7 +7,7 @@ import { ASSET_CDN } from 'config/constants/endpoints'
 import useTheme from 'hooks/useTheme'
 import { useLayoutEffect, useRef } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useDrawCanvas } from '../hooks/useDrawCanvas'
 import { useDrawSequenceImages } from '../hooks/useDrawSequence'
 import { checkIsIOS, useIsIOS } from '../hooks/useIsIOS'

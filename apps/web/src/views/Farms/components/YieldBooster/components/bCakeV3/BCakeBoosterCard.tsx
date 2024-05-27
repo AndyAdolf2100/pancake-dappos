@@ -17,7 +17,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import { styled, useTheme } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import boosterCardImage from '../../../../images/boosterCardImage.png'
 import boosterCardImagePM from '../../../../images/boosterCardImagePM.png'
 import { useBCakeBoostLimitAndLockInfo } from '../../hooks/bCakeV3/useBCakeV3Info'

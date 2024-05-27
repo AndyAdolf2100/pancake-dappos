@@ -7,7 +7,7 @@ import useAuth from 'hooks/useAuth'
 import { useMenuItems } from 'components/Menu/hooks/useMenuItems'
 import { useRouter } from 'next/router'
 import { getActiveMenuItem, getActiveSubMenuItem } from 'components/Menu/utils'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useMemo } from 'react'
 import { ChainId } from '@pancakeswap/chains'
 import { viemClients } from 'utils/viem'

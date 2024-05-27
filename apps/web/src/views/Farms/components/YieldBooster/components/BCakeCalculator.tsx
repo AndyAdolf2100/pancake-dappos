@@ -21,7 +21,7 @@ import { styled, useTheme } from 'styled-components'
 import { useBCakeTooltipContent } from 'views/Farms/components/YieldBooster/components/bCakeV3/BCakeBoosterCard'
 import { useUserLockedCakeStatus } from 'views/Farms/hooks/useUserLockedCakeStatus'
 import { weeksToSeconds } from 'views/Pools/components/utils/formatSecondsToWeeks'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useGetCalculatorMultiplier } from '../hooks/useGetBoostedAPR'
 import LockDurationField from './BCakeLockedDuration'
 

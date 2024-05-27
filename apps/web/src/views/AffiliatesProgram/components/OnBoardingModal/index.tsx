@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useMatchBreakpoints, ModalV2, useToast } from '@pancakeswap/uikit'
 import { useRouter } from 'next/router'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useSignMessage } from '@pancakeswap/wagmi'
 import { useTranslation } from '@pancakeswap/localization'
 import { encodePacked, keccak256 } from 'viem'

@@ -6,7 +6,7 @@ import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useCurrentBlock } from 'state/block/hooks'
 import { getPoolBlockInfo } from 'views/Pools/helpers'
 import { useBoostedPoolApr } from 'views/Pools/hooks/useBoostedPoolApr'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const withShownApr = (AprComp) => (props) => {
   const { address: account } = useAccount()

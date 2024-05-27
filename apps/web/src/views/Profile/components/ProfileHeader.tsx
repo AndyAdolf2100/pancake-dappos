@@ -20,7 +20,7 @@ import useGetUsernameWithVisibility from 'hooks/useUsernameWithVisibility'
 import { useMemo } from 'react'
 import { Achievement, Profile } from 'state/types'
 import { getBlockExploreLink, safeGetAddress } from 'utils'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import BannerHeader from '../../Nft/market/components/BannerHeader'
 import AvatarImage from '../../Nft/market/components/BannerHeader/AvatarImage'
 import StatBox, { StatBoxItem } from '../../Nft/market/components/StatBox'

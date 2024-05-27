@@ -1,5 +1,5 @@
 import { useTranslation } from '@pancakeswap/localization'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import Mint from './Mint'
 import ProfilePicture from './ProfilePicture'
 import TeamSelection from './TeamSelection'

@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { Address } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { SerializedBCakeUserData } from '@pancakeswap/farms'
 import { Token } from '@pancakeswap/sdk'

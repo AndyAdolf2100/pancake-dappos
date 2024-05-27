@@ -10,7 +10,7 @@ import {
   WEB_PUSH_IV,
 } from 'views/Notifications/constants'
 import { BuilderNames, NotificationPayload } from 'views/Notifications/types'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface IUseSendNotification {
   sendPushNotification: (notificationType: BuilderNames, args: string[], account: string) => Promise<void>

@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { DeserializedLockedVaultUser } from 'state/types'
 import RevenueSharing from 'views/Pools/components/RevenueSharing/BenefitsModal/RevenueSharing'
 import SharingPoolNameCell from 'views/Pools/components/RevenueSharing/BenefitsModal/SharingPoolNameCell'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const Container = styled(ModalContainer)`
   width: 100%;

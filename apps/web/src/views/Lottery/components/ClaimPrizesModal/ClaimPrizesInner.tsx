@@ -13,7 +13,7 @@ import { useLottery } from 'state/lottery/hooks'
 import { useGasPrice } from 'state/user/hooks'
 import { callWithEstimateGas } from 'utils/calls'
 import { TransactionReceipt } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface ClaimInnerProps {
   roundsToClaim: LotteryTicketClaimData[]

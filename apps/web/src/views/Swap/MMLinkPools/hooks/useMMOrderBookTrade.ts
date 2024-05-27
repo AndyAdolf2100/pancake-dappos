@@ -10,7 +10,7 @@ import { useCurrencyBalances } from 'state/wallet/hooks'
 import { safeGetAddress } from 'utils'
 
 import { UnsafeCurrency } from 'config/constants/types'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useMMLinkedPoolByDefault } from 'state/user/smartRouter'
 import { getMMOrderBook } from '../apis'
 import { MMOrderBookTrade, OrderBookRequest, OrderBookResponse } from '../types'

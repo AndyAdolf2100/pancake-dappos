@@ -1,7 +1,7 @@
 import { nftSaleABI } from 'config/abi/nftSale'
 import { useEffect, useState } from 'react'
 import { useProfile } from 'state/profile/hooks'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import ArtistSection from './components/ArtistSection'
 import BunniesSection from './components/BunniesSection'
 import EventDescriptionSection from './components/EventDescriptionSection'

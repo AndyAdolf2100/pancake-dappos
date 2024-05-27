@@ -1,7 +1,7 @@
 import { NOTIFICATION_HUB_BASE_URL } from 'config/constants/endpoints'
 import crypto from 'crypto'
 import { PUBLIC_VAPID_KEY, WEB_PUSH_ENCRYPTION_KEY, WEB_PUSH_IV } from 'views/Notifications/constants'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface IUseSendNotification {
   subscribeToWebPush: () => Promise<void>

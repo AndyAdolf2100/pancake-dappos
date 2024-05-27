@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useGaugesVotingContract } from 'hooks/useContract'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export const useVotedPower = () => {
   const { address: account } = useAccount()

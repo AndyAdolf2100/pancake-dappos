@@ -5,7 +5,7 @@ import { useBNBPrice } from 'hooks/useBNBPrice'
 import { NftToken } from 'state/nftMarket/types'
 import { safeGetAddress } from 'utils'
 import NFTMedia from 'views/Nft/market/components/NFTMedia'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import BuyModal from '../../../components/BuySellModals/BuyModal'
 import SellModal from '../../../components/BuySellModals/SellModal'
 import { nftsBaseUrl } from '../../../constants'

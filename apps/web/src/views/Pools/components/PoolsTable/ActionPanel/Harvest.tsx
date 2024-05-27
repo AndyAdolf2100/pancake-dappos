@@ -2,7 +2,7 @@ import { Button, Text, useModal, Flex, Skeleton, Heading, Balance } from '@panca
 import { Pool } from '@pancakeswap/widgets-internal'
 
 import BigNumber from 'bignumber.js'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { PoolCategory } from 'config/constants/types'
 import { formatNumber, getBalanceNumber, getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
 import { useTranslation } from '@pancakeswap/localization'

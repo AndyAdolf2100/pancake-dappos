@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { SiweMessage } from 'siwe'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useSignMessage } from '@pancakeswap/wagmi'
 import { Button } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'

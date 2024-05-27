@@ -3,7 +3,7 @@ import { RECLAIM_AUCTIONS_TO_FETCH } from 'config'
 import { BidderAuction } from 'config/constants/types'
 import { useFarmAuctionContract } from 'hooks/useContract'
 import { useEffect, useReducer } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { processBidderAuctions, sortAuctionBidders } from '../helpers'
 
 interface ReclaimableAuction {

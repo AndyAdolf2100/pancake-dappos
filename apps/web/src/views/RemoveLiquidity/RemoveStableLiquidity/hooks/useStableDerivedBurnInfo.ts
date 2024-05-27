@@ -10,7 +10,7 @@ import { useTokenBalances } from 'state/wallet/hooks'
 import { Address } from 'viem'
 import { StablePair, useStablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStableLPDerivedMintInfo'
 import { StableConfigContext } from 'views/Swap/hooks/useStableConfig'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export function useGetRemovedTokenAmounts({ lpAmount }: { lpAmount?: string }) {
   const stableConfigContext = useContext(StableConfigContext)

@@ -1,6 +1,6 @@
 import { SmartRouterTrade } from '@pancakeswap/smart-router'
 import { TradeType } from '@pancakeswap/swap-sdk-core'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { useCurrency } from 'hooks/Tokens'
 import first from 'lodash/first'

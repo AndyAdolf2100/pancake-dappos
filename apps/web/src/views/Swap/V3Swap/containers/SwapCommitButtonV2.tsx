@@ -189,6 +189,7 @@ const SwapCommitButtonInner = memo(function SwapCommitButtonInner({
   )
 
   const onConfirm = useCallback(() => {
+    console.log('[SwapCommitBUttonV2] onConfirm')
     beforeCommit?.()
     callToAction()
   }, [beforeCommit, callToAction])

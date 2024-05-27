@@ -37,7 +37,7 @@ import { styled } from 'styled-components'
 import { getFarmApr } from 'utils/apr'
 import { getStakedMinProgramFarms } from 'views/Farms/utils/getStakedMinProgramFarms'
 
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { V2Farm } from './FarmsV3'
 import Table from './components/FarmTable/FarmTable'

@@ -12,7 +12,7 @@ import {
 } from 'state/predictions/hooks'
 import { Bet, HistoryFilter } from 'state/types'
 import { useConfig } from 'views/Predictions/context/ConfigProvider'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import V1ClaimCheck from '../v1/V1ClaimCheck'
 import HistoricalBet from './HistoricalBet'
 

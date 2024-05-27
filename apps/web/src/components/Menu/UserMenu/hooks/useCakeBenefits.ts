@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import BigNumber from 'bignumber.js'
 import { useQuery } from '@tanstack/react-query'
 import { useIfoCreditAddressContract } from 'hooks/useContract'

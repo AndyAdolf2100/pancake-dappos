@@ -18,7 +18,7 @@ import { useCurrencyBalances } from 'state/wallet/hooks'
 import tryParseCurrencyAmount from 'utils/tryParseCurrencyAmount'
 import { MintState } from 'views/AddLiquidityV3/formViews/V3FormView/form/reducer'
 
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { PoolState } from './types'
 import { usePool } from './usePools'
 import { tryParseTick } from './utils'

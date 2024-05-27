@@ -7,7 +7,7 @@ import { setHistoryPaneState } from 'state/predictions'
 import { getBetHistory } from 'state/predictions/helpers'
 import { useGetPredictionsStatus, useIsHistoryPaneOpen } from 'state/predictions/hooks'
 import { css, keyframes, styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useConfig } from '../context/ConfigProvider'
 
 /**

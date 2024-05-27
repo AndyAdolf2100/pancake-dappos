@@ -23,7 +23,7 @@ const ConfirmSwapModalContainer: React.FC<React.PropsWithChildren<ConfirmSwapMod
   return (
     <Modal
       {...props}
-      title={hideTitleAndBackground ? '' : t('Confirm Swap')}
+      title={hideTitleAndBackground ? '' : `${t('Confirm Swap')}1`}
       headerPadding={hideTitleAndBackground && headerPadding ? headerPadding : '12px 24px'}
       bodyPadding={hideTitleAndBackground && bodyPadding ? bodyPadding : '24px'}
       bodyTop={bodyTop}

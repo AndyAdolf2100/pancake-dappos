@@ -12,7 +12,7 @@ import SingleLatestReward from 'views/AffiliatesProgram/components/Dashboard/Rew
 import WrongNetworkWarning from 'views/AffiliatesProgram/components/Dashboard/Reward/WrongNetworkWarning'
 import { UserClaimListResponse } from 'views/AffiliatesProgram/hooks/useUserClaimList'
 import useUserExist from 'views/AffiliatesProgram/hooks/useUserExist'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface LatestRewardProps {
   isAffiliate: boolean

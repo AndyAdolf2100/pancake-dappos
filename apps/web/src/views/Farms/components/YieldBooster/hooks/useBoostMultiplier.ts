@@ -8,7 +8,7 @@ import _toNumber from 'lodash/toNumber'
 import { useCallback } from 'react'
 import { publicClient } from 'utils/wagmi'
 import { Address } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { YieldBoosterState } from './useYieldBoosterState'
 
 const PRECISION_FACTOR = new BN('1000000000000') // 1e12

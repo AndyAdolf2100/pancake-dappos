@@ -19,7 +19,7 @@ import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 
 import { useTranslation } from '@pancakeswap/localization'
 import { useAppDispatch } from 'state'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { Token } from '@pancakeswap/sdk'
 import { getInterestBreakdown } from '@pancakeswap/utils/compoundApyHelpers'

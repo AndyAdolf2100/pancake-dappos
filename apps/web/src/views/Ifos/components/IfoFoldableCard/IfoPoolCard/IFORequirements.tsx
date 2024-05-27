@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Text, Flex, AccountIcon, TeamBattleIcon, Box, useTooltip, LinkExternal } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 
 import OkNFTIcon from './Icons/OkNFT'

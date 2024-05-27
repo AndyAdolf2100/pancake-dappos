@@ -18,7 +18,7 @@ import { fetchLottery } from 'state/lottery/helpers'
 import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'
 import { LotteryRound } from 'state/types'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { getDrawnDate, processLotteryResponse } from '../../helpers'
 import { WhiteBunny } from '../../svgs'
 import BuyTicketsButton from '../BuyTicketsButton'

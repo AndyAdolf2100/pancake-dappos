@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { RewardType } from 'views/TradingReward/hooks/useAllTradingRewardPair'
 import { TRADING_REWARD_API } from 'config/constants/endpoints'
 import { useQuery } from '@tanstack/react-query'

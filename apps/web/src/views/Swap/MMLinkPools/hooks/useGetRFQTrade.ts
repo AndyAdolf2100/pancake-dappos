@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { UnsafeCurrency } from 'config/constants/types'
 import { MutableRefObject, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Field } from 'state/swap/actions'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { MMError, getRFQById, sendRFQAndGetRFQId } from '../apis'
 import { MMRfqTrade, MessageType, QuoteRequest, RFQResponse } from '../types'
 import { parseMMTrade } from '../utils/exchange'

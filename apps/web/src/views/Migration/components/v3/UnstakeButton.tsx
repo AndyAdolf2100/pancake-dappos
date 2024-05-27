@@ -20,7 +20,7 @@ import { TransactionReceipt } from 'viem'
 import { YieldBoosterStateContext } from 'views/Farms/components/YieldBooster/components/ProxyFarmContainer'
 import useProxyStakedActions from 'views/Farms/components/YieldBooster/hooks/useProxyStakedActions'
 import useUnstakeFarms from 'views/Farms/hooks/useUnstakeFarms'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export interface UnstakeButtonProps {
   pid?: number

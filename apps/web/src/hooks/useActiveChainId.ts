@@ -4,7 +4,8 @@ import { atom, useAtomValue } from 'jotai'
 import { useRouter } from 'next/router'
 import { useDeferredValue, useMemo } from 'react'
 import { isChainSupported } from 'utils/wagmi'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useDstChainId } from 'state/dappos/hooks' // dappOS
 import { useSessionChainId } from './useSessionChainId'
 
 const queryChainIdAtom = atom(-1) // -1 unload, 0 no chainId on query
@@ -46,6 +47,7 @@ export function useLocalNetworkChain() {
 export const useActiveChainId = () => {
   const localChainId = useLocalNetworkChain()
   const queryChainId = useAtomValue(queryChainIdAtom)
+  const { dstChainId }: { dstChainId: number } = useDstChainId() // dappOS
 
   const { chainId: wagmiChainId } = useAccount()
   const chainId = localChainId ?? wagmiChainId ?? (queryChainId >= 0 ? ChainId.BSC : undefined)
@@ -57,7 +59,9 @@ export const useActiveChainId = () => {
   )
 
   return {
-    chainId: chainId && isChainSupported(chainId) ? chainId : ChainId.BSC,
+    chainId: dstChainId,
+    dstChainId,
+    srcChainId: chainId && isChainSupported(chainId) ? chainId : ChainId.BSC,
     isWrongNetwork,
     isNotMatched,
   }

@@ -6,7 +6,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useMemo } from 'react'
 import { useLockCakeData } from 'state/vecake/hooks'
 import { useWriteApproveAndLockCallback } from 'views/CakeStaking/hooks/useContractWrite'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useBSCCakeBalance } from '../../hooks/useBSCCakeBalance'
 import { NewStakingDataSet } from '../DataSet'
 import { LockCakeForm } from '../LockCakeForm'

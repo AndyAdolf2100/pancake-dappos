@@ -1,6 +1,6 @@
 import { ConnectorNames } from 'config/wallet'
 import { ExtendEthereum } from 'global'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { mainnet } from 'wagmi/chains'
 import FarmsV3 from './FarmsV3'
 import { FarmsContext, FarmsV3Context } from './context'

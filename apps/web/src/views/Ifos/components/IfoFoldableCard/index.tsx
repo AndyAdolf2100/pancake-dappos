@@ -10,7 +10,7 @@ import {
   useMatchBreakpoints,
   useToast,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { ToastDescriptionWithTx } from 'components/Toast'
 import { Ifo, PoolIds } from '@pancakeswap/ifos'
 import useCatchTxError from 'hooks/useCatchTxError'

@@ -9,7 +9,7 @@ import { publicClient } from 'utils/wagmi'
 import { Address } from 'viem'
 import { RewardType } from 'views/TradingReward/hooks/useAllTradingRewardPair'
 import { CampaignIdInfoDetail, CampaignIdInfoResponse } from 'views/TradingReward/hooks/useCampaignIdInfo'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface RankListResponse {
   data: {

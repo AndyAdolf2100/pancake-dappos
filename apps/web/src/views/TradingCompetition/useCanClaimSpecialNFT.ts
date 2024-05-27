@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useEffect, useState } from 'react'
 import { API_PROFILE } from 'config/constants/endpoints'
 

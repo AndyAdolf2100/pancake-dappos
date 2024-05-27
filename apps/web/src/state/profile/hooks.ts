@@ -2,7 +2,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { QueryObserverResult, useQuery } from '@tanstack/react-query'
 import { FetchStatus } from 'config/constants/types'
 import { getAchievements } from 'state/achievements/helpers'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { Profile } from '../types'
 import { GetProfileResponse, getProfile } from './helpers'
 

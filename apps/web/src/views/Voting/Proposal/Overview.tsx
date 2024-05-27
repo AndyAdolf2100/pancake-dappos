@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { ProposalState } from 'state/types'
 import { getAllVotes, getProposal } from 'state/voting/helpers'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import Layout from '../components/Layout'
 import { ProposalStateTag, ProposalTypeTag } from '../components/Proposals/tags'
 import { isCoreProposal } from '../helpers'

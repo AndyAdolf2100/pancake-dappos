@@ -8,7 +8,7 @@ import ProxyFarmContainer, {
   YieldBoosterStateContext,
 } from 'views/Farms/components/YieldBooster/components/ProxyFarmContainer'
 import { getDisplayApr } from 'views/Farms/components/getDisplayApr'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export const ProxyFarmCardContainer = ({ farm }) => {
   const { address: account } = useAccount()

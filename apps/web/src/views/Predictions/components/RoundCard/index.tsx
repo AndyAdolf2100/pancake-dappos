@@ -2,7 +2,7 @@ import { BetPosition } from '@pancakeswap/prediction'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { useGetBetByEpoch, useGetCurrentEpoch } from 'state/predictions/hooks'
 import { NodeRound } from 'state/types'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { getMultiplierV2 } from '../../helpers'
 import ExpiredRoundCard from './ExpiredRoundCard'
 import LiveRoundCard from './LiveRoundCard'

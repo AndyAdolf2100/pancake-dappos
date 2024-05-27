@@ -6,7 +6,7 @@ import { useAppDispatch } from 'state'
 import { useProfile } from 'state/profile/hooks'
 import { Achievement } from 'state/types'
 import { getClaimableIfoData } from 'utils/achievements'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import AchievementRow from './AchievementRow'
 
 const ClaimPointsCallout: React.FC<React.PropsWithChildren<{ onSuccess?: () => void }>> = ({ onSuccess = null }) => {

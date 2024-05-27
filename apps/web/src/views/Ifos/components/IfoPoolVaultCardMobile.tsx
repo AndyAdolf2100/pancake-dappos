@@ -10,7 +10,7 @@ import {
 } from '@pancakeswap/uikit'
 import { Pool } from '@pancakeswap/widgets-internal'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { useTranslation } from '@pancakeswap/localization'
 import { Token } from '@pancakeswap/sdk'

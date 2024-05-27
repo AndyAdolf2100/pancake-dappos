@@ -17,7 +17,7 @@ import { useVaultPoolByKey } from 'state/pools/hooks'
 import { VaultKey } from 'state/types'
 
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import LockDurationField from '../LockedPool/Common/LockDurationField'
 import { weeksToSeconds } from '../utils/formatSecondsToWeeks'
 

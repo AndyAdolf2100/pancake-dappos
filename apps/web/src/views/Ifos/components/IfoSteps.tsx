@@ -22,7 +22,7 @@ import { Ifo, NextLinkFromReactRouter as RouterLink } from '@pancakeswap/widgets
 import every from 'lodash/every'
 import { ReactNode, useMemo } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import { useTranslation } from '@pancakeswap/localization'
 import ConnectWalletButton from 'components/ConnectWalletButton'

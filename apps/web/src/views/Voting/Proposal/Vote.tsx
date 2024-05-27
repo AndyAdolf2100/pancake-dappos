@@ -15,7 +15,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useState } from 'react'
 import { Proposal } from 'state/types'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import CastVoteModal from '../components/CastVoteModal'
 
 interface VoteProps extends CardProps {

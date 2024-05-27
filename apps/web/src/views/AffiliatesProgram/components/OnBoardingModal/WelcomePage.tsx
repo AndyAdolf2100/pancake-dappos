@@ -3,7 +3,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { useRouter } from 'next/router'
 import { useState, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import useUserExist from 'views/AffiliatesProgram/hooks/useUserExist'
 

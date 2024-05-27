@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import atomWithStorageWithErrorCatch from 'utils/atomWithStorageWithErrorCatch'
 import useAuthAffiliateExist from 'views/AffiliatesProgram/hooks/useAuthAffiliateExist'
 import useUserExist from 'views/AffiliatesProgram/hooks/useUserExist'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const showNonAffiliateModalAtom = atomWithStorageWithErrorCatch('pcs::showNonAffiliateModalAtom', true)
 

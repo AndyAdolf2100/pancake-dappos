@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import { useERC20, useTokenContract } from 'hooks/useContract'
 import { useEffect, useState } from 'react'
 import { Address } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 // Retrieve IFO allowance
 const useIfoAllowance = (

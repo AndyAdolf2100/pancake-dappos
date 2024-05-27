@@ -171,7 +171,7 @@ export const ConfirmSwapModalV2: React.FC<ConfirmSwapModalProps> = ({
     if (confirmModalState === ConfirmModalState.PENDING_CONFIRMATION) {
       return (
         <SwapPendingModalContent
-          title={txHash ? t('Transaction Submitted') : t('Confirm Swap')}
+          title={txHash ? t('Transaction Submitted') : t('Confirm Swap') + 4}
           currencyA={currencyA}
           currencyB={currencyB}
           amountA={amountA}

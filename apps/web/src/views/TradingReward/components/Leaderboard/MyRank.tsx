@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import DesktopResult from 'views/TradingReward/components/Leaderboard/DesktopResult'
 import MobileResult from 'views/TradingReward/components/Leaderboard/MobileResult'
 import { useUserTradeRank } from 'views/TradingReward/hooks/useUserTradeRank'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface MyRankProps {
   campaignId: string

@@ -131,7 +131,7 @@ export const ConfirmSwapModal = memo<InjectedModalProps & ConfirmSwapModalProps>
     if (attemptingTxn) {
       return (
         <SwapPendingModalContentV1
-          title={t('Confirm Swap')}
+          title={t('Confirm Swap') + 3}
           currencyA={currencyA}
           currencyB={currencyB}
           amountA={amountA}

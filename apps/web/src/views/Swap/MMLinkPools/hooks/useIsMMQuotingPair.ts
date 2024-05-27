@@ -7,7 +7,7 @@ import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 import { selectorByUrlsAtom } from 'state/lists/hooks'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { IS_SUPPORT_NATIVE_TOKEN, MM_STABLE_TOKENS_WHITE_LIST, NATIVE_CURRENCY_ADDRESS } from '../constants'
 import { useIsMMSupportChain } from './useIsMMSupportChain'
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { Ifo, PoolIds } from '@pancakeswap/ifos'
 import BigNumber from 'bignumber.js'
 import { useQuery } from '@tanstack/react-query'

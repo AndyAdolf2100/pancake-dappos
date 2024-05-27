@@ -18,7 +18,7 @@ import { Collection, NftLocation, NftToken } from 'state/nftMarket/types'
 import { useProfile } from 'state/profile/hooks'
 import { styled } from 'styled-components'
 import { safeGetAddress } from 'utils'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import SellModal from '../../../components/BuySellModals/SellModal'
 import ProfileNftModal from '../../../components/ProfileNftModal'
 import { useCollectionsNftsForAddress } from '../../../hooks/useNftsForAddress'

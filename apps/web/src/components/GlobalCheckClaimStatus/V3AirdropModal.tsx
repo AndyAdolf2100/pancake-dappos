@@ -10,7 +10,7 @@ import { useShowOnceAirdropModal } from 'hooks/useShowOnceAirdropModal'
 import delay from 'lodash/delay'
 import { useEffect, useMemo, useState } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import useAirdropModalStatus from './hooks/useAirdropModalStatus'
 
 const Image = styled.img`

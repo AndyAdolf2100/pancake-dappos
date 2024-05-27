@@ -242,7 +242,7 @@ export const SwapModalFooter = memo(function SwapModalFooter({
           ) : severity > 2 || (tradeType === TradeType.EXACT_OUTPUT && !isEnoughInputBalance) ? (
             t('Swap Anyway')
           ) : (
-            t('Confirm Swap')
+            t('Confirm Swap') + 2
           )}
         </Button>
 

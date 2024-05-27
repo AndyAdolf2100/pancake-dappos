@@ -6,7 +6,7 @@ import { useFarmsV3WithPositionsAndBooster } from 'state/farmsV3/hooks'
 import FarmTable from 'views/Farms/components/FarmTable/FarmTable'
 import { useCakeVaultUserData } from 'state/pools/hooks'
 import { V3FarmWithoutStakedValue } from 'views/Farms/FarmsV3'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export function Step5() {
   const { farmsWithPositions: farmsV3, userDataLoaded: v3UserDataLoaded } = useFarmsV3WithPositionsAndBooster()

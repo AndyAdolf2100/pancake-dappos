@@ -2,7 +2,7 @@ import { FetchStatus, LotteryTicketClaimData, TFetchStatus } from 'config/consta
 import { useEffect, useState } from 'react'
 import fetchUnclaimedUserRewards from 'state/lottery/fetchUnclaimedUserRewards'
 import { useGetLotteriesGraphData, useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const useGetUnclaimedRewards = () => {
   const { address: account } = useAccount()

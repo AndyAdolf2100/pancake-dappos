@@ -11,7 +11,7 @@ import {
   OpenNewIcon,
   StyledLink,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 import useTheme from 'hooks/useTheme'
 import NextLink from 'next/link'

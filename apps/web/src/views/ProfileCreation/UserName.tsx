@@ -26,7 +26,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 import fetchWithTimeout from 'utils/fetchWithTimeout'
 import { formatUnits } from 'viem'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import ConfirmProfileCreationModal from './ConfirmProfileCreationModal'
 import { REGISTER_COST, USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from './config'
 import useProfileCreation from './contexts/hook'

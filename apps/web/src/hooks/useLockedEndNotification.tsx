@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import isUndefinedOrNull from '@pancakeswap/utils/isUndefinedOrNull'
 import { useAtom } from 'jotai'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import atomWithStorageWithErrorCatch from 'utils/atomWithStorageWithErrorCatch'
 import { useQueryClient } from '@tanstack/react-query'
 import { useUserCakeLockStatus } from './useUserCakeLockStatus'

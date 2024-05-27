@@ -10,7 +10,7 @@ import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
 import { useCake, useFarmAuctionContract } from 'hooks/useContract'
 import { styled } from 'styled-components'
 import { requiresApproval } from 'utils/requiresApproval'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import useReclaimAuctionBid from '../hooks/useReclaimAuctionBid'
 
 const StyledReclaimBidCard = styled(Card)`

@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { useAccount } from 'wagmi'
-import { useDappOSProtocolIsReady, useDstChainId } from 'state/dappos/hooks' // dappOS
-import { useDappOSVirtualWallet, useDappOSVwIsReady } from 'state/dapposVirtualWallet/hooks'
+import { useDappOSProtocolIsReady } from 'state/dappos/hooks' // dappOS
 import { getProvider } from 'dappos/utils/getVirtualWallet'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useDappOSVwIsReady } from 'state/dapposVirtualWallet/hooks'
 import { useActiveChainId } from './useActiveChainId'
 
 /**
@@ -10,26 +10,24 @@ import { useActiveChainId } from './useActiveChainId'
  * Recreate web3 instance only if the provider change
  */
 const useAccountActiveChain = () => {
-  const { address: account, status, connector } = useAccount()
-  const { currentVwAddress } = useDappOSVirtualWallet() // dappOS
-  const { chainId } = useActiveChainId() // srcChainId
-  const { dstChainId }: { dstChainId: number } = useDstChainId() // dappOS
+  const { account, eoaAccount, status, connector } = useAccount()
+  const { chainId, srcChainId, dstChainId } = useActiveChainId() // srcChainId
   const { isVwReady } = useDappOSVwIsReady() // dappOS
   const { isProtocolReady } = useDappOSProtocolIsReady() // dappOS
 
   return useMemo(
     () => ({
-      account: currentVwAddress,
-      eoaAccount: account,
-      chainId: dstChainId,
-      srcChainId: chainId,
+      account, // vw
+      eoaAccount, // eoa
+      chainId, // dst chain id
+      srcChainId,
       dstChainId,
       status,
       connector,
       library: getProvider(dstChainId), // dappOS from dst chain
       isSdkReady: isVwReady && isProtocolReady,
     }),
-    [account, chainId, connector, status, dstChainId, isVwReady, isProtocolReady, currentVwAddress],
+    [account, connector, status, dstChainId, isVwReady, isProtocolReady, srcChainId, eoaAccount, chainId],
   )
 }
 

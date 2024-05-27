@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount } from '@pancakeswap/sdk'
 import { Address } from 'viem'
 import { useQuery } from '@tanstack/react-query'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { getUserIfoInfo, getCurrentIfoRatio } from '@pancakeswap/ifos'
 import { CAKE } from '@pancakeswap/tokens'
 import { useMemo } from 'react'

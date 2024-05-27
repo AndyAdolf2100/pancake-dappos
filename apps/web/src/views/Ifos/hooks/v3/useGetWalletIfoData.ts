@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import BigNumber from 'bignumber.js'
 import { Ifo, PoolIds } from '@pancakeswap/ifos'
 import { useERC20, useIfoV3Contract } from 'hooks/useContract'

@@ -29,7 +29,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGetMinBetAmount } from 'state/predictions/hooks'
 import { Address, parseUnits } from 'viem'
 import { useConfig } from 'views/Predictions/context/ConfigProvider'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 import FlexRow from '../FlexRow'
 import PositionTag from '../PositionTag'

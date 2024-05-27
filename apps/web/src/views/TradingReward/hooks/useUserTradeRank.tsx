@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { TRADING_REWARD_API } from 'config/constants/endpoints'
 import { RewardType } from 'views/TradingReward/hooks/useAllTradingRewardPair'
-import { useAccount } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const initialState = {
   topTradersIndex: 0,
