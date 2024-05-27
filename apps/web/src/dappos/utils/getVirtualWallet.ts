@@ -32,17 +32,6 @@ export const getProvider = (chainId: number) => {
     providerCache.set(Number(chainId), _provider)
     return _provider as unknown as CustomProvider
   }
-
-  // switch (chainId) {
-  //   case 137: {
-  //     return new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
-  //   }
-  //   case 169: {
-  //     return new ethers.providers.JsonRpcProvider(
-  //       'https://pacific-rpc.manta.network/http',
-  //     );
-  //   }
-  // }
 }
 
 class VirtualWalletCache {

@@ -12,6 +12,11 @@ import poolsReducer from './pools'
 import potteryReducer from './pottery'
 import transactions from './transactions/reducer'
 import user from './user/reducer'
+import dappOS from './dappos/reducer'
+import dappOSVirtualWallet from './dapposVirtualWallet/reducer'
+import dappOSTransaction from './dapposTransaction/reducer'
+import dappOSInstitution from './dapposInstitution/reducer'
+import dappOSWhiteList from './dapposWhiteList/reducer'
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'notifications']
 
@@ -26,6 +31,11 @@ const persistConfig = {
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
+    dappOS,
+    dappOSVirtualWallet,
+    dappOSTransaction,
+    dappOSInstitution,
+    dappOSWhiteList,
     global: globalReducer,
     farms: farmsReducer,
     pools: poolsReducer,
