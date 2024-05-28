@@ -1,6 +1,7 @@
 import { useAccount as useA } from 'wagmi'
 import { useDappOSVirtualWallet } from 'state/dapposVirtualWallet/hooks'
 import { Address } from 'viem'
+import { useActiveChainId } from 'hooks/useActiveChainId'
 
 export const useAccount = () => {
   const { currentVwAddress } = useDappOSVirtualWallet() // dappOS
@@ -12,4 +13,9 @@ export const useAccount = () => {
     vwAddress: currentVwAddress as Address,
     eoaAccount: accountInfo.address as Address,
   }
+}
+
+export const useChainId = () => {
+  const { chainId } = useActiveChainId()
+  return chainId
 }

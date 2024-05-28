@@ -21,6 +21,9 @@ import {
   scrollSepolia,
   sepolia,
   zkSync,
+  // optimism,
+  // manta,
+  polygon,
 } from 'wagmi/chains'
 
 export const CHAIN_QUERY_NAME = chainNames
@@ -93,4 +96,7 @@ export const CHAINS: [Chain, ...Chain[]] = [
   opBNB,
   opBNBTestnet,
   scrollSepolia,
+  polygon,
+  // optimism,
+  // manta,
 ]

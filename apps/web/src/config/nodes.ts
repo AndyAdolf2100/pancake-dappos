@@ -18,6 +18,9 @@ import {
   sepolia,
   zkSync,
   zkSyncTestnet,
+  polygon,
+  optimism,
+  manta,
 } from 'wagmi/chains'
 
 const ARBITRUM_NODES = [
@@ -156,4 +159,7 @@ export const PUBLIC_NODES: Record<ChainId, string[] | readonly string[]> = {
   [ChainId.SEPOLIA]: sepolia.rpcUrls.default.http,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepolia.rpcUrls.default.http,
   [ChainId.BASE_SEPOLIA]: baseSepolia.rpcUrls.default.http,
+  137: polygon.rpcUrls.default.http, // dappOS
+  169: manta.rpcUrls.default.http, // dappOS
+  10: optimism.rpcUrls.default.http, // dappOS
 } satisfies Record<ChainId, readonly string[]>

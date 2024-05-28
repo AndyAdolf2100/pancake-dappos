@@ -1,7 +1,7 @@
 import { Box, Text, TooltipText, useTooltip } from '@pancakeswap/uikit'
 import { PropsWithChildren, useCallback } from 'react'
 import { logger } from 'utils/datadog'
-import { useChainId } from 'wagmi'
+import { useChainId } from 'dappos/hooks/useAccount'
 
 const EventCaptureContainer: React.FC<PropsWithChildren> = ({ children }) => {
   const chainId = useChainId()
