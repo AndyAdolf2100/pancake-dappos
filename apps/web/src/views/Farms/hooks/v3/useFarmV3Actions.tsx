@@ -10,7 +10,8 @@ import { useCallback } from 'react'
 import { calculateGasMargin } from 'utils'
 import { getViemClients, viemClients } from 'utils/viem'
 import { Address, hexToBigInt } from 'viem'
-import { useAccount, useSendTransaction, useWalletClient } from 'wagmi'
+import { useSendTransaction, useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface FarmV3ActionContainerChildrenProps {
   attemptingTxn: boolean
