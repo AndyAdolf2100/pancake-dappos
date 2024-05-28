@@ -73,8 +73,9 @@ export default function DappOSUpdater(): null {
 
   const connectProtocol = useCallback(async () => {
     console.log('%cdappOSProtocol connect: ', 'color:#2aae68; font-size: 16px; font-weight: bold;')
-    if (!account || !dappOSProtocol) return
+    if (!account || !dappOSProtocol || !connector || !connector.getProvider) return
     updateDappOSProtocolIsReady(false)
+    const library = await connector.getProvider()
     const connectorInfo = (() => {
       const metamask = {
         name: 'MetaMask',
@@ -82,7 +83,8 @@ export default function DappOSUpdater(): null {
       }
       return metamask
     })()
-    const library = await connector!.getProvider()
+
+    console.log('connector', connector)
 
     await dappOSProtocol.connect({
       connector: connectorInfo,
