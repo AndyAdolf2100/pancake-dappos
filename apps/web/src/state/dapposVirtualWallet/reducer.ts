@@ -1,28 +1,45 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { AddressZero } from 'dappos/constant/constant'
-import { updateDappOSVwPolygon, updateDappOSVwManta, updateDappOSVwBalanceInfo, updateDappOSVwIsReady } from './actions'
+import {
+  updateDappOSVwEthereum,
+  updateDappOSVwBase,
+  updateDappOSVwArbitrum,
+  updateDappOSVwBinanceSmart,
+  updateDappOSVwBalanceInfo,
+  updateDappOSVwIsReady,
+} from './actions'
 
 export interface DappOSVirtualWalletState {
   readonly dappOSVwBalanceInfo: any[]
   readonly dappOSVwIsReady: boolean
-  readonly dappOSVwPolygon: string
-  readonly dappOSVwManta: string
+  readonly dappOSVwArbitrum: string
+  readonly dappOSVwBinanceSmart: string
+  readonly dappOSVwBase: string
+  readonly dappOSVwEthereum: string
 }
 
 const initialState: DappOSVirtualWalletState = {
   dappOSVwBalanceInfo: [],
   dappOSVwIsReady: false,
-  dappOSVwPolygon: AddressZero,
-  dappOSVwManta: AddressZero,
+  dappOSVwArbitrum: AddressZero,
+  dappOSVwBinanceSmart: AddressZero,
+  dappOSVwBase: AddressZero,
+  dappOSVwEthereum: AddressZero,
 }
 
 export default createReducer(initialState, (builder) =>
   builder
-    .addCase(updateDappOSVwManta, (state, action) => {
-      state.dappOSVwManta = action.payload
+    .addCase(updateDappOSVwArbitrum, (state, action) => {
+      state.dappOSVwArbitrum = action.payload
     })
-    .addCase(updateDappOSVwPolygon, (state, action) => {
-      state.dappOSVwPolygon = action.payload
+    .addCase(updateDappOSVwBinanceSmart, (state, action) => {
+      state.dappOSVwBinanceSmart = action.payload
+    })
+    .addCase(updateDappOSVwBase, (state, action) => {
+      state.dappOSVwBase = action.payload
+    })
+    .addCase(updateDappOSVwEthereum, (state, action) => {
+      state.dappOSVwEthereum = action.payload
     })
     .addCase(updateDappOSVwBalanceInfo, (state, action) => {
       state.dappOSVwBalanceInfo = action.payload

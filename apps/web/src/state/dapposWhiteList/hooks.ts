@@ -14,7 +14,7 @@ export const useDappOSWhiteList = () => {
   useEffect(() => {
     async function loadWhiteList() {
       if (loading || isWhiteListReady) return
-      const url = `${process.env.REACT_APP_DAPPOS_SUPER_ADMIN}/supernodeadmin/v2/token_whitelists`
+      const url = `${process.env.NEXT_PUBLIC_DAPPOS_SUPER_ADMIN}/supernodeadmin/v2/token_whitelists`
       const config = {
         params: {},
       }

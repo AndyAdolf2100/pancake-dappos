@@ -86,7 +86,7 @@ export const getVirtualWallet = async (owner: string, chainId: number, { cache }
   }
 
   const virtualWallet = await VirtualWallet.init(lowerAddress, {
-    env: process.env.REACT_APP_updateDappOS,
+    env: process.env.NEXT_PUBLIC_DAPPOS_ENV,
     provider: getProvider(chainId),
     chainId,
     version: '2',
@@ -99,14 +99,25 @@ export const getVirtualWallet = async (owner: string, chainId: number, { cache }
 }
 
 export const initDstChainsVw = async (account: string) => {
-  const virtualWalletManta = await getVirtualWallet(account, 169, {
-    cache: false,
-  })
-  const virtualWalletPolygon = await getVirtualWallet(account, 137, {
-    cache: false,
-  })
+  const [vwEth, vwBsc, vwArb, vwBase] = await Promise.all([
+    getVirtualWallet(account, 1, {
+      cache: false,
+    }),
+    getVirtualWallet(account, 56, {
+      cache: false,
+    }),
+    getVirtualWallet(account, 42161, {
+      cache: false,
+    }),
+    // getVirtualWallet(account, 8453, {
+    getVirtualWallet(account, 1, {
+      cache: false,
+    }),
+  ])
   return {
-    virtualWalletManta,
-    virtualWalletPolygon,
+    vwEth,
+    vwBase,
+    vwBsc,
+    vwArb,
   }
 }

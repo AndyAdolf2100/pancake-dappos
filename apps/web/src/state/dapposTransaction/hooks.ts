@@ -19,7 +19,7 @@ import {
 } from './actions'
 import { IOrderInfo, PollOrderRes, ITxs } from '../../dappos/constant/order-types'
 
-const BASE_URL = process.env.REACT_APP_DAPPOS_RPC_URL
+const BASE_URL = process.env.NEXT_PUBLIC_DAPPOS_RPC_URL
 
 export const useDappOSTransaction = () => {
   const { eoaAccount, chainId } = useAccountActiveChain()

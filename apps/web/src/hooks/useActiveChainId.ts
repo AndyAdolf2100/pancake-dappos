@@ -52,7 +52,7 @@ export const useActiveChainId = () => {
   const { chainId: wagmiChainId } = useAccount()
   const chainId = localChainId ?? wagmiChainId ?? (queryChainId >= 0 ? ChainId.BSC : undefined)
 
-  const isNotMatched = useDeferredValue(wagmiChainId && localChainId && wagmiChainId !== localChainId)
+  const isNotMatched = false // dappOS: this will always be false, old code: useDeferredValue(wagmiChainId && localChainId && wagmiChainId !== localChainId)
   const isWrongNetwork = useMemo(
     () => Boolean(((wagmiChainId && !isChainSupported(wagmiChainId)) ?? false) || isNotMatched),
     [wagmiChainId, isNotMatched],

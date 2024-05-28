@@ -30,7 +30,7 @@ export default function DappOSUpdater(): null {
 
   const { update: updateDappOSVwBalanceInfo } = useDappOSVwBalanceInfo()
 
-  const { updateManta, updatePolygon } = useDappOSVirtualWallet()
+  const { updateArbitrum, updateBinanceSmart, updateEthereum, updateBase } = useDappOSVirtualWallet()
 
   const initProtocol = useCallback(async () => {
     if (loading || !dappOSProtocol) return
@@ -42,7 +42,7 @@ export default function DappOSUpdater(): null {
         url: window.location.origin,
         icon: 'https://dappos-public-resource.s3.amazonaws.com/dappLogo/quickswap.png',
       },
-      env: process.env.REACT_APP_DAPPOS_ENV ?? 'production',
+      env: process.env.NEXT_PUBLIC_DAPPOS_ENV ?? 'production',
       rpcMaps: {},
     }
 
@@ -55,11 +55,21 @@ export default function DappOSUpdater(): null {
 
   const initVirtualWalletInfo = useCallback(async () => {
     const [res, _] = await Promise.all([initDstChainsVw(account!), updateDappOSVwBalanceInfo()])
-    const { virtualWalletManta, virtualWalletPolygon } = res
-    updateManta(virtualWalletManta.address)
-    updatePolygon(virtualWalletPolygon.address)
+    const { vwArb, vwBase, vwBsc, vwEth } = res
+    updateEthereum(vwEth.address)
+    updateArbitrum(vwArb.address)
+    updateBase(vwBase.address)
+    updateBinanceSmart(vwBsc.address)
     updateVwIsReady(true)
-  }, [account, updateDappOSVwBalanceInfo, updateManta, updatePolygon, updateVwIsReady])
+  }, [
+    account,
+    updateDappOSVwBalanceInfo,
+    updateEthereum,
+    updateArbitrum,
+    updateBase,
+    updateBinanceSmart,
+    updateVwIsReady,
+  ])
 
   const connectProtocol = useCallback(async () => {
     console.log('%cdappOSProtocol connect: ', 'color:#2aae68; font-size: 16px; font-weight: bold;')

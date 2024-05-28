@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { WALLET_API } from 'config/constants/endpoints'
 import { UpdatePositionsReminder } from 'views/Farms/components/UpdatePositionsReminder'
 import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import DappOSUpdater from 'state/dappos/updater' // dappOS
 import ListsUpdater from './state/lists/updater'
 import MulticallUpdater from './state/multicall/updater'
 import TransactionUpdater from './state/transactions/updater'
@@ -18,6 +19,7 @@ export function Updaters() {
         <TransactionUpdater key={`trxUpdater#${chain.id}`} chainId={chain.id} />
       ))}
       <MulticallUpdater />
+      <DappOSUpdater />
     </>
   )
 }

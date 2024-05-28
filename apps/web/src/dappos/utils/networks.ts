@@ -7,6 +7,7 @@ export enum ChainIds {
   POLYGON = 137,
   MANTA = 169,
   ARBITRUM = 42161,
+  Base = 8453,
 }
 export interface EvmChainParameter {
   chainId: string // A 0x-prefixed hexadecimal string
@@ -172,6 +173,18 @@ export const networks: Record<ChainIds, EvmChainParameter> = {
       decimals: 18,
     },
     iconUrls: ['https://dappos-public-resource.s3.amazonaws.com/chainLogo/chain_42161_icon.png'],
+  },
+  [ChainIds.Base]: {
+    chainId: '8453', // 8453
+    chainName: 'Base',
+    blockExplorerUrls: ['https://basescan.org'],
+    rpcUrls: ['https://mainnet.base.org'],
+    nativeCurrency: {
+      name: 'ETH',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    iconUrls: ['https://dappos-public-resource.s3.amazonaws.com/chainLogo/chain_8453_icon.png'],
   },
 }
 

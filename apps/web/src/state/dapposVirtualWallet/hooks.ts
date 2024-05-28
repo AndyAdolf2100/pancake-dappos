@@ -3,7 +3,14 @@ import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from 'state'
 import { useDappOSProtocol, useDappOSProtocolIsReady } from 'state/dappos/hooks'
-import { updateDappOSVwBalanceInfo, updateDappOSVwIsReady, updateDappOSVwPolygon, updateDappOSVwManta } from './actions'
+import {
+  updateDappOSVwBalanceInfo,
+  updateDappOSVwIsReady,
+  updateDappOSVwArbitrum,
+  updateDappOSVwBinanceSmart,
+  updateDappOSVwBase,
+  updateDappOSVwEthereum,
+} from './actions'
 
 export const useDappOSVwBalanceInfo = () => {
   const { eoaAccount: account } = useAccountActiveChain()
@@ -59,40 +66,60 @@ export const useDappOSVwIsReady = () => {
 }
 
 export const useDappOSVirtualWallet = () => {
-  const dappOSVwManta = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwManta)
-  const dappOSVwPolygon = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwPolygon)
+  const dappOSVwArbitrum = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwArbitrum)
+  const dappOSVwEthereum = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwEthereum)
+  const dappOSVwBase = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwBase)
+  const dappOSVwBinanceSmart = useSelector((state: AppState) => state.dappOSVirtualWallet.dappOSVwBinanceSmart)
 
   const dstChainId = useSelector((state: AppState) => state.dappOS.dstChainId)
 
   const dispatch = useDispatch<AppDispatch>()
-  const updateManta = useCallback(
+  const updateArbitrum = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwManta(address))
+      dispatch(updateDappOSVwArbitrum(address))
     },
     [dispatch],
   )
 
-  const updatePolygon = useCallback(
+  const updateEthereum = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwPolygon(address))
+      dispatch(updateDappOSVwEthereum(address))
+    },
+    [dispatch],
+  )
+
+  const updateBinanceSmart = useCallback(
+    (address: string) => {
+      dispatch(updateDappOSVwBinanceSmart(address))
+    },
+    [dispatch],
+  )
+
+  const updateBase = useCallback(
+    (address: string) => {
+      dispatch(updateDappOSVwBase(address))
     },
     [dispatch],
   )
 
   const currentVwAddress = useMemo(() => {
-    if (dstChainId === 169) {
-      return dappOSVwManta
+    if (dstChainId === 42161) {
+      return dappOSVwArbitrum
       // eslint-disable-next-line no-else-return
+    } else if (dstChainId === 56) {
+      return dappOSVwBinanceSmart
+    } else if (dstChainId === 1) {
+      return dappOSVwEthereum
     } else {
-      return dappOSVwPolygon
+      return dappOSVwBase
     }
-  }, [dappOSVwManta, dappOSVwPolygon, dstChainId])
+  }, [dappOSVwArbitrum, dstChainId, dappOSVwBase, dappOSVwBinanceSmart, dappOSVwEthereum])
 
   return {
     currentVwAddress,
-    dappOSVwManta,
-    dappOSVwPolygon,
-    updateManta,
-    updatePolygon,
+    updateArbitrum,
+    updateEthereum,
+    updateBinanceSmart,
+    updateBase,
   }
 }

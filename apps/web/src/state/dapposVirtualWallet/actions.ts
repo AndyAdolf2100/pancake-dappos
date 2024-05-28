@@ -5,6 +5,10 @@ export const updateDappOSVwBalanceInfo = createAction<any[]>('dappVirtualWallet/
 
 export const updateDappOSVwIsReady = createAction<boolean>('dappVirtualWallet/updateDappOSVwIsReady')
 
-export const updateDappOSVwManta = createAction<string>('dappVirtualWallet/updateDappOSVwManta')
+export const updateDappOSVwBinanceSmart = createAction<string>('dappVirtualWallet/updateDappOSVwBinanceSmart')
 
-export const updateDappOSVwPolygon = createAction<string>('dappVirtualWallet/updateDappOSVwPolygon')
+export const updateDappOSVwArbitrum = createAction<string>('dappVirtualWallet/updateDappOSVwArbitrum')
+
+export const updateDappOSVwBase = createAction<string>('dappVirtualWallet/updateDappOSVwBase')
+
+export const updateDappOSVwEthereum = createAction<string>('dappVirtualWallet/updateDappOSVwEthereum')
