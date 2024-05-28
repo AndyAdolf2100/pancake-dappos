@@ -15,7 +15,8 @@ import { getErc721Contract } from 'utils/contractHelpers'
 import { Address } from 'viem'
 import { useNftsForAddress } from 'views/Nft/market/hooks/useNftsForAddress'
 import SelectionCard from 'views/ProfileCreation/SelectionCard'
-import { useAccount, useWalletClient } from 'wagmi'
+import { useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 interface ChangeProfilePicPageProps extends InjectedModalProps {
   onSuccess?: () => void

@@ -10,7 +10,8 @@ import { useV3TokenIdsByAccount } from 'hooks/v3/useV3Positions'
 import { useMemo, useState } from 'react'
 import { useFarmsV3Public } from 'state/farmsV3/hooks'
 import { Hex, encodeFunctionData } from 'viem'
-import { useAccount, useReadContracts, useSendTransaction } from 'wagmi'
+import { useReadContracts, useSendTransaction } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 const lmPoolABI = [
   {

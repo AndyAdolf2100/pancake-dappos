@@ -13,7 +13,8 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import useSubscribeToWebPushNotifications from 'hooks/useSubscribeToWebPush'
 import React, { useCallback, useState } from 'react'
 import { useAllowNotifications } from 'state/notifications/hooks'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useSignMessage } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export const parseErrorMessage = (error: any) =>
   error instanceof Error && error?.message ? error.message : JSON.stringify(error)

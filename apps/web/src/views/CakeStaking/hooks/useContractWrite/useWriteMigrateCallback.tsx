@@ -4,7 +4,8 @@ import { useSetAtom } from 'jotai'
 import { useCallback } from 'react'
 import { ApproveAndLockStatus, approveAndLockStatusAtom, cakeLockTxHashAtom } from 'state/vecake/atoms'
 import { calculateGasMargin } from 'utils'
-import { useAccount, useWalletClient } from 'wagmi'
+import { useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 
 export const useWriteMigrateCallback = () => {
   const veCakeContract = useVeCakeContract()

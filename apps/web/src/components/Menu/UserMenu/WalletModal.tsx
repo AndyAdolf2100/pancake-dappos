@@ -14,7 +14,7 @@ import {
 import { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
 import { parseEther } from 'viem'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance } from 'dappos/hooks/useAccount'
 import WalletInfo from './WalletInfo'
 import WalletTransactions from './WalletTransactions'
 import WalletWrongNetwork from './WalletWrongNetwork'

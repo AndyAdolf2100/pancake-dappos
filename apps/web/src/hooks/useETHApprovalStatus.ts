@@ -2,7 +2,8 @@ import { WETH9 } from '@pancakeswap/sdk'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import BigNumber from 'bignumber.js'
 import { Address, erc20Abi } from 'viem'
-import { useAccount, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useActiveChainId } from './useActiveChainId'
 
 export const useETHApprovalStatus = (spender: Address) => {

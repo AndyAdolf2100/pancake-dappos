@@ -1,6 +1,7 @@
 import { useVeCakeContract } from 'hooks/useContract'
 import { useCallback } from 'react'
-import { useAccount, useWalletClient } from 'wagmi'
+import { useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useSetAtom } from 'jotai'
 import { approveAndLockStatusAtom, cakeLockTxHashAtom, ApproveAndLockStatus } from 'state/vecake/atoms'
 import { usePublicNodeWaitForTransaction } from 'hooks/usePublicNodeWaitForTransaction'

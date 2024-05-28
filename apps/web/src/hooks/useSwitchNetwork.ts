@@ -7,7 +7,8 @@ import { ExtendEthereum } from 'global'
 import { useCallback, useMemo } from 'react'
 import { useAppDispatch } from 'state'
 import { clearUserStates } from 'utils/clearUserStates'
-import { useAccount, useSwitchChain } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useSessionChainId } from './useSessionChainId'
 import { useSwitchNetworkLoading } from './useSwitchNetworkLoading'
 

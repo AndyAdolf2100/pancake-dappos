@@ -1,4 +1,4 @@
-import { useAccount as useA } from 'wagmi'
+import { useAccount as useA, useBalance as useB } from 'wagmi'
 import { useDappOSVirtualWallet } from 'state/dapposVirtualWallet/hooks'
 import { Address } from 'viem'
 import { useActiveChainId } from 'hooks/useActiveChainId'
@@ -18,4 +18,9 @@ export const useAccount = () => {
 export const useChainId = () => {
   const { chainId } = useActiveChainId()
   return chainId
+}
+
+export const useBalance = (params) => {
+  const { chainId } = useActiveChainId()
+  return useB({ ...params, chainId })
 }

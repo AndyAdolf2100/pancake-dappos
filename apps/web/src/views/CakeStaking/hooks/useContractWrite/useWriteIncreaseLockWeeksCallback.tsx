@@ -14,7 +14,8 @@ import { logger } from 'utils/datadog'
 import { logTx } from 'utils/log'
 import { isUserRejected } from 'utils/sentry'
 import { TransactionExecutionError } from 'viem'
-import { useAccount, useWalletClient } from 'wagmi'
+import { useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { useRoundedUnlockTimestamp } from '../useRoundedUnlockTimestamp'
 import { useCakeLockStatus } from '../useVeCakeUserInfo'
 

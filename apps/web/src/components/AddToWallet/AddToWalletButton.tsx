@@ -11,7 +11,8 @@ import {
 } from '@pancakeswap/uikit'
 import { Address } from 'viem'
 import { watchAsset } from 'viem/actions'
-import { useAccount, useWalletClient } from 'wagmi'
+import { useWalletClient } from 'wagmi'
+import { useAccount } from 'dappos/hooks/useAccount' // dappOS
 import { canRegisterToken } from '../../utils/wallet'
 import { BAD_SRCS } from '../Logo/constants'
 
