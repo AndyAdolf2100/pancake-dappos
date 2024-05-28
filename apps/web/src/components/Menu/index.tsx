@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import { Suspense, lazy, useCallback, useMemo } from 'react'
 import { getOptionsUrl } from 'utils/getOptionsUrl'
 import DappOSUserMenu from 'dappos/components/DappOSUserMenu'
+import { DappOSNetworkSwitcher } from 'dappos/components/DappOSNetworkSwitcher'
 import GlobalSettings from './GlobalSettings'
 import { SettingsMode } from './GlobalSettings/types'
 import UserMenu from './UserMenu'
@@ -110,7 +111,7 @@ const Menu = (props) => {
                 <Notifications />
               </Suspense>
             )} */}
-            <NetworkSwitcher />
+            <DappOSNetworkSwitcher />
             <DappOSUserMenu />
           </>
         }

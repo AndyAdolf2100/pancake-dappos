@@ -201,3 +201,12 @@ export function getEvmChainParameter(chainId: ChainIds | string) {
   }
   return res
 }
+
+export const dappOSSrcChains = Object.values(networks).map((i) => {
+  return {
+    ...i,
+    id: Number(i.chainId),
+    name: i.chainName,
+    chainLogo: i.iconUrls?.[0],
+  }
+})
