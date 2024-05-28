@@ -1,8 +1,15 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from 'state'
+import { DappOSWalletLite } from '@dappos/wallet-lite'
 import { DappOSProtocol } from '@dappos/checkout'
-import { updateDappOSProtocol, updateDappOSProtocolIsReady, updatePaydbAddress, updateDstChainId } from './actions'
+import {
+  updateDappOSProtocol,
+  updateDappOSProtocolIsReady,
+  updatePaydbAddress,
+  updateDstChainId,
+  updateDappOSWalletLite,
+} from './actions'
 
 export const useDappOSProtocol = () => {
   const dappOSProtocol = useSelector((state: AppState) => state.dappOS.dappOSProtocol)
@@ -23,6 +30,18 @@ export const useDappOSProtocol = () => {
   return {
     dappOSProtocol,
     readyProtocol,
+    update,
+  }
+}
+
+export const useDappOSWalletLite = () => {
+  const dappOSWalletLite = useSelector((state: AppState) => state.dappOS.dappOSWalletLite)
+
+  const dispatch = useDispatch<AppDispatch>()
+  const update = useCallback((walletLite: DappOSWalletLite) => dispatch(updateDappOSWalletLite(walletLite)), [dispatch])
+
+  return {
+    dappOSWalletLite,
     update,
   }
 }

@@ -7,7 +7,8 @@ import { useDappOSWhiteList } from 'state/dapposWhiteList/hooks'
 import { initDstChainsVw } from 'dappos/utils/getVirtualWallet'
 import { loadingInitialized } from 'dappos/utils/loading'
 import { providers } from 'ethers'
-import { useDappOSProtocol, usePaydbAddress, useDappOSProtocolIsReady } from './hooks'
+import DappOSWalletLite from '@dappos/wallet-lite'
+import { useDappOSWalletLite, useDappOSProtocol, usePaydbAddress, useDappOSProtocolIsReady } from './hooks'
 
 const { loading, startLoading, endLoading } = loadingInitialized()
 
@@ -23,6 +24,8 @@ export default function DappOSUpdater(): null {
   const { update: updatePaydbAddress } = usePaydbAddress()
 
   const { update: updateVwIsReady } = useDappOSVwIsReady()
+
+  const { dappOSWalletLite, update: updateDappOSWalletLite } = useDappOSWalletLite()
 
   useDappOSWhiteList()
 
@@ -40,7 +43,7 @@ export default function DappOSUpdater(): null {
       metadata: {
         name: appName,
         url: window.location.origin,
-        icon: 'https://dappos-public-resource.s3.amazonaws.com/dappLogo/quickswap.png',
+        icon: 'https://dappos-public-resource.s3.amazonaws.com/dappLogo/pancakeswap.png',
       },
       env: process.env.NEXT_PUBLIC_DAPPOS_ENV ?? 'production',
       rpcMaps: {},
@@ -86,7 +89,10 @@ export default function DappOSUpdater(): null {
 
     console.log('connector', connector)
 
+    const { version } = await dappOSWalletLite.connect(account, [42161], [42161])
+
     await dappOSProtocol.connect({
+      version,
       connector: connectorInfo,
       chainId,
       owner: account,
@@ -98,7 +104,7 @@ export default function DappOSUpdater(): null {
     updatePaydbAddress(paydbAddress)
     updateDappOSProtocolIsReady(true)
     console.log('%cdappOSProtocol connect success', 'color:#2aae68; font-size: 16px; font-weight: bold;')
-  }, [account, connector, chainId, dappOSProtocol, updatePaydbAddress, updateDappOSProtocolIsReady])
+  }, [account, dappOSProtocol, connector, updateDappOSProtocolIsReady, dappOSWalletLite, chainId, updatePaydbAddress])
 
   useEffect(() => {
     if (isProtocolReady) {
@@ -113,8 +119,9 @@ export default function DappOSUpdater(): null {
       initProtocol()
     } else {
       updateDappOSProtocol(new DappOSProtocol())
+      updateDappOSWalletLite(new DappOSWalletLite())
     }
-  }, [isInitialConnection, initProtocol, connectProtocol, dappOSProtocol, updateDappOSProtocol])
+  }, [isInitialConnection, initProtocol, connectProtocol, dappOSProtocol, updateDappOSProtocol, updateDappOSWalletLite])
 
   return null
 }

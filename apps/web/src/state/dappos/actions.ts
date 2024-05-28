@@ -8,3 +8,5 @@ export const updatePaydbAddress = createAction<string>('dappOSProtocol/updatePay
 export const updateDappOSProtocolIsReady = createAction<boolean>('dappOSProtocol/updateDappOSProtocolIsReady')
 
 export const updateDstChainId = createAction<number>('dappOSProtocol/updateDstChainId')
+
+export const updateDappOSWalletLite = createAction<DappOSProtocol>('dappOSProtocol/updateDappOSWalletLite')
