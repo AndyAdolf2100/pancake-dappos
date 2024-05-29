@@ -35,7 +35,7 @@ export function useLocalNetworkChain() {
 
   const { query } = useRouter()
 
-  const chainId = +(sessionChainId || getChainId(query.chain as string) || queryChainId)
+  const chainId = +sessionChainId // dappOS:  old code: const chainId = +(sessionChainId || getChainId(query.chain as string) || queryChainId)
 
   if (isChainSupported(chainId)) {
     return chainId
