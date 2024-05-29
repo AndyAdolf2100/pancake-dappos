@@ -8,7 +8,7 @@ import { clearAllTransactions } from 'state/transactions/actions'
 import { useAllSortedRecentTransactions } from 'state/transactions/hooks'
 import { TransactionDetails } from 'state/transactions/reducer'
 import { chains } from 'utils/wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import ConnectWalletButton from '../../ConnectWalletButton'
 import { AutoRow } from '../../Layout/Row'
 import Transaction from './Transaction'

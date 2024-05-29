@@ -22,7 +22,7 @@ import { useRouter } from 'next/router'
 import { useLPApr } from 'state/swap/useLPApr'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { formatAmount } from 'utils/formatInfoNumbers'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export const BodyWrapper = styled(Card)`
   border-radius: 24px;

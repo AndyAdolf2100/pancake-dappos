@@ -17,7 +17,7 @@ import useTheme from 'hooks/useTheme'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 const StyledModal = styled(Modal)`
   & > div:nth-child(2) {

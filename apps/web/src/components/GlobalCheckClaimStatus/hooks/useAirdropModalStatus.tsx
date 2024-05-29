@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useV3AirdropContract } from 'hooks/useContract'
 import { useMemo } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface AirdropModalStatus {
   shouldShowModal: boolean

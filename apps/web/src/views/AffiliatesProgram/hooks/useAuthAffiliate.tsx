@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { getCookie, deleteCookie } from 'cookies-next'
 import { AFFILIATE_SID } from 'pages/api/affiliates-program/affiliate-login'
 import { useQuery } from '@tanstack/react-query'

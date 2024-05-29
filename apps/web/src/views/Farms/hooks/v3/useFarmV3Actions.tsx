@@ -11,7 +11,7 @@ import { calculateGasMargin } from 'utils'
 import { getViemClients, viemClients } from 'utils/viem'
 import { Address, hexToBigInt } from 'viem'
 import { useSendTransaction, useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface FarmV3ActionContainerChildrenProps {
   attemptingTxn: boolean

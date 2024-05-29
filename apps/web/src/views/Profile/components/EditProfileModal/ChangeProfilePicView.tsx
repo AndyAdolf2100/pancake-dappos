@@ -16,7 +16,7 @@ import { Address } from 'viem'
 import { useNftsForAddress } from 'views/Nft/market/hooks/useNftsForAddress'
 import SelectionCard from 'views/ProfileCreation/SelectionCard'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface ChangeProfilePicPageProps extends InjectedModalProps {
   onSuccess?: () => void

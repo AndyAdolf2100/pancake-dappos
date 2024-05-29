@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import { Button, Heading, Flex, useModal, AutoRenewIcon } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { FetchStatus, LotteryStatus } from 'config/constants/types'
 import { useTranslation } from '@pancakeswap/localization'
 import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'

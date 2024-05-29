@@ -13,7 +13,7 @@ import { styled } from 'styled-components'
 import { getPancakeProfileAddress } from 'utils/addressHelpers'
 import { requiresApproval } from 'utils/requiresApproval'
 import useGetProfileCosts from 'views/Profile/hooks/useGetProfileCosts'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { UseEditProfileResponse } from './reducer'
 
 interface StartPageProps extends InjectedModalProps {

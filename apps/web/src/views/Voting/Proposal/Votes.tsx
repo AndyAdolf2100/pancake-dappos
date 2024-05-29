@@ -14,7 +14,7 @@ import { FetchStatus, TFetchStatus } from 'config/constants/types'
 import orderBy from 'lodash/orderBy'
 import { useState } from 'react'
 import { Vote } from 'state/types'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import VoteRow from '../components/Proposal/VoteRow'
 import VotesLoading from '../components/Proposal/VotesLoading'
 

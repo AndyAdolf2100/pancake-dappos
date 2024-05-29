@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { useSingleContractMultipleData } from 'state/multicall/hooks'
 import { VaultPosition, getVaultPosition } from 'utils/cakePool'
 import { getAddress } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useReadContract } from '@pancakeswap/wagmi'

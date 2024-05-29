@@ -1,5 +1,5 @@
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import {
   ArrowBackIcon,
   ArrowForwardIcon,

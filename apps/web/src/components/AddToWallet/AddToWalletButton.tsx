@@ -12,7 +12,7 @@ import {
 import { Address } from 'viem'
 import { watchAsset } from 'viem/actions'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { canRegisterToken } from '../../utils/wallet'
 import { BAD_SRCS } from '../Logo/constants'
 

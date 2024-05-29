@@ -1,6 +1,6 @@
 import { IfoSkeletonCardActions } from '@pancakeswap/uikit'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Ifo, PoolIds } from '@pancakeswap/ifos'
 import { WalletIfoData, PublicIfoData } from 'views/Ifos/types'
 import { isBasicSale } from 'views/Ifos/hooks/v7/helpers'

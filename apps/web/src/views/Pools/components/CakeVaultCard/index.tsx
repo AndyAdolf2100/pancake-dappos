@@ -10,7 +10,7 @@ import { styled } from 'styled-components'
 import { VaultPosition, getVaultPosition } from 'utils/cakePool'
 import BenefitsModal from 'views/Pools/components/RevenueSharing/BenefitsModal'
 import useVCake from 'views/Pools/hooks/useVCake'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import { VeCakeCard, VeCakeUpdateCard } from 'views/CakeStaking/components/SyrupPool'
 import { useIsUserDelegated } from 'views/CakeStaking/hooks/useIsUserDelegated'

@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 import { ApproveAndLockStatus, approveAndLockStatusAtom, cakeLockTxHashAtom } from 'state/vecake/atoms'
 import { calculateGasMargin } from 'utils'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export const useWriteMigrateCallback = () => {
   const veCakeContract = useVeCakeContract()

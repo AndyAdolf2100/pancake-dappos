@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAppDispatch } from 'state'
 import { fetchAdditionalUserLotteries } from 'state/lottery'
 import { MAX_USER_LOTTERIES_REQUEST_SIZE } from 'state/lottery/getUserLotteryData'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 const useShowMoreUserRounds = () => {
   const { address: account } = useAccount()

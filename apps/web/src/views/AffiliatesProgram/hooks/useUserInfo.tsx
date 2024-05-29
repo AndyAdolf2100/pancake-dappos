@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import qs from 'qs'
 import { useQuery } from '@tanstack/react-query'
 

@@ -1,6 +1,6 @@
 import { Box, Text, Skeleton, Balance } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 import { useCakePrice } from 'hooks/useCakePrice'
 import { usePotteryData } from 'state/pottery/hook'

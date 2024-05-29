@@ -6,7 +6,7 @@ import useTokenAllowance from 'hooks/useTokenAllowance'
 import { useMemo } from 'react'
 import { getVeCakeContract } from 'utils/contractHelpers'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useActiveChainId } from 'hooks/useActiveChainId'
 
 import { useBSCCakeToken } from './useBSCCakeToken'

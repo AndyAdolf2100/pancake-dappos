@@ -3,7 +3,7 @@ import { Grid, Link, Modal, ModalV2, Text } from '@pancakeswap/uikit'
 import { useQuery } from '@tanstack/react-query'
 import { WALLET_API } from 'config/constants/endpoints'
 import { UpdatePositionsReminder } from 'views/Farms/components/UpdatePositionsReminder'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import DappOSUpdater from 'state/dappos/updater' // dappOS
 import ListsUpdater from './state/lists/updater'
 import MulticallUpdater from './state/multicall/updater'

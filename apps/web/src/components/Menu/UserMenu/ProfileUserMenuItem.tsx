@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import NextLink from 'next/link'
 import { Flex, Skeleton, UserMenuItem } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 
 interface ProfileUserMenuItemProps {

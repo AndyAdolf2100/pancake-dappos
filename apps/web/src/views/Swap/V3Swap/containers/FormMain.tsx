@@ -14,7 +14,7 @@ import { useCurrencyBalances } from 'state/wallet/hooks'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import useWarningImport from '../../hooks/useWarningImport'
 import { FormContainer } from '../components'
 import { useIsWrapping } from '../hooks'

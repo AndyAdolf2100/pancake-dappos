@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Flex, Text, Heading } from '@pancakeswap/uikit'
 import { styled } from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'

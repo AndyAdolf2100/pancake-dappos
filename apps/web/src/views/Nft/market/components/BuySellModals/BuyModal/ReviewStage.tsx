@@ -4,7 +4,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import { TFetchStatus } from 'config/constants/types'
 import { NftToken } from 'state/nftMarket/types'
 import { getBscScanLinkForNft } from 'utils'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Divider, RoundedImage } from '../shared/styles'
 import { BnbAmountCell, BorderedBox } from './styles'
 import { PaymentCurrency } from './types'

@@ -4,7 +4,7 @@ import { Button } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import Link from 'next/link'
 import { SpaceProps } from 'styled-system'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Address } from 'viem'
 import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'

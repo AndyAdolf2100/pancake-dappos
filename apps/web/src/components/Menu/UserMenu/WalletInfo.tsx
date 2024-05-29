@@ -31,7 +31,7 @@ import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { getBlockExploreLink, getBlockExploreName } from 'utils'
 import { Address } from 'viem'
-import { useBalance } from 'dappos/hooks/useAccount'
+import { useBalance } from 'dappos/hooks/useWagmiHooks'
 
 const COLORS = {
   ETH: '#627EEA',

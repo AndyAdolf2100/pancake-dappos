@@ -2,7 +2,7 @@ import { ERC20Token, MaxUint256 } from '@pancakeswap/sdk'
 import noop from 'lodash/noop'
 import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { Address, TransactionReceipt } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ApprovalState, useApproveCallbackFromAmount } from './useApproveCallback'
 import useCatchTxError from './useCatchTxError'
 

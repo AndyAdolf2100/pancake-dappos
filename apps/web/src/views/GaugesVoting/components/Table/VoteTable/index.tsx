@@ -23,7 +23,7 @@ import { useEpochVotePower } from 'views/GaugesVoting/hooks/useEpochVotePower'
 import { useGauges } from 'views/GaugesVoting/hooks/useGauges'
 import { useUserVoteSlopes } from 'views/GaugesVoting/hooks/useUserVoteGauges'
 import { useWriteGaugesVoteCallback } from 'views/GaugesVoting/hooks/useWriteGaugesVoteCallback'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import NextLink from 'next/link'
 import { RemainingVotePower } from '../../RemainingVotePower'
 import { AddGaugeModal } from '../AddGauge/AddGaugeModal'

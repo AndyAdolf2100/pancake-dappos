@@ -2,7 +2,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { Button, ButtonProps, useToast } from '@pancakeswap/uikit'
 import { memo, useCallback } from 'react'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ToastDescriptionWithTx } from 'components/Toast'
 import { vaultPoolConfig } from 'config/constants/pools'
 import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'

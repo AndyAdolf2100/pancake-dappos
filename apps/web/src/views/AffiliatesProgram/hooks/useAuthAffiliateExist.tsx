@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import qs from 'qs'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface AuthAffiliateExistResponse {
   exist: boolean

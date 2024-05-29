@@ -17,7 +17,7 @@ import { useAppDispatch } from 'state'
 import { updateUserAllowance, updateUserBalance, updateUserPendingReward, updateUserStakedBalance } from 'state/pools'
 import { usePool } from 'state/pools/hooks'
 import { useApprovePool } from 'views/Pools/hooks/useApprove'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import useStakePool from '../../hooks/useStakePool'
 import useUnstakePool from '../../hooks/useUnstakePool'
 import ZkSyncWarning from './ZkSyncWarning'

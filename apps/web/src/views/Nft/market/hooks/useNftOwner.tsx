@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useEffect, useState } from 'react'
 import { useErc721CollectionContract } from 'hooks/useContract'
 import { NftToken } from 'state/nftMarket/types'

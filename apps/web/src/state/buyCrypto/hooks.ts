@@ -6,7 +6,7 @@ import type { ParsedUrlQuery } from 'querystring'
 import { useCallback, useEffect } from 'react'
 import { buyCryptoReducerAtom, type BuyCryptoState } from 'state/buyCrypto/reducer'
 import { OnRampChainId as ChainId, type OnRampCurrency as Currency } from 'views/BuyCrypto/constants'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Field, replaceBuyCryptoState, selectCurrency, switchCurrencies, typeInput } from './actions'
 
 const useEnableBtcPurchases = atomWithStorage<boolean>('pcs:enable-buy-btc-native', false)

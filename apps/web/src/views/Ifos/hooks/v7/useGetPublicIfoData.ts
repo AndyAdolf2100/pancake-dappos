@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import round from 'lodash/round'
 import { CAKE } from '@pancakeswap/tokens'
 import { Ifo, IfoStatus, ifoV7ABI } from '@pancakeswap/ifos'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import { useLpTokenPrice } from 'state/farms/hooks'
 import { useCakePrice } from 'hooks/useCakePrice'

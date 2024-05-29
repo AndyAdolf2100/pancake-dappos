@@ -20,7 +20,7 @@ import { getRoundResult, Result } from 'state/predictions/helpers'
 import { useGetCurrentEpoch, useGetIsClaimable, useGetPredictionsStatus } from 'state/predictions/hooks'
 import { Bet } from 'state/types'
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useConfig } from '../../context/ConfigProvider'
 import CollectWinningsButton from '../CollectWinningsButton'
 import ReclaimPositionButton from '../ReclaimPositionButton'

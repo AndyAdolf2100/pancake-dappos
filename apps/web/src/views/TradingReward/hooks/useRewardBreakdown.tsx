@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { tradingRewardPairConfigChainMap } from 'views/TradingReward/config/pairs'
 import { AllTradingRewardPairDetail } from 'views/TradingReward/hooks/useAllTradingRewardPair'
 import { UserCampaignInfoDetail } from 'views/TradingReward/hooks/useAllUserCampaignInfo'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface UseRewardBreakdownProps {
   allUserCampaignInfo: UserCampaignInfoDetail[]

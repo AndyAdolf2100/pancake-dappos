@@ -8,7 +8,7 @@ import {
   getPancakeBunniesAttributesField,
 } from 'state/nftMarket/helpers'
 import { ApiResponseCollectionTokens, NftToken } from 'state/nftMarket/types'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { pancakeBunniesAddress } from '../constants'
 import { getLowestUpdatedToken } from './useGetLowestPrice'
 

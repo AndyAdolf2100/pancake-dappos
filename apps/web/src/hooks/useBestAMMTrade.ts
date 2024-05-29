@@ -15,7 +15,7 @@ import {
 import { BigintIsh } from '@pancakeswap/swap-sdk-core'
 import { AbortControl } from '@pancakeswap/utils/abortControl'
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import qs from 'qs'
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef } from 'react'
 

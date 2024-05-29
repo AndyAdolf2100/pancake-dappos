@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { watchAccount } from '@wagmi/core'
 import { useAccountEffect, useConfig } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useAppDispatch } from 'state'
 import { clearUserStates } from 'utils/clearUserStates'
 import { useSwitchNetworkLocal } from './useSwitchNetwork'

@@ -21,7 +21,7 @@ import { fetchUserTicketsForOneRound } from 'state/lottery/getUserTicketsData'
 import { fetchLottery } from 'state/lottery/helpers'
 import { LotteryRound } from 'state/types'
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { processLotteryResponse } from '../../helpers'
 import ClaimPrizesModal from '../ClaimPrizesModal'
 import TicketNumber from '../TicketNumber'

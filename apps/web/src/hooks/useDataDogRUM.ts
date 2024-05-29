@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { datadogRum } from 'utils/datadog'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import { useGlobalSettingsEvaluation } from './useGlobalSettingsEvaluation'
 

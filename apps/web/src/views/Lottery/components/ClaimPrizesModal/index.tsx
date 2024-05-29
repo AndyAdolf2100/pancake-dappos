@@ -8,7 +8,7 @@ import { useAppDispatch } from 'state'
 import { fetchUserLotteries } from 'state/lottery'
 import { useLottery } from 'state/lottery/hooks'
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import ClaimPrizesInner from './ClaimPrizesInner'
 
 const StyledModal = styled(ModalContainer)`

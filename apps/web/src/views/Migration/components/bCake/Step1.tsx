@@ -7,7 +7,7 @@ import { useCakePrice } from 'hooks/useCakePrice'
 import React, { useCallback, useMemo } from 'react'
 import { useFarms, usePollFarmsWithUserData } from 'state/farms/hooks'
 import { getFarmApr } from 'utils/apr'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import MigrationFarmTable from '../MigrationFarmTable'
 import { V3Step1DesktopColumnSchema } from '../types'
 import { PosManagerMigrationFarmTable } from './PositionManagerTable'

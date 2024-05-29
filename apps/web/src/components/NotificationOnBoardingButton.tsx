@@ -14,7 +14,7 @@ import useSubscribeToWebPushNotifications from 'hooks/useSubscribeToWebPush'
 import React, { useCallback, useState } from 'react'
 import { useAllowNotifications } from 'state/notifications/hooks'
 import { useSignMessage } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export const parseErrorMessage = (error: any) =>
   error instanceof Error && error?.message ? error.message : JSON.stringify(error)

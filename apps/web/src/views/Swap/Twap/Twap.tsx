@@ -54,7 +54,7 @@ import {
 import { styled } from 'styled-components'
 import { getBlockExploreLink, getBlockExploreName } from 'utils'
 import currencyId from 'utils/currencyId'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Wrapper } from '../components/styleds'
 import { SwapTransactionErrorContent } from '../components/SwapTransactionErrorContent'
 import useWarningImport from '../hooks/useWarningImport'

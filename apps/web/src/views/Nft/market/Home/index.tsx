@@ -8,7 +8,7 @@ import PageLoader from 'components/Loader/PageLoader'
 import useTheme from 'hooks/useTheme'
 import orderBy from 'lodash/orderBy'
 import { useGetCollections } from 'state/nftMarket/hooks'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import SearchBar from '../components/SearchBar'
 import Collections from './Collections'
 import Newest from './Newest'

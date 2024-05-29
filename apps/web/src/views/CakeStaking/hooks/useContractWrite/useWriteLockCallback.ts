@@ -8,7 +8,7 @@ import { ApproveAndLockStatus, approveAndLockStatusAtom, cakeLockTxHashAtom } fr
 import { useLockCakeData } from 'state/vecake/hooks'
 import { calculateGasMargin } from 'utils'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useRoundedUnlockTimestamp } from '../useRoundedUnlockTimestamp'
 
 // invoke the lock function on the vecake contract

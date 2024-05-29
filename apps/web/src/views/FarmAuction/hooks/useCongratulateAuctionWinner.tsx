@@ -1,7 +1,7 @@
 import { Auction, AuctionStatus, Bidder } from 'config/constants/types'
 import { useFarmAuctionContract } from 'hooks/useContract'
 import { useEffect, useState } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { processAuctionData, sortAuctionBidders } from '../helpers'
 
 interface WonAuction {

@@ -14,7 +14,7 @@ import {
 } from 'hooks/useContract'
 import { publicClient } from 'utils/wagmi'
 import { Address, erc20Abi } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export async function getAdapterTokensAmounts({ address, chainId }): Promise<{
   token0Amounts: bigint

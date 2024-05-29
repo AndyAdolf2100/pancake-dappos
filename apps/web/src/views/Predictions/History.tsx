@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Flex, Spinner, Text } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { styled } from 'styled-components'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from '@pancakeswap/localization'

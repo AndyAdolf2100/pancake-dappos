@@ -15,7 +15,7 @@ import { getErc721Contract, getProfileContract } from 'utils/contractHelpers'
 import { publicClient } from 'utils/wagmi'
 import { nftsBaseUrl } from 'views/Nft/market/constants'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useNftsForAddress } from '../Nft/market/hooks/useNftsForAddress'
 import NextStepButton from './NextStepButton'
 import SelectionCard from './SelectionCard'

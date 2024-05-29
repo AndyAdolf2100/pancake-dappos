@@ -9,7 +9,7 @@ import { Field } from 'state/swap/actions'
 import { useSwapState } from 'state/swap/hooks'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import { MMSwapCommitButtonV2 } from 'views/Swap/MMLinkPools/components/MMCommitButtonV2'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { CommitButtonProps, MMCommitTrade } from '../types'
 
 const MMCommitButtonCompV2: React.FC<MMCommitTrade<SmartRouterTrade<TradeType>> & CommitButtonProps> = ({

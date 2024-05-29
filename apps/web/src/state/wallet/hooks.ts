@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 import { safeGetAddress } from 'utils'
 import { getMulticallAddress } from 'utils/addressHelpers'
 import { Address, erc20Abi, getAddress, isAddress } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
 
 /**

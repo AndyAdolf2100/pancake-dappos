@@ -1,5 +1,5 @@
 import { Button, Heading, Text } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 import { CompetitionProps } from 'views/TradingCompetition/types'
 import { useRouter } from 'next/router'

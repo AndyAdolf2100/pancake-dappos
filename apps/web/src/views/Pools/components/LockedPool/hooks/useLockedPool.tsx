@@ -1,5 +1,5 @@
 import { useState, useCallback, Dispatch, SetStateAction, useMemo } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 import { ONE_WEEK_DEFAULT } from '@pancakeswap/pools'
 import { useAppDispatch } from 'state'

@@ -29,7 +29,7 @@ import { useActiveChainId } from 'hooks/useActiveChainId'
 import { ReactNode, useMemo } from 'react'
 import { isBasicSale } from 'views/Ifos/hooks/v7/helpers'
 import { PublicIfoData, WalletIfoData } from 'views/Ifos/types'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import { TextLink } from '../../IfoCardStyles'
 import StakeVaultButton from '../StakeVaultButton'

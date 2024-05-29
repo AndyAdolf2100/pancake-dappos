@@ -1,7 +1,7 @@
 import { useTranslation } from '@pancakeswap/localization'
 import { Box, Flex, HelpIcon, Text, useMatchBreakpoints, useTooltip } from '@pancakeswap/uikit'
 import { useMemo } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useBCakeBoostLimitAndLockInfo } from '../../hooks/bCakeV3/useBCakeV3Info'
 import { BoostStatus } from '../../hooks/bCakeV3/useBoostStatus'
 

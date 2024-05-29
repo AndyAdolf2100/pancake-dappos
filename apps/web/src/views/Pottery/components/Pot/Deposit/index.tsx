@@ -12,7 +12,7 @@ import { PotteryDepositStatus } from 'state/types'
 import { styled } from 'styled-components'
 import { weeksToSeconds } from 'views/Pools/components/utils/formatSecondsToWeeks'
 import { calculateCakeAmount } from 'views/Pottery/helpers'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import WinRate from '../WinRate'
 import YourDeposit from '../YourDeposit'
 import DepositAction from './DepositAction'

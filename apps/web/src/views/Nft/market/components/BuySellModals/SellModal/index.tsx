@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { NftToken } from 'state/nftMarket/types'
 import { Address, isAddress, parseUnits } from 'viem'
 import { useGetLowestPriceFromNft } from 'views/Nft/market/hooks/useGetLowestPrice'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import ApproveAndConfirmStage from '../shared/ApproveAndConfirmStage'
 import ConfirmStage from '../shared/ConfirmStage'
 import TransactionConfirmed from '../shared/TransactionConfirmed'

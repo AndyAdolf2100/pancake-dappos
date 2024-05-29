@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { PANCAKE_SPACE } from 'views/Voting/config'
 import { VECAKE_VOTING_POWER_BLOCK } from 'views/Voting/helpers'
 import { useWalletClient } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import useGetVotingPower from '../../hooks/useGetVotingPower'
 import DetailsView from './DetailsView'
 import MainView, { VeMainView } from './MainView'

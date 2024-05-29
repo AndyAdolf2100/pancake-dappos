@@ -1,7 +1,7 @@
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useEffect, useState } from 'react'
 import { getPredictionsV2Contract } from 'utils/contractHelpers'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useConfig } from '../context/ConfigProvider'
 
 const useIsRefundable = (epoch: number) => {

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Address } from 'viem'
 import BigNumber from 'bignumber.js'
 import { Ifo, PoolIds, ifoV8ABI } from '@pancakeswap/ifos'

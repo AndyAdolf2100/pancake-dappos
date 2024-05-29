@@ -8,7 +8,7 @@ import { RowBetween } from 'components/Layout/Row'
 import { useV2Pair } from 'hooks/usePairs'
 import { formatAmount } from 'utils/formatInfoNumbers'
 import { useLPApr } from 'state/swap/useLPApr'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { AppHeader } from '../../components/App'
 import { CommonBasesType } from '../../components/SearchModal/types'
 import { useCurrencySelectRoute } from './useCurrencySelectRoute'

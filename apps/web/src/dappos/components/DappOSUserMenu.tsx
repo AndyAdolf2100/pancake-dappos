@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount'
+import { useAccount } from 'dappos/hooks/useWagmiHooks'
 import { useMemo } from 'react'
 
 enum IConnector {

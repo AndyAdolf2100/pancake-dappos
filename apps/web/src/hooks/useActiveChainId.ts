@@ -4,7 +4,7 @@ import { atom, useAtomValue } from 'jotai'
 import { useRouter } from 'next/router'
 import { useDeferredValue, useMemo } from 'react'
 import { isChainSupported } from 'utils/wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useDstChainId } from 'state/dappos/hooks' // dappOS
 import { useSessionChainId } from './useSessionChainId'
 

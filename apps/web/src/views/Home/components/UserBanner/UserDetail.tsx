@@ -10,7 +10,7 @@ import {
   VisibilityOn,
   ProfileAvatar,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { styled } from 'styled-components'
 import { useProfile } from 'state/profile/hooks'
 import ProfileAvatarWithTeam from 'components/ProfileAvatarWithTeam'

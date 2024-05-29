@@ -2,7 +2,7 @@ import { usePreviousValue } from '@pancakeswap/hooks'
 import { useIsomorphicEffect } from '@pancakeswap/uikit'
 import useLocalDispatch from 'contexts/LocalRedux/useLocalDispatch'
 import { useGetSortedRoundsCurrentEpoch } from 'state/predictions/hooks'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import useSwiper from './useSwiper'
 
 /**

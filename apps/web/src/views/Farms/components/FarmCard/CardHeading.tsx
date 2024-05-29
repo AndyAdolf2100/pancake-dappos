@@ -20,7 +20,7 @@ import { TokenPairImage } from 'components/TokenImage'
 import { styled } from 'styled-components'
 import { Address, isAddressEqual } from 'viem'
 import { bsc } from 'viem/chains'
-import { useChainId } from 'dappos/hooks/useAccount'
+import { useChainId } from 'dappos/hooks/useWagmiHooks'
 import BoostedTag from '../YieldBooster/components/BoostedTag'
 
 const { FarmAuctionTag, StableFarmTag, V2Tag, V3FeeTag } = FarmWidget.Tags

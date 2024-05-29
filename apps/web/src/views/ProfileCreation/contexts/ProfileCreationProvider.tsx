@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer } from 'react'
 import { getBunnyFactoryContract } from 'utils/contractHelpers'
 import { Address } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ALLOWANCE_MULTIPLIER, MINT_COST, REGISTER_COST } from '../config'
 import { Actions, ContextType, State } from './types'
 

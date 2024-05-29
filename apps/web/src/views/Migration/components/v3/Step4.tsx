@@ -31,7 +31,7 @@ import { unwrappedToken } from 'utils/wrappedCurrency'
 import { LiquidityCardRow } from 'views/AddLiquidity/components/LiquidityCardRow'
 import { AddLiquidityV3Modal } from 'views/AddLiquidityV3/Modal'
 import PositionListItem from 'views/AddLiquidityV3/formViews/V3FormView/components/PoolListItem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { removedPairsAtom } from './Step2'
 
 export function Step4() {

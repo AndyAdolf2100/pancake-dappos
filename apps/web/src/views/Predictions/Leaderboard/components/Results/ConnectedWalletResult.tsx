@@ -6,7 +6,7 @@ import useLocalDispatch from 'contexts/LocalRedux/useLocalDispatch'
 import { useEffect } from 'react'
 import { fetchAddressResult } from 'state/predictions'
 import { useGetOrFetchLeaderboardAddressResult } from 'state/predictions/hooks'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import DesktopRow from './DesktopRow'
 import MobileRow from './MobileRow'
 

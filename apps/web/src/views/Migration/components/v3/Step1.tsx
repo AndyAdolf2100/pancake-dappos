@@ -8,7 +8,7 @@ import React, { useCallback, useMemo } from 'react'
 import { useFarms, usePollFarmsWithUserData } from 'state/farms/hooks'
 import { useFarmsV3Public } from 'state/farmsV3/hooks'
 import { getFarmApr } from 'utils/apr'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import MigrationFarmTable from '../MigrationFarmTable'
 import { V3Step1DesktopColumnSchema } from '../types'
 import { STABLE_LP_TO_MIGRATE } from './Step2'

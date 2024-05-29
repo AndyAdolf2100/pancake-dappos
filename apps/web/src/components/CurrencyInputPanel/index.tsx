@@ -14,7 +14,7 @@ import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStabl
 
 import { FiatLogo } from 'components/Logo/CurrencyLogo'
 import { useCurrencyBalance } from 'state/wallet/hooks'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 import AddToWalletButton from '../AddToWallet/AddToWalletButton'

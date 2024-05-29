@@ -5,7 +5,7 @@ import { styled } from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
 import useTotalSupply from 'hooks/useTotalSupply'
 import { useStablecoinPriceAmount } from 'hooks/useStablecoinPrice'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { BIG_INT_ZERO } from 'config/constants/exchange'
 import { useGetRemovedTokenAmounts } from 'views/RemoveLiquidity/RemoveStableLiquidity/hooks/useStableDerivedBurnInfo'
 import { StableConfigContext } from 'views/Swap/hooks/useStableConfig'

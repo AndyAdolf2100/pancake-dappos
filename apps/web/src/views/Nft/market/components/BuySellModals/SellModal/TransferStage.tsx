@@ -2,7 +2,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { BinanceIcon, Button, ErrorIcon, Flex, Grid, Input, Text } from '@pancakeswap/uikit'
 import { NftToken } from 'state/nftMarket/types'
 import { safeGetAddress } from 'utils'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Divider, RoundedImage } from '../shared/styles'
 import { GreyedOutContainer } from './styles'
 

@@ -24,7 +24,7 @@ import { VaultPosition, getVaultPosition } from 'utils/cakePool'
 import BenefitsModal from 'views/Pools/components/RevenueSharing/BenefitsModal'
 import { getCakeVaultEarnings } from 'views/Pools/helpers'
 import useVCake from 'views/Pools/hooks/useVCake'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import AutoEarningsBreakdown from '../../AutoEarningsBreakdown'
 import UnstakingFeeCountdownRow from '../../CakeVaultCard/UnstakingFeeCountdownRow'

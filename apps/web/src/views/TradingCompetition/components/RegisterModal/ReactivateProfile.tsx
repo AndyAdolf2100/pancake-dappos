@@ -2,7 +2,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { Button, Heading, Text } from '@pancakeswap/uikit'
 import { useRouter } from 'next/router'
 import { CompetitionProps } from 'views/TradingCompetition/types'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 const ReactivateProfile: React.FC<React.PropsWithChildren<CompetitionProps>> = ({ onDismiss }) => {
   const { address: account } = useAccount()

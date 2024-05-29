@@ -1,6 +1,6 @@
 import { setUser } from '@sentry/nextjs'
 import { useEffect } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 function useSentryUser() {
   const { address: account } = useAccount()

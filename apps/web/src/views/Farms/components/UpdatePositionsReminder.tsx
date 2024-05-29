@@ -11,7 +11,7 @@ import { useMemo, useState } from 'react'
 import { useFarmsV3Public } from 'state/farmsV3/hooks'
 import { Hex, encodeFunctionData } from 'viem'
 import { useReadContracts, useSendTransaction } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 const lmPoolABI = [
   {

@@ -1,6 +1,6 @@
 import { Flex, UserMenuItem, WarningIcon } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
-import { useAccount, useBalance } from 'dappos/hooks/useAccount'
+import { useAccount, useBalance } from 'dappos/hooks/useWagmiHooks'
 import { LOW_NATIVE_BALANCE } from './WalletModal'
 
 interface WalletUserMenuItemProps {

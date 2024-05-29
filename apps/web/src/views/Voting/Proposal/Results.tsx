@@ -1,6 +1,6 @@
 import { Box, Text, Flex, Card, CardBody, CardHeader, Heading, Progress, Skeleton } from '@pancakeswap/uikit'
 import { FarmWidget } from '@pancakeswap/widgets-internal'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Vote } from 'state/types'
 import { formatNumber } from '@pancakeswap/utils/formatBalance'
 import { useTranslation } from '@pancakeswap/localization'

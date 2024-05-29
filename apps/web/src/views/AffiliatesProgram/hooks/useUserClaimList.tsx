@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { FAST_INTERVAL } from 'config/constants'
 import qs from 'qs'
 import useUserExist from 'views/AffiliatesProgram/hooks/useUserExist'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export type ClaimStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
 

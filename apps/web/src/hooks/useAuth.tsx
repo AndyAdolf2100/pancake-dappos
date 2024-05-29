@@ -6,7 +6,7 @@ import { ConnectorNames } from 'config/wallet'
 import { useCallback } from 'react'
 import { useAppDispatch } from 'state'
 import { ConnectorNotFoundError, SwitchChainNotSupportedError, useConnect, useDisconnect } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { clearUserStates } from '../utils/clearUserStates'
 import { useActiveChainId } from './useActiveChainId'
 import { useSessionChainId } from './useSessionChainId'

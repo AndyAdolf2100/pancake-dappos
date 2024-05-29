@@ -20,7 +20,7 @@ import { useCakePrice } from 'hooks/useCakePrice'
 import { useState } from 'react'
 import { useLottery } from 'state/lottery/hooks'
 import { styled } from 'styled-components'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { dateTimeOptions } from '../helpers'
 import BuyTicketsButton from './BuyTicketsButton'
 import RewardBrackets from './RewardBrackets'

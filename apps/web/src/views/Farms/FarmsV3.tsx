@@ -49,7 +49,7 @@ import { styled } from 'styled-components'
 import { getFarmApr } from 'utils/apr'
 import { getStakedFarms } from 'views/Farms/utils/getStakedFarms'
 import { BCakeMigrationBanner } from 'views/Home/components/Banners/BCakeMigrationBanner'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import Table from './components/FarmTable/FarmTable'
 import { FarmTypesFilter } from './components/FarmTypesFilter'
 import { BCakeBoosterCard } from './components/YieldBooster/components/bCakeV3/BCakeBoosterCard'

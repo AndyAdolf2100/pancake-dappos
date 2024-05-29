@@ -31,7 +31,7 @@ import { Bet } from 'state/types'
 import { styled } from 'styled-components'
 import { Address } from 'viem'
 import { useTokenUsdPriceBigNumber } from 'views/Predictions/hooks/useTokenPrice'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { getPayout } from './History/helpers'
 
 interface CollectRoundWinningsModalProps extends InjectedModalProps {

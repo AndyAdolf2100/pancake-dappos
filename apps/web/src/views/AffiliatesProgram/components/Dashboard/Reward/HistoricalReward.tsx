@@ -10,7 +10,7 @@ import SingleHistoricalReward from 'views/AffiliatesProgram/components/Dashboard
 import WrongNetworkWarning from 'views/AffiliatesProgram/components/Dashboard/Reward/WrongNetworkWarning'
 import useAffiliateClaimList from 'views/AffiliatesProgram/hooks/useAffiliateClaimList'
 import useUserClaimList, { ClaimDetail } from 'views/AffiliatesProgram/hooks/useUserClaimList'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface HistoricalRewardProps {
   isAffiliate: boolean

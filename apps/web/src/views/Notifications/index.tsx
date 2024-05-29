@@ -1,7 +1,7 @@
 import { Box } from '@pancakeswap/uikit'
 import { initWeb3InboxClient, useSubscription, useWeb3InboxAccount, useWeb3InboxClient } from '@web3inbox/react'
 import React, { memo, useCallback, useEffect, useState } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import NotificationMenu from './components/NotificationDropdown/NotificationMenu'
 import { APP_DOMAIN } from './constants'
 import NotificationSettings from './containers/NotificationSettings'

@@ -1,5 +1,5 @@
 import { useDefaultsFromURLSearch } from 'state/buyCrypto/hooks'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import Page from '../Page'
 import { OnRampFaqs } from './components/FAQ'
 import { BuyCryptoForm } from './containers/BuyCryptoForm'

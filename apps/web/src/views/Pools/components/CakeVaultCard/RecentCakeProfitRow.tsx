@@ -8,7 +8,7 @@ import { useCakePrice } from 'hooks/useCakePrice'
 import { useVaultPoolByKey } from 'state/pools/hooks'
 import { DeserializedLockedVaultUser, VaultKey } from 'state/types'
 import { getCakeVaultEarnings } from 'views/Pools/helpers'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import RecentCakeProfitBalance from './RecentCakeProfitBalance'
 
 const RecentCakeProfitCountdownRow = ({ pool }: { pool: Pool.DeserializedPool<Token> }) => {

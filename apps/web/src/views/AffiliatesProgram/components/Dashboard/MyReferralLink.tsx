@@ -3,7 +3,7 @@ import { Flex, Text, Input, Box, Button, ArrowForwardIcon, useMatchBreakpoints, 
 import { styled } from 'styled-components'
 import { BIG_ONE_HUNDRED } from '@pancakeswap/utils/bigNumber'
 import { keccak256, encodePacked } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useSignMessage } from '@pancakeswap/wagmi'
 import { useTranslation } from '@pancakeswap/localization'
 import useDefaultLinkId from 'views/AffiliatesProgram/hooks/useDefaultLinkId'

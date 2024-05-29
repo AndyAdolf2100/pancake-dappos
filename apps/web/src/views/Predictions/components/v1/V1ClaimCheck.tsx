@@ -8,7 +8,7 @@ import { transformBetResponse } from 'state/predictions/helpers'
 import { Bet } from 'state/types'
 import { styled } from 'styled-components'
 import { getPredictionsV1Address } from 'utils/addressHelpers'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import CollectRoundWinningsModal from '../CollectRoundWinningsModal'
 import { getAllV1History } from './helpers'

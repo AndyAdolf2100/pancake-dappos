@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { MaxUint256 } from '@pancakeswap/swap-sdk-core'
 import { useAppDispatch } from 'state'
 import { updateUserAllowance } from 'state/actions'

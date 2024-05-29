@@ -7,7 +7,7 @@ import { Field } from 'state/swap/actions'
 import { useSwapState } from 'state/swap/hooks'
 import { safeGetAddress } from 'utils'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useSlippageAdjustedAmounts } from './useSlippageAdjustedAmounts'
 
 interface Balances {

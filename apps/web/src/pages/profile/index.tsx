@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { nftsBaseUrl } from 'views/Nft/market/constants'

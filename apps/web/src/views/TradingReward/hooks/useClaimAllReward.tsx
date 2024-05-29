@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
 import { parseEther, encodePacked, keccak256 } from 'viem'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ChainId } from '@pancakeswap/chains'
 import { useToast } from '@pancakeswap/uikit'
 import useCatchTxError from 'hooks/useCatchTxError'

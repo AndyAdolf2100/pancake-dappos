@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { useTranslation } from '@pancakeswap/localization'
 import { Button, Flex, HelpIcon, useTooltip } from '@pancakeswap/uikit'
 import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface ButtonMenuProps {
   cakePrice: BigNumber

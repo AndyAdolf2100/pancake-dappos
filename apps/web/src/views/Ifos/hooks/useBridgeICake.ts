@@ -10,7 +10,7 @@ import {
   getLayerZeroChainId,
   MessageStatus,
 } from '@pancakeswap/ifos'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { Hash, Address } from 'viem'
 import localforage from 'localforage'
 import { useQuery } from '@tanstack/react-query'

@@ -19,7 +19,7 @@ import { fetchLedgerData } from 'state/predictions'
 import { NodeLedger, NodeRound } from 'state/types'
 import { getNowInSeconds } from 'utils/getNowInSeconds'
 import { useConfig } from 'views/Predictions/context/ConfigProvider'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { formatTokenv2 } from '../../helpers'
 import CardFlip from '../CardFlip'
 import { PrizePoolRow, RoundResultBox } from '../RoundResult'

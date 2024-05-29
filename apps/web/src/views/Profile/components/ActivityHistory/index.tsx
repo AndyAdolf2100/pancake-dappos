@@ -10,7 +10,7 @@ import { getUserActivity } from 'state/nftMarket/helpers'
 import { Activity, NftToken } from 'state/nftMarket/types'
 import { isAddress } from 'viem'
 import { fetchActivityNftMetadata } from 'views/Nft/market/ActivityHistory/utils/fetchActivityNftMetadata'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import ActivityRow from '../../../Nft/market/components/Activity/ActivityRow'
 import NoNftsImage from '../../../Nft/market/components/Activity/NoNftsImage'
 import { sortUserActivity } from '../../utils/sortUserActivity'

@@ -6,7 +6,7 @@ import { calculateCakeAmount } from 'views/Pottery/helpers'
 import BigNumber from 'bignumber.js'
 import { BIG_ONE } from '@pancakeswap/utils/bigNumber'
 import SubgraphHealthIndicator from 'components/SubgraphHealthIndicator'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import YourDeposit from '../YourDeposit'
 import WalletNotConnected from './WalletNotConnected'
 import AvailableWithdraw from './AvailableWithdraw'

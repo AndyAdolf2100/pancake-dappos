@@ -11,7 +11,7 @@ import { styled } from 'styled-components'
 import { getBlockExploreLink } from 'utils'
 import { useConfig } from 'views/Predictions/context/ConfigProvider'
 import { useTokenUsdPriceBigNumber } from 'views/Predictions/hooks/useTokenPrice'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 import useIsRefundable from '../../hooks/useIsRefundable'
 import CollectWinningsButton from '../CollectWinningsButton'

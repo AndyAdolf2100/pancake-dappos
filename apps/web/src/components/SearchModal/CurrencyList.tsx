@@ -10,10 +10,10 @@ import { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { styled } from 'styled-components'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
+import { useCurrencyBalance } from 'state/wallet/hooks'
 import { useIsUserAddedToken } from '../../hooks/Tokens'
 import { useCombinedActiveList } from '../../state/lists/hooks'
-import { useCurrencyBalance } from '../../state/wallet/hooks'
 import { isTokenOnList } from '../../utils'
 import { RowBetween, RowFixed } from '../Layout/Row'
 import CircleLoader from '../Loader/CircleLoader'

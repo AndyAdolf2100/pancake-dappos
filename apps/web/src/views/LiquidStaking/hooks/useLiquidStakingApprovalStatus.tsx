@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { Address, erc20Abi } from 'viem'
 import { useReadContract } from 'wagmi'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 interface UseLiquidStakingApprovalProps {
   approveToken?: string

@@ -2,7 +2,7 @@ import { Currency } from '@pancakeswap/sdk'
 import { AddIcon, Button, ChevronDownIcon, Text, useModal, AutoColumn, ColumnCenter } from '@pancakeswap/uikit'
 import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useTranslation } from '@pancakeswap/localization'
 import { BIG_INT_ZERO } from 'config/constants/exchange'
 import useNativeCurrency from 'hooks/useNativeCurrency'

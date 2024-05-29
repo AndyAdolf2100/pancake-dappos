@@ -1,4 +1,4 @@
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { fetchPredictionData } from 'state/predictions'
 import { useInitialBlock } from 'state/block/hooks'
 import { useQuery } from '@tanstack/react-query'

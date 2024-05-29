@@ -25,7 +25,7 @@ import { useOnRampSignature } from 'views/BuyCrypto/hooks/useOnRampSignature'
 import { IFrameWrapper, StyledBackArrowContainer } from 'views/BuyCrypto/styles'
 import type { OnRampProviderQuote, OnRampUnit } from 'views/BuyCrypto/types'
 import { ErrorText } from 'views/Swap/components/styleds'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ProviderIFrame } from './ProviderIframe'
 
 interface FiatOnRampProps {

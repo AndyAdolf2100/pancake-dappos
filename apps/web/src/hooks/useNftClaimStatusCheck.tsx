@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useModal } from '@pancakeswap/uikit'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import ClaimNftModal from 'components/ClaimNftModal/ClaimNftModal'
 import noop from 'lodash/noop'
 

@@ -8,7 +8,7 @@ import { useFarmFromPid, useFarmUser } from 'state/farms/hooks'
 
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { V2FarmWithoutStakedValue, V3FarmWithoutStakedValue } from 'views/Farms/FarmsV3'
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 
 export interface ApyButtonProps {
   variant: 'text' | 'text-and-button'

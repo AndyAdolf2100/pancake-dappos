@@ -29,7 +29,7 @@ import { Hash } from 'viem'
 import { useIsBloctoETH } from 'views/Farms'
 import { useBCakeBoostLimitAndLockInfo } from 'views/Farms/components/YieldBooster/hooks/bCakeV3/useBCakeV3Info'
 
-import { useAccount } from 'dappos/hooks/useAccount' // dappOS
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import useApproveFarm from '../../../hooks/useApproveFarm'
 import { useFirstTimeCrossFarming } from '../../../hooks/useFirstTimeCrossFarming'
 import useStakeFarms, { useBCakeStakeFarms } from '../../../hooks/useStakeFarms'
