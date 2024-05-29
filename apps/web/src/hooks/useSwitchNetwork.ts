@@ -22,7 +22,7 @@ export function useSwitchNetworkLocal() {
 
   return useCallback(
     (chainId: number) => {
-      replaceBrowserHistory('chain', chainId === ChainId.BSC ? null : CHAIN_QUERY_NAME[chainId])
+      // replaceBrowserHistory('chain', chainId === ChainId.BSC ? null : CHAIN_QUERY_NAME[chainId]) // dappOS: // ! move to when switch dst chain
       setSessionChainId(chainId)
       // Blocto in-app browser throws change event when no account change which causes user state reset therefore
       // this event should not be handled to avoid unexpected behaviour.
