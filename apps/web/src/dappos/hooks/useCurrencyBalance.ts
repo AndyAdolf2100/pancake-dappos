@@ -1,34 +1,25 @@
 // import { useCurrencyBalance as useCB } from 'state/wallet/hooks'
-
 import { Currency, CurrencyAmount } from '@pancakeswap/sdk'
 import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { Contract, Provider as MulticallProvider } from 'ethers-multicall'
-import { getProvider } from 'dappos/utils/getVirtualWallet'
 import { useDappOSVwBalanceInfo } from 'state/dapposVirtualWallet/hooks'
 import { useDappOSWhiteList } from 'state/dapposWhiteList/hooks'
-import { useEffect, useState } from 'react'
-import { validSrcChainIds, AddressZero } from 'dappos/constant/constant'
-import erc20Abi from 'dappos/constant/abis/erc20.json'
+import { useEffect, useState, useCallback } from 'react'
+import { AddressZero } from 'dappos/constant/constant'
+import { ethers } from 'ethers'
+import { BigNumber } from 'bignumber.js'
+import { useDappOSCurrencyBalance } from 'state/dappOSCurrencyBalance/hooks'
+import { isZeroAccount } from 'dappos/utils'
 
-const currencyBalanceMap = {}
-validSrcChainIds.forEach((id) => {
-  currencyBalanceMap[id] = {}
-})
-
+/**
+ *  @description dappOS: replace old useCurrencyBalance from 'state/wallet/hooks'
+ * */
 export const useCurrencyBalance = (
   a?: string, // useless
   currency?: Currency | null,
 ): CurrencyAmount<Currency> | undefined => {
-  const { account, eoaAccount, isSdkReady } = useAccountActiveChain()
-  const { vwBalanceOf } = useDappOSVwBalanceInfo()
-  const useVwBalance = () => {
-    return useCurrencyBalanceFromCache(account, currency)
-  }
-  const useEoaBalance = () => {
-    return useCurrencyBalanceFromCache(eoaAccount, currency)
-  }
-  const vwCurrencyBalance = useVwBalance()
-  const eoaCurrencyBalance = useEoaBalance()
+  const { isSdkReady } = useAccountActiveChain()
+  const vwCurrencyBalance = useVwBalance(currency)
+  const eoaCurrencyBalance = useEoaBalance(currency)
 
   // TODO need to return 0 when it doesn't connect wallet
   return !isSdkReady || !currency
@@ -38,81 +29,119 @@ export const useCurrencyBalance = (
       )
 }
 
+/**
+ * @description for wallet balance dialog vw balance
+ * @returns
+ */
+export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currency> | undefined => {
+  const { account } = useAccountActiveChain()
+  return useCurrencyBalanceFromCache(account, currency)
+}
+
+/**
+ * @description for wallet balance dialog EOA balance (only EOA)
+ * @returns
+ */
+export const useEoaBalance = (currency?: Currency | null): CurrencyAmount<Currency> | undefined => {
+  const { eoaAccount } = useAccountActiveChain()
+  return useCurrencyBalanceFromCache(eoaAccount, currency)
+}
+
 const useCurrencyBalanceFromCache = (
-  a: string, // useless
+  account?: string, // eoa or vw address
   currency?: Currency | null,
-) => {
+): CurrencyAmount<Currency> | undefined => {
   const { findCurrency, findTargetChainCurrency } = useDappOSWhiteList()
   const { isSdkReady, isIsolated, dstChainId, srcChainId } = useAccountActiveChain()
   const [key, setKey] = useState('')
+  const { vwBalanceOf } = useDappOSVwBalanceInfo()
+  const address = (currency?.isToken ? currency.address : AddressZero).toLowerCase()
+  const { getValueOfBalanceMap, updateCurrencyBalanceMap } = useDappOSCurrencyBalance()
 
-  useEffect(() => {
-    async function loadTargetCurrency() {
-      const address = (currency?.isToken ? currency.address : AddressZero).toLowerCase()
-      if (a === AddressZero) return // ignore AddressZero vw or eoa address
-      if (isIsolated) {
-        // when isolated, we can use currency address directly
-        const k = `${address}-${a.toLowerCase()}`
-        if (!currencyBalanceMap[srcChainId][k]) {
-          currencyBalanceMap[srcChainId][k] = 0
-          setKey(k)
-        }
-        return
+  const loadTargetCurrencyInfoMap = useCallback(async () => {
+    if (!account || isZeroAccount(account)) return
+    if (isIsolated) {
+      const k = `${address.toLowerCase()}-${account.toLowerCase()}`
+      if (!getValueOfBalanceMap(srcChainId, k)) {
+        updateCurrencyBalanceMap(srcChainId, k, 0)
+        setKey(k)
       }
-      /*
-        We need to find src chain currency by dst chain currency when it's not isolated.
-        That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
-       */
-      const dstCurrency = await findCurrency(address, dstChainId)
-      if (!dstCurrency) return
-      const targetCurrency = await findTargetChainCurrency(srcChainId, dstCurrency)
-      if (!targetCurrency) return
-      const k = `${targetCurrency.address.toLowerCase()}-${a.toLowerCase()}`
-      if (!currencyBalanceMap[srcChainId][k]) {
-        currencyBalanceMap[srcChainId][k] = 0
+      return
+    }
+    const dstCurrency = await findCurrency(address, dstChainId)
+    if (!dstCurrency) return
+    //   We need to find src chain currency by dst chain currency when it's not isolated.
+    //   That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
+    const srcCurrency = await findTargetChainCurrency(srcChainId, dstCurrency)
+    // console.log('find srcCurrency', srcCurrency, 'by dstCurrency', dstCurrency);
+    if (srcCurrency) {
+      const k = `${srcCurrency.tokenAddress.toLowerCase()}-${account.toLowerCase()}`
+      if (!getValueOfBalanceMap(srcChainId, k)) {
+        updateCurrencyBalanceMap(srcChainId, k, 0)
         setKey(k)
       }
     }
-    loadTargetCurrency()
-  })
+  }, [
+    account,
+    findCurrency,
+    address,
+    dstChainId,
+    isIsolated,
+    findTargetChainCurrency,
+    srcChainId,
+    getValueOfBalanceMap,
+    updateCurrencyBalanceMap,
+    setKey,
+  ])
 
-  if (!currency || !isSdkReady) return undefined
-  return CurrencyAmount.fromRawAmount(currency, currencyBalanceMap[srcChainId][key] ?? 0)
+  useEffect(() => {
+    loadTargetCurrencyInfoMap()
+  }, [loadTargetCurrencyInfoMap])
+
+  if (!account || !currency || !isSdkReady) return undefined
+  // if (isVw) {
+  //   const vwBalance = vwBalanceOf(address, srcChainId)
+  //   if (BigNumber(vwBalance).gt(0)) {
+  //     return CurrencyAmount.fromRawAmount(currency, ethers.utils.parseUnits(vwBalance, currency.decimals).toString() ?? 0)
+  //   }
+  // }
+  const balance = getValueOfBalanceMap(srcChainId, key) ?? 0
+  return CurrencyAmount.fromRawAmount(currency, balance)
 }
 
 // puts it into updater
-export async function loadMuticallData(chainId: number) {
-  const ethcallProvider = new MulticallProvider(getProvider(chainId), chainId)
-  const keysArr = Object.keys(currencyBalanceMap[chainId]).map((key) => {
-    const address = key.split('-')[0]
-    const account = key.split('-')[1]
-    return {
-      address,
-      account,
-    }
-  })
-  const requests = keysArr.map(({ account, address }) => {
-    if (address === AddressZero) {
-      return ethcallProvider.getEthBalance(account)
-    }
-    const erc20Contract = new Contract(address, erc20Abi)
-    return erc20Contract.balanceOf(account)
-  })
-  const res = await ethcallProvider.all(requests)
+// export async function loadMuticallData(chainId: number) {
+//   const ethcallProvider = new MulticallProvider(getProvider(chainId), chainId)
+//   const keysArr = Object.keys(currencyBalanceMap[chainId]).map((key) => {
+//     const address = key.split('-')[0]
+//     const account = key.split('-')[1]
+//     return {
+//       address,
+//       account,
+//     }
+//   })
+//   const requests = keysArr.map(({ account, address }) => {
+//     if (address === AddressZero) {
+//       return ethcallProvider.getEthBalance(account)
+//     }
+//     const erc20Contract = new Contract(address, erc20Abi)
+//     return erc20Contract.balanceOf(account)
+//   })
+//   const res = await ethcallProvider.all(requests)
 
-  console.log('res ---- :', res)
+//   console.log('res ---- :', res)
 
-  keysArr.forEach(({ account, address }, index) => {
-    const key = `${address}-${account}`
-    currencyBalanceMap[chainId][key] = res[index]
-  })
-}
+//   keysArr.forEach(({ account, address }, index) => {
+//     const key = `${address}-${account}`
+//     currencyBalanceMap[chainId][key] = res[index]
+//   })
+// }
 
-setInterval(() => {
-  console.log('before currencyBalanceMap', currencyBalanceMap)
-  loadMuticallData(42161)
-  console.log('after currencyBalanceMap', currencyBalanceMap)
-}, 3000)
+// setInterval(() => {
+//   console.log('before currencyBalanceMap', currencyBalanceMap)
+//   loadMuticallData(42161)
+//   console.log('after currencyBalanceMap', currencyBalanceMap)
+// }, 3000)
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
 // useEffect(()=>{

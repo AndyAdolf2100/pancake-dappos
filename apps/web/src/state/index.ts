@@ -17,6 +17,7 @@ import dappOSVirtualWallet from './dapposVirtualWallet/reducer'
 import dappOSTransaction from './dapposTransaction/reducer'
 import dappOSInstitution from './dapposInstitution/reducer'
 import dappOSWhiteList from './dapposWhiteList/reducer'
+import dappOSCurrencyBalance from './dappOSCurrencyBalance/reducer'
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'notifications']
 
@@ -36,6 +37,7 @@ const persistedReducer = persistReducer(
     dappOSTransaction,
     dappOSInstitution,
     dappOSWhiteList,
+    dappOSCurrencyBalance,
     global: globalReducer,
     farms: farmsReducer,
     pools: poolsReducer,

@@ -5,6 +5,10 @@ export const isVwValid = (vwAddress: string) => {
   return vwAddress !== AddressZero
 }
 
+export const isZeroAccount = (account: string) => {
+  return account === AddressZero
+}
+
 export const getExpTime = () => {
   return Math.floor((new Date().getTime() + 60 * 60 * 24 * 1000) / 1000)
 }

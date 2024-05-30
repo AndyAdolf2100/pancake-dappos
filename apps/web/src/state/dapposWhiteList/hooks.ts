@@ -3,11 +3,12 @@ import { AppDispatch, AppState } from 'state'
 import { useCallback, useEffect } from 'react'
 import axios from 'axios'
 import { loadingInitialized } from 'dappos/utils/loading'
-import { updateDappOSWhiteListRawResult, updateWhiteListIsReady } from './actions'
+import { updateDappOSWhiteListRawResult, updateDappOSWhiteListResult, updateWhiteListIsReady } from './actions'
 
 const { loading, startLoading, endLoading } = loadingInitialized()
 
 export const useDappOSWhiteList = () => {
+  const { result, update: updateResult } = useWhiteListResult()
   const { rawResult, update: updateRawResult } = useWhiteListRawResult()
   const { isWhiteListReady, update: updateIsReady } = useWhiteListIsReady()
 
@@ -25,12 +26,13 @@ export const useDappOSWhiteList = () => {
           return Object.assign(i ?? {}, { price, icon })
         })
       })
-      updateRawResult(data)
+      updateResult(data)
+      updateRawResult(res.data)
       updateIsReady(true)
       endLoading()
     }
     loadWhiteList()
-  }, [updateRawResult, updateIsReady, isWhiteListReady])
+  }, [updateRawResult, updateIsReady, isWhiteListReady, updateResult])
 
   const getRawResult = useCallback(() => {
     return new Promise((resolve) => {
@@ -42,8 +44,18 @@ export const useDappOSWhiteList = () => {
     })
   }, [isWhiteListReady, rawResult])
 
+  const getResult = useCallback(() => {
+    return new Promise((resolve) => {
+      if (isWhiteListReady) {
+        resolve(result)
+      } else {
+        resolve([])
+      }
+    })
+  }, [isWhiteListReady, result])
+
   const getWhiteTokenList = async () => {
-    const rawRes: any = await getRawResult()
+    const rawRes: any = await getResult()
     if (rawRes.length === 0) return []
     return rawRes
   }
@@ -58,9 +70,8 @@ export const useDappOSWhiteList = () => {
     const whiteList = await getWhiteTokenList()
     const currency = whiteList.find(
       (i: any) =>
-        i.tokenAddress.toLowerCase() === sourceAddress?.toLowerCase() && Number(i.chainId) === Number(sourceChainId),
+        i.tokenAddress?.toLowerCase() === sourceAddress?.toLowerCase() && Number(i.chainId) === Number(sourceChainId),
     )
-    // eslint-disable-next-line consistent-return
     return currency
   }
 
@@ -72,7 +83,7 @@ export const useDappOSWhiteList = () => {
    */
   const findTargetChainCurrency = async (targetChainId: number, sourceCurrency: any) => {
     const { tokenClassId } = sourceCurrency
-    const raw: any = await getWhiteTokenList()
+    const raw: any = await getRawResult()
     const whiteLists = raw.find((i: any) => i.id === tokenClassId).whitelists ?? []
     const currency = whiteLists.find((i: any) => i.chainId === targetChainId)
     return findCurrency(currency?.tokenAddress, currency?.chainId)
@@ -97,6 +108,23 @@ const useWhiteListRawResult = () => {
 
   return {
     rawResult,
+    update,
+  }
+}
+
+const useWhiteListResult = () => {
+  const result = useSelector((state: AppState) => state.dappOSWhiteList.result)
+
+  const dispatch = useDispatch<AppDispatch>()
+  const update = useCallback(
+    (raw: any) => {
+      dispatch(updateDappOSWhiteListResult(raw))
+    },
+    [dispatch],
+  )
+
+  return {
+    result,
     update,
   }
 }
