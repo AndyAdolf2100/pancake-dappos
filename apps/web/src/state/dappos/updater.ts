@@ -128,16 +128,19 @@ export default function DappOSUpdater(): null {
     }
   }, [isInitialConnection, initProtocol, connectProtocol, dappOSProtocol, updateDappOSProtocol, updateDappOSWalletLite])
 
+  let timeout
   useEffect(() => {
     async function loadMuticallData() {
+      if (timeout) clearTimeout(timeout)
       await loadBalanceMapDataWithMulticall(chainId)
-      setTimeout(() => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      timeout = setTimeout(() => {
         setCount(count + 1)
       }, 3000)
     }
     loadMuticallData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count])
+  }, [count, chainId])
 
   return null
 }
