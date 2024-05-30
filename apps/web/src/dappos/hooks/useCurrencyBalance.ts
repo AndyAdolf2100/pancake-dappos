@@ -8,6 +8,7 @@ import { AddressZero } from 'dappos/constant/constant'
 import { ethers } from 'ethers'
 import { useDappOSCurrencyBalance } from 'state/dappOSCurrencyBalance/hooks'
 import { isZeroAccount } from 'dappos/utils'
+import BigNumber from 'bignumber.js'
 
 /**
  *  @description dappOS: replace old useCurrencyBalance from 'state/wallet/hooks'
@@ -45,10 +46,12 @@ export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currenc
     if (isSupportedByDappOS && srcCurrency && currency) {
       const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
       // console.log('vwBalance', vwBalance, isSupportedByDappOS, srcCurrency)
-      return CurrencyAmount.fromRawAmount(
-        currency,
-        ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal).toString() ?? 0,
-      )
+      const srcBalance = ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal)
+      const dstBalance = ethers.utils.parseUnits(
+        new BigNumber(ethers.utils.formatUnits(srcBalance, srcCurrency.tokenDecimal)).toFixed(currency.decimals, 1),
+        currency.decimals,
+      ) // just for visible
+      return CurrencyAmount.fromRawAmount(currency, dstBalance.toString() ?? 0)
     }
     return balance
   }, [balance, currency, isSupportedByDappOS, srcChainId, srcCurrency, vwBalanceOf])
@@ -137,9 +140,20 @@ const useCurrencyBalanceFromCache = (
     if (!account || !currency || !isSdkReady) {
       return undefined
     }
-    const b = getValueOfBalanceMap(srcChainId, key) ?? 0
-    return CurrencyAmount.fromRawAmount(currency, b)
-  }, [account, currency, isSdkReady, getValueOfBalanceMap, srcChainId, key])
+    const srcBalance = getValueOfBalanceMap(srcChainId, key) ?? 0
+    const dstBalance = isIsolated
+      ? srcBalance
+      : targetCurrency
+      ? ethers.utils.parseUnits(
+          new BigNumber(ethers.utils.formatUnits(srcBalance, (targetCurrency as any).tokenDecimal)).toFixed(
+            currency.decimals,
+            1,
+          ),
+          currency.decimals,
+        ) // just for visible
+      : 0
+    return CurrencyAmount.fromRawAmount(currency, dstBalance)
+  }, [account, currency, isSdkReady, getValueOfBalanceMap, srcChainId, key, isIsolated, targetCurrency])
 
   // console.log('balance of eth', balance.toString(), key)
   return {

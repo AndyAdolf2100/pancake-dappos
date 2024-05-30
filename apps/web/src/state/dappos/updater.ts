@@ -133,7 +133,7 @@ export default function DappOSUpdater(): null {
       await loadBalanceMapDataWithMulticall(chainId)
       setTimeout(() => {
         setCount(count + 1)
-      }, 5000)
+      }, 3000)
     }
     loadMuticallData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
