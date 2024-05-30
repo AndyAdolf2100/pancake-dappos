@@ -39,10 +39,10 @@ export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currenc
   const { balance, isSupportedByDappOS, srcCurrency } = useCurrencyBalanceFromCache(account, currency)
   if (isSupportedByDappOS && srcCurrency) {
     const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
-    console.log('vwBalance', vwBalance, isSupportedByDappOS)
+    // console.log('vwBalance', vwBalance, isSupportedByDappOS, srcCurrency)
     return CurrencyAmount.fromRawAmount(
       currency!,
-      ethers.utils.parseUnits(vwBalance, currency!.decimals).toString() ?? 0,
+      ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal).toString() ?? 0,
     )
   }
   return balance
@@ -71,7 +71,6 @@ const useCurrencyBalanceFromCache = (
   const address = (currency?.isToken ? currency.address : AddressZero).toLowerCase()
 
   const loadTargetCurrencyInfoMap = useCallback(async () => {
-    setIsSupportedByDappOS(false)
     if (!account || isZeroAccount(account)) return
     const dstCurrency = await findCurrency(address, dstChainId)
     if (dstCurrency && isIsolated) {
@@ -101,6 +100,7 @@ const useCurrencyBalanceFromCache = (
         setKey(k)
       }
     }
+    setIsSupportedByDappOS(false)
   }, [
     account,
     findCurrency,
