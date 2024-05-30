@@ -3,10 +3,9 @@ import { Currency, CurrencyAmount } from '@pancakeswap/sdk'
 import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import { useDappOSVwBalanceInfo } from 'state/dapposVirtualWallet/hooks'
 import { useDappOSWhiteList } from 'state/dapposWhiteList/hooks'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { AddressZero } from 'dappos/constant/constant'
 import { ethers } from 'ethers'
-import { BigNumber } from 'bignumber.js'
 import { useDappOSCurrencyBalance } from 'state/dappOSCurrencyBalance/hooks'
 import { isZeroAccount } from 'dappos/utils'
 
@@ -22,11 +21,16 @@ export const useCurrencyBalance = (
   const eoaCurrencyBalance = useEoaBalance(currency)
 
   // TODO need to return 0 when it doesn't connect wallet
-  return !isSdkReady || !currency
-    ? undefined
-    : (vwCurrencyBalance ?? CurrencyAmount.fromRawAmount(currency, 0)).add(
-        eoaCurrencyBalance ?? CurrencyAmount.fromRawAmount(currency, 0),
-      )
+  const finalValue = useMemo(
+    () =>
+      !isSdkReady || !currency
+        ? undefined
+        : (vwCurrencyBalance ?? CurrencyAmount.fromRawAmount(currency, 0)).add(
+            eoaCurrencyBalance ?? CurrencyAmount.fromRawAmount(currency, 0),
+          ),
+    [currency, eoaCurrencyBalance, isSdkReady, vwCurrencyBalance],
+  )
+  return finalValue
 }
 
 /**
@@ -37,15 +41,18 @@ export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currenc
   const { account, srcChainId } = useAccountActiveChain()
   const { vwBalanceOf } = useDappOSVwBalanceInfo()
   const { balance, isSupportedByDappOS, srcCurrency } = useCurrencyBalanceFromCache(account, currency)
-  if (isSupportedByDappOS && srcCurrency && currency) {
-    const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
-    // console.log('vwBalance', vwBalance, isSupportedByDappOS, srcCurrency)
-    return CurrencyAmount.fromRawAmount(
-      currency,
-      ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal).toString() ?? 0,
-    )
-  }
-  return balance
+  const finalValue = useMemo(() => {
+    if (isSupportedByDappOS && srcCurrency && currency) {
+      const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
+      // console.log('vwBalance', vwBalance, isSupportedByDappOS, srcCurrency)
+      return CurrencyAmount.fromRawAmount(
+        currency,
+        ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal).toString() ?? 0,
+      )
+    }
+    return balance
+  }, [balance, currency, isSupportedByDappOS, srcChainId, srcCurrency, vwBalanceOf])
+  return finalValue
 }
 
 /**
@@ -68,38 +75,47 @@ const useCurrencyBalanceFromCache = (
   const [key, setKey] = useState('')
   const [isSupportedByDappOS, setIsSupportedByDappOS] = useState(false)
   const [targetCurrency, setTargetCurrency] = useState()
-  const address = (currency?.isToken ? currency.address : AddressZero).toLowerCase()
+
+  const address = useMemo(() => (currency?.isToken ? currency.address : AddressZero).toLowerCase(), [currency])
 
   const loadTargetCurrencyInfoMap = useCallback(async () => {
-    if (!account || isZeroAccount(account)) return
-    const dstCurrency = await findCurrency(address, dstChainId)
-    if (dstCurrency && isIsolated) {
-      setTargetCurrency(dstCurrency)
-      setIsSupportedByDappOS(true)
-    }
-    if (isIsolated) {
-      const k = `${address.toLowerCase()}-${account.toLowerCase()}`
-      if (!getValueOfBalanceMap(srcChainId, k)) {
-        updateCurrencyBalanceMap(srcChainId, k, 0)
-
+    if (account && !isZeroAccount(account)) {
+      const dstCurrency = await findCurrency(address, dstChainId)
+      //  src chain currency is equal to dst chain currency when it's isolated.
+      if (isIsolated) {
+        const k = `${address.toLowerCase()}-${account.toLowerCase()}`
         setKey(k)
+        if (!getValueOfBalanceMap(srcChainId, k)) {
+          updateCurrencyBalanceMap(srcChainId, k, 0)
+        }
+        // we need return vw info from sdk for currency that dappOS is not support (single chain currency)
+        if (dstCurrency) {
+          setTargetCurrency(dstCurrency)
+          setIsSupportedByDappOS(true)
+        } else {
+          setTargetCurrency(undefined)
+          setIsSupportedByDappOS(false)
+        }
+        return
       }
-      return
-    }
-    if (!dstCurrency) return
-    //   We need to find src chain currency by dst chain currency when it's not isolated.
-    //   That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
-    const srcCurrency = await findTargetChainCurrency(srcChainId, dstCurrency)
-    // console.log('find srcCurrency', srcCurrency, 'by dstCurrency', dstCurrency);
-    if (srcCurrency) {
-      const k = `${srcCurrency.tokenAddress.toLowerCase()}-${account.toLowerCase()}`
-      if (!getValueOfBalanceMap(srcChainId, k)) {
-        updateCurrencyBalanceMap(srcChainId, k, 0)
-        setIsSupportedByDappOS(true)
-        setTargetCurrency(srcCurrency)
-        setKey(k)
+      //   We need to find src chain currency by dst chain currency when it's not isolated.
+      //   That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
+      if (dstCurrency) {
+        const srcCurrency = await findTargetChainCurrency(srcChainId, dstCurrency)
+        if (srcCurrency) {
+          const k = `${srcCurrency.tokenAddress.toLowerCase()}-${account.toLowerCase()}`
+          setKey(k)
+          if (!getValueOfBalanceMap(srcChainId, k)) {
+            updateCurrencyBalanceMap(srcChainId, k, 0)
+            setIsSupportedByDappOS(true)
+            setTargetCurrency(srcCurrency)
+            return
+          }
+        }
       }
     }
+    setKey('')
+    setTargetCurrency(undefined)
     setIsSupportedByDappOS(false)
   }, [
     account,
@@ -107,67 +123,28 @@ const useCurrencyBalanceFromCache = (
     address,
     dstChainId,
     isIsolated,
-    findTargetChainCurrency,
-    srcChainId,
     getValueOfBalanceMap,
+    srcChainId,
     updateCurrencyBalanceMap,
-    setKey,
+    findTargetChainCurrency,
   ])
 
   useEffect(() => {
     loadTargetCurrencyInfoMap()
   }, [loadTargetCurrencyInfoMap])
 
-  if (!account || !currency || !isSdkReady)
-    return {
-      isSupportedByDappOS,
-      balance: undefined,
-      srcCurrency: undefined,
+  const balance = useMemo(() => {
+    if (!account || !currency || !isSdkReady) {
+      return undefined
     }
+    const b = getValueOfBalanceMap(srcChainId, key) ?? 0
+    return CurrencyAmount.fromRawAmount(currency, b)
+  }, [account, currency, isSdkReady, getValueOfBalanceMap, srcChainId, key])
 
-  const balance = getValueOfBalanceMap(srcChainId, key) ?? 0
+  // console.log('balance of eth', balance.toString(), key)
   return {
     isSupportedByDappOS,
-    balance: CurrencyAmount.fromRawAmount(currency, balance),
+    balance,
     srcCurrency: targetCurrency,
   }
 }
-
-// puts it into updater
-// export async function loadMuticallData(chainId: number) {
-//   const ethcallProvider = new MulticallProvider(getProvider(chainId), chainId)
-//   const keysArr = Object.keys(currencyBalanceMap[chainId]).map((key) => {
-//     const address = key.split('-')[0]
-//     const account = key.split('-')[1]
-//     return {
-//       address,
-//       account,
-//     }
-//   })
-//   const requests = keysArr.map(({ account, address }) => {
-//     if (address === AddressZero) {
-//       return ethcallProvider.getEthBalance(account)
-//     }
-//     const erc20Contract = new Contract(address, erc20Abi)
-//     return erc20Contract.balanceOf(account)
-//   })
-//   const res = await ethcallProvider.all(requests)
-
-//   console.log('res ---- :', res)
-
-//   keysArr.forEach(({ account, address }, index) => {
-//     const key = `${address}-${account}`
-//     currencyBalanceMap[chainId][key] = res[index]
-//   })
-// }
-
-// setInterval(() => {
-//   console.log('before currencyBalanceMap', currencyBalanceMap)
-//   loadMuticallData(42161)
-//   console.log('after currencyBalanceMap', currencyBalanceMap)
-// }, 3000)
-
-// eslint-disable-next-line react-hooks/rules-of-hooks
-// useEffect(()=>{
-//   loadMuticallData()
-// }, [])
