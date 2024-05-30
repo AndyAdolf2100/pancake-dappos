@@ -109,8 +109,8 @@ const useCurrencyBalanceFromCache = (
             updateCurrencyBalanceMap(srcChainId, k, 0)
             setIsSupportedByDappOS(true)
             setTargetCurrency(srcCurrency)
-            return
           }
+          return
         }
       }
     }
