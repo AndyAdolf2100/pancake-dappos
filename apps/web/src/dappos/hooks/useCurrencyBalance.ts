@@ -34,8 +34,18 @@ export const useCurrencyBalance = (
  * @returns
  */
 export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currency> | undefined => {
-  const { account } = useAccountActiveChain()
-  return useCurrencyBalanceFromCache(account, currency)
+  const { account, srcChainId } = useAccountActiveChain()
+  const { vwBalanceOf } = useDappOSVwBalanceInfo()
+  const { balance, isSupportedByDappOS, srcCurrency } = useCurrencyBalanceFromCache(account, currency)
+  if (isSupportedByDappOS && srcCurrency) {
+    const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
+    console.log('vwBalance', vwBalance, isSupportedByDappOS)
+    return CurrencyAmount.fromRawAmount(
+      currency!,
+      ethers.utils.parseUnits(vwBalance, currency!.decimals).toString() ?? 0,
+    )
+  }
+  return balance
 }
 
 /**
@@ -44,31 +54,39 @@ export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currenc
  */
 export const useEoaBalance = (currency?: Currency | null): CurrencyAmount<Currency> | undefined => {
   const { eoaAccount } = useAccountActiveChain()
-  return useCurrencyBalanceFromCache(eoaAccount, currency)
+  const { balance } = useCurrencyBalanceFromCache(eoaAccount, currency)
+  return balance
 }
 
 const useCurrencyBalanceFromCache = (
   account?: string, // eoa or vw address
   currency?: Currency | null,
-): CurrencyAmount<Currency> | undefined => {
+): { balance: CurrencyAmount<Currency> | undefined; isSupportedByDappOS: boolean; srcCurrency: any } => {
   const { findCurrency, findTargetChainCurrency } = useDappOSWhiteList()
+  const { getValueOfBalanceMap, updateCurrencyBalanceMap } = useDappOSCurrencyBalance()
   const { isSdkReady, isIsolated, dstChainId, srcChainId } = useAccountActiveChain()
   const [key, setKey] = useState('')
-  const { vwBalanceOf } = useDappOSVwBalanceInfo()
+  const [isSupportedByDappOS, setIsSupportedByDappOS] = useState(false)
+  const [targetCurrency, setTargetCurrency] = useState()
   const address = (currency?.isToken ? currency.address : AddressZero).toLowerCase()
-  const { getValueOfBalanceMap, updateCurrencyBalanceMap } = useDappOSCurrencyBalance()
 
   const loadTargetCurrencyInfoMap = useCallback(async () => {
+    setIsSupportedByDappOS(false)
     if (!account || isZeroAccount(account)) return
+    const dstCurrency = await findCurrency(address, dstChainId)
+    if (dstCurrency && isIsolated) {
+      setTargetCurrency(dstCurrency)
+      setIsSupportedByDappOS(true)
+    }
     if (isIsolated) {
       const k = `${address.toLowerCase()}-${account.toLowerCase()}`
       if (!getValueOfBalanceMap(srcChainId, k)) {
         updateCurrencyBalanceMap(srcChainId, k, 0)
+
         setKey(k)
       }
       return
     }
-    const dstCurrency = await findCurrency(address, dstChainId)
     if (!dstCurrency) return
     //   We need to find src chain currency by dst chain currency when it's not isolated.
     //   That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
@@ -78,6 +96,8 @@ const useCurrencyBalanceFromCache = (
       const k = `${srcCurrency.tokenAddress.toLowerCase()}-${account.toLowerCase()}`
       if (!getValueOfBalanceMap(srcChainId, k)) {
         updateCurrencyBalanceMap(srcChainId, k, 0)
+        setIsSupportedByDappOS(true)
+        setTargetCurrency(srcCurrency)
         setKey(k)
       }
     }
@@ -98,15 +118,19 @@ const useCurrencyBalanceFromCache = (
     loadTargetCurrencyInfoMap()
   }, [loadTargetCurrencyInfoMap])
 
-  if (!account || !currency || !isSdkReady) return undefined
-  // if (isVw) {
-  //   const vwBalance = vwBalanceOf(address, srcChainId)
-  //   if (BigNumber(vwBalance).gt(0)) {
-  //     return CurrencyAmount.fromRawAmount(currency, ethers.utils.parseUnits(vwBalance, currency.decimals).toString() ?? 0)
-  //   }
-  // }
+  if (!account || !currency || !isSdkReady)
+    return {
+      isSupportedByDappOS,
+      balance: undefined,
+      srcCurrency: undefined,
+    }
+
   const balance = getValueOfBalanceMap(srcChainId, key) ?? 0
-  return CurrencyAmount.fromRawAmount(currency, balance)
+  return {
+    isSupportedByDappOS,
+    balance: CurrencyAmount.fromRawAmount(currency, balance),
+    srcCurrency: targetCurrency,
+  }
 }
 
 // puts it into updater
