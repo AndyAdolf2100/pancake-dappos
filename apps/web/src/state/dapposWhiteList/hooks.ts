@@ -54,12 +54,13 @@ export const useDappOSWhiteList = () => {
    * @param {*} sourceChainId
    * @returns
    */
-  const findCurrency = async (sourceAddress: string, sourceChainId: number) => {
+  const findCurrency = async (sourceAddress?: string, sourceChainId?: number) => {
     const whiteList = await getWhiteTokenList()
     const currency = whiteList.find(
       (i: any) =>
-        i.tokenAddress.toLowerCase() === sourceAddress.toLowerCase() && Number(i.chainId) === Number(sourceChainId),
+        i.tokenAddress.toLowerCase() === sourceAddress?.toLowerCase() && Number(i.chainId) === Number(sourceChainId),
     )
+    // eslint-disable-next-line consistent-return
     return currency
   }
 
@@ -71,10 +72,10 @@ export const useDappOSWhiteList = () => {
    */
   const findTargetChainCurrency = async (targetChainId: number, sourceCurrency: any) => {
     const { tokenClassId } = sourceCurrency
-    const raw: any = await getRawResult()
-    const whiteLists = raw.find((i: any) => i.id === tokenClassId).whitelists
+    const raw: any = await getWhiteTokenList()
+    const whiteLists = raw.find((i: any) => i.id === tokenClassId).whitelists ?? []
     const currency = whiteLists.find((i: any) => i.chainId === targetChainId)
-    return findCurrency(currency.tokenAddress, currency.chainId)
+    return findCurrency(currency?.tokenAddress, currency?.chainId)
   }
 
   return {

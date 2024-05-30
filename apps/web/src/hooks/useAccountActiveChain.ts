@@ -25,6 +25,7 @@ const useAccountActiveChain = () => {
       status,
       connector,
       library: getProvider(dstChainId), // dappOS from dst chain
+      isIsolated: srcChainId === dstChainId, // dappOS
       isSdkReady: isVwReady && isProtocolReady,
     }),
     [account, connector, status, dstChainId, isVwReady, isProtocolReady, srcChainId, eoaAccount, chainId],

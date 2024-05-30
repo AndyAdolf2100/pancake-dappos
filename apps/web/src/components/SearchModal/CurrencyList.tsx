@@ -11,7 +11,7 @@ import { FixedSizeList } from 'react-window'
 import { styled } from 'styled-components'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
-import { useCurrencyBalance } from 'state/wallet/hooks'
+import { useCurrencyBalance } from 'dappos/hooks/useCurrencyBalance'
 import { useIsUserAddedToken } from '../../hooks/Tokens'
 import { useCombinedActiveList } from '../../state/lists/hooks'
 import { isTokenOnList } from '../../utils'

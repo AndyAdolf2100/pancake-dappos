@@ -13,7 +13,7 @@ import { useStablecoinPriceAmount } from 'hooks/useStablecoinPrice'
 import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStableLPDerivedMintInfo'
 
 import { FiatLogo } from 'components/Logo/CurrencyLogo'
-import { useCurrencyBalance } from 'state/wallet/hooks'
+import { useCurrencyBalance } from 'dappos/hooks/useCurrencyBalance'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 

@@ -4,7 +4,7 @@ import { formatNumber } from '@pancakeswap/utils/formatBalance'
 import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import CurrencySearchModal, { CurrencySearchModalProps } from 'components/SearchModal/CurrencySearchModal'
 import { useStablecoinPrice } from 'hooks/useStablecoinPrice'
-import { useCurrencyBalance } from 'state/wallet/hooks'
+import { useCurrencyBalance } from 'dappos/hooks/useCurrencyBalance'
 import { styled } from 'styled-components'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { AutoRow, RowBetween } from '../Layout/Row'
