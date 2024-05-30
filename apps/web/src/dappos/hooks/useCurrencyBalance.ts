@@ -37,11 +37,11 @@ export const useVwBalance = (currency?: Currency | null): CurrencyAmount<Currenc
   const { account, srcChainId } = useAccountActiveChain()
   const { vwBalanceOf } = useDappOSVwBalanceInfo()
   const { balance, isSupportedByDappOS, srcCurrency } = useCurrencyBalanceFromCache(account, currency)
-  if (isSupportedByDappOS && srcCurrency) {
+  if (isSupportedByDappOS && srcCurrency && currency) {
     const vwBalance = vwBalanceOf(srcCurrency.tokenAddress, srcChainId)
     // console.log('vwBalance', vwBalance, isSupportedByDappOS, srcCurrency)
     return CurrencyAmount.fromRawAmount(
-      currency!,
+      currency,
       ethers.utils.parseUnits(vwBalance, srcCurrency.tokenDecimal).toString() ?? 0,
     )
   }

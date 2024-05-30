@@ -8,6 +8,7 @@ import { initDstChainsVw } from 'dappos/utils/getVirtualWallet'
 import { loadingInitialized } from 'dappos/utils/loading'
 import { providers } from 'ethers'
 import DappOSWalletLite from '@dappos/wallet-lite'
+import { useDappOSCurrencyBalance } from 'state/dappOSCurrencyBalance/hooks'
 import { useDappOSWalletLite, useDappOSProtocol, usePaydbAddress, useDappOSProtocolIsReady } from './hooks'
 
 const { loading, startLoading, endLoading } = loadingInitialized()
@@ -34,6 +35,10 @@ export default function DappOSUpdater(): null {
   const { update: updateDappOSVwBalanceInfo } = useDappOSVwBalanceInfo()
 
   const { updateArbitrum, updateBinanceSmart, updateEthereum, updateBase } = useDappOSVirtualWallet()
+
+  const { loadBalanceMapDataWithMulticall } = useDappOSCurrencyBalance()
+
+  const [count, setCount] = useState(0)
 
   const initProtocol = useCallback(async () => {
     if (loading || !dappOSProtocol) return
@@ -122,6 +127,17 @@ export default function DappOSUpdater(): null {
       updateDappOSWalletLite(new DappOSWalletLite())
     }
   }, [isInitialConnection, initProtocol, connectProtocol, dappOSProtocol, updateDappOSProtocol, updateDappOSWalletLite])
+
+  useEffect(() => {
+    async function loadMuticallData() {
+      await loadBalanceMapDataWithMulticall(chainId)
+      setTimeout(() => {
+        setCount(count + 1)
+      }, 5000)
+    }
+    loadMuticallData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count])
 
   return null
 }
