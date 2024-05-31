@@ -12,7 +12,6 @@ const TooltipContent = styled(({ className, ...props }: TooltipProps) => (
     padding: theme.typography.pxToRem(12),
     backgroundColor: 'white',
     minWidth: 240,
-    minHeight: 106,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
     borderRadius: theme.typography.pxToRem(6),
@@ -30,6 +29,7 @@ const TooltipContent = styled(({ className, ...props }: TooltipProps) => (
   [`& .${tooltipClasses.tooltip} .balance-content .title-part`]: {
     display: 'flex',
     alignItems: 'center',
+    height: 22,
     fontSize: theme.typography.pxToRem(14),
   },
   [`& .${tooltipClasses.tooltip} .balance-content img`]: {
@@ -84,7 +84,7 @@ const DappOSBalanceTooltip = ({ currency, children }) => {
               dappOS:
             </div>
             <div>
-              {vwBalance}&nbsp;
+              {vwBalance ?? 0}&nbsp;
               {vwCurrencySymbol}
             </div>
           </div>
@@ -94,14 +94,16 @@ const DappOSBalanceTooltip = ({ currency, children }) => {
               MetaMask:
             </div>
             <div>
-              {eoaBalance}&nbsp;
+              {eoaBalance ?? 0}&nbsp;
               {eoaCurrencySymbol}
             </div>
           </div>
         </>
       }
     >
-      <div>{children}</div>
+      <div style={{ textDecoration: 'underline', textDecorationColor: '#00000060', textUnderlineOffset: '2px' }}>
+        {children}
+      </div>
     </TooltipContent>
   )
 }
