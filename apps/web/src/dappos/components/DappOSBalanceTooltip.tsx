@@ -1,6 +1,9 @@
 import * as React from 'react'
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
+import { useEoaBalance, useVwBalance } from 'dappos/hooks/useCurrencyBalance'
+import { useMemo, useEffect } from 'react'
+import { formatAmount } from '@pancakeswap/utils/formatFractions'
 
 const TooltipContent = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} placement="top" arrow />
@@ -9,6 +12,7 @@ const TooltipContent = styled(({ className, ...props }: TooltipProps) => (
     padding: theme.typography.pxToRem(12),
     backgroundColor: 'white',
     minWidth: 240,
+    minHeight: 106,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
     borderRadius: theme.typography.pxToRem(6),
@@ -42,6 +46,33 @@ const TooltipContent = styled(({ className, ...props }: TooltipProps) => (
 }))
 
 const DappOSBalanceTooltip = ({ currency, children }) => {
+  const vwBalanceCurrencyAmount = useVwBalance(currency)
+  const eoaBalanceCurrencyAmount = useEoaBalance(currency)
+
+  useEffect(() => {
+    console.log('vwBalanceCurrencyAmount', vwBalanceCurrencyAmount?.toSignificant(6))
+  }, [vwBalanceCurrencyAmount])
+
+  useEffect(() => {
+    console.log('eoaBalanceCurrencyAmount', eoaBalanceCurrencyAmount?.toSignificant(6))
+  }, [eoaBalanceCurrencyAmount])
+
+  const vwBalance = useMemo(() => {
+    return currency ? formatAmount(vwBalanceCurrencyAmount, 6) : 0
+  }, [vwBalanceCurrencyAmount, currency])
+
+  const eoaBalance = useMemo(() => {
+    return currency ? formatAmount(eoaBalanceCurrencyAmount, 6) : 0
+  }, [eoaBalanceCurrencyAmount, currency])
+
+  const vwCurrencySymbol = useMemo(() => {
+    return vwBalanceCurrencyAmount?.currency.symbol.toUpperCase() ?? ''
+  }, [vwBalanceCurrencyAmount])
+
+  const eoaCurrencySymbol = useMemo(() => {
+    return eoaBalanceCurrencyAmount?.currency.symbol.toUpperCase() ?? ''
+  }, [eoaBalanceCurrencyAmount])
+
   return (
     <TooltipContent
       title={
@@ -52,14 +83,20 @@ const DappOSBalanceTooltip = ({ currency, children }) => {
               <img src="/dappos/assets/dappos.svg" alt="dappos" />
               dappOS:
             </div>
-            <div>0</div>
+            <div>
+              {vwBalance}&nbsp;
+              {vwCurrencySymbol}
+            </div>
           </div>
           <div className="balance-content">
             <div className="title-part">
               <img src="dappos/assets/metamask.svg" alt="metamask" />
               MetaMask:
             </div>
-            <div>0</div>
+            <div>
+              {eoaBalance}&nbsp;
+              {eoaCurrencySymbol}
+            </div>
           </div>
         </>
       }
