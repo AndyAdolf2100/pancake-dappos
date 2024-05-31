@@ -30,11 +30,6 @@ import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { ChainLogo } from 'components/Logo/ChainLogo'
 import { dappOSSrcChains as chains } from 'dappos/utils/networks' // dappOS
 
-const AptosChain = {
-  id: 1,
-  name: 'Aptos',
-}
-
 const NetworkSelect = ({ switchNetwork, chainId, isWrongNetwork }) => {
   const { t } = useTranslation()
   const [showTestnet] = useUserShowTestnet()

@@ -15,6 +15,7 @@ import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStabl
 import { FiatLogo } from 'components/Logo/CurrencyLogo'
 import { useCurrencyBalance } from 'dappos/hooks/useCurrencyBalance'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
+import DappOSBalanceTooltip from 'dappos/components/DappOSBalanceTooltip' // dappOS
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 import AddToWalletButton from '../AddToWallet/AddToWalletButton'
@@ -221,23 +222,27 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
             ) : null}
           </Flex>
 
-          {account && !hideBalanceComp && (
-            <Text
-              data-dd-action-name="Token balance"
-              onClick={!disabled ? onMax : undefined}
-              color="textSubtle"
-              fontSize="12px"
-              ellipsis
-              title={!hideBalance && !!currency ? t('Balance: %balance%', { balance: balance ?? t('Loading') }) : ' -'}
-              style={{ display: 'inline', cursor: 'pointer' }}
-            >
-              {!hideBalance && !!currency
-                ? (balance?.replace('.', '')?.length || 0) > 12
-                  ? balance
-                  : t('Balance: %balance%', { balance: balance ?? t('Loading') })
-                : ' -'}
-            </Text>
-          )}
+          <DappOSBalanceTooltip currency={currency}>
+            {account && !hideBalanceComp && (
+              <Text
+                data-dd-action-name="Token balance"
+                onClick={!disabled ? onMax : undefined}
+                color="textSubtle"
+                fontSize="12px"
+                ellipsis
+                title={
+                  !hideBalance && !!currency ? t('Balance: %balance%', { balance: balance ?? t('Loading') }) : ' -'
+                }
+                style={{ display: 'inline', cursor: 'pointer' }}
+              >
+                {!hideBalance && !!currency
+                  ? (balance?.replace('.', '')?.length || 0) > 12
+                    ? balance
+                    : t('Balance: %balance%', { balance: balance ?? t('Loading') })
+                  : ' -'}
+              </Text>
+            )}
+          </DappOSBalanceTooltip>
         </>
       }
       bottom={
