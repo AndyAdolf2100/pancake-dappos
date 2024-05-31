@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from 'state'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import axios from 'axios'
 import { loadingInitialized } from 'dappos/utils/loading'
 import { updateDappOSWhiteListRawResult, updateDappOSWhiteListResult, updateWhiteListIsReady } from './actions'
@@ -12,27 +12,24 @@ export const useDappOSWhiteList = () => {
   const { rawResult, update: updateRawResult } = useWhiteListRawResult()
   const { isWhiteListReady, update: updateIsReady } = useWhiteListIsReady()
 
-  useEffect(() => {
-    async function loadWhiteList() {
-      if (loading || isWhiteListReady) return
-      const url = `${process.env.NEXT_PUBLIC_DAPPOS_SUPER_ADMIN}/supernodeadmin/v2/token_whitelists`
-      const config = {
-        params: {},
-      }
-      startLoading()
-      const res = await axios.get(url, config)
-      const data = res.data.flatMap(({ price, icon, whitelists }: { price: any; icon: any; whitelists: any }) => {
-        return whitelists.map((i: any) => {
-          return Object.assign(i ?? {}, { price, icon })
-        })
-      })
-      updateResult(data)
-      updateRawResult(res.data)
-      updateIsReady(true)
-      endLoading()
+  const loadWhiteList = async () => {
+    if (loading || isWhiteListReady) return
+    startLoading()
+    const url = `${process.env.NEXT_PUBLIC_DAPPOS_SUPER_ADMIN}/supernodeadmin/v2/token_whitelists`
+    const config = {
+      params: {},
     }
-    loadWhiteList()
-  }, [updateRawResult, updateIsReady, isWhiteListReady, updateResult])
+    const res = await axios.get(url, config)
+    const data = res.data.flatMap(({ price, icon, whitelists }: { price: any; icon: any; whitelists: any }) => {
+      return whitelists.map((i: any) => {
+        return Object.assign(i ?? {}, { price, icon })
+      })
+    })
+    updateResult(data)
+    updateRawResult(res.data)
+    updateIsReady(true)
+    endLoading()
+  }
 
   const getRawResult = useCallback(() => {
     return new Promise((resolve) => {
@@ -92,6 +89,7 @@ export const useDappOSWhiteList = () => {
   return {
     findCurrency,
     findTargetChainCurrency,
+    loadWhiteList,
   }
 }
 

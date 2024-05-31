@@ -20,6 +20,7 @@ export const useChainId = () => {
   return chainId
 }
 
+// it seems useless in useBalance
 export const useBalance = (params) => {
   const { chainId } = useActiveChainId()
   return useB({ ...params, chainId })

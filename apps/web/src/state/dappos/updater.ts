@@ -28,7 +28,7 @@ export default function DappOSUpdater(): null {
 
   const { dappOSWalletLite, update: updateDappOSWalletLite } = useDappOSWalletLite()
 
-  useDappOSWhiteList()
+  const { loadWhiteList } = useDappOSWhiteList()
 
   const { isProtocolReady, update: updateDappOSProtocolIsReady } = useDappOSProtocolIsReady()
 
@@ -111,12 +111,14 @@ export default function DappOSUpdater(): null {
     console.log('%cdappOSProtocol connect success', 'color:#2aae68; font-size: 16px; font-weight: bold;')
   }, [account, dappOSProtocol, connector, updateDappOSProtocolIsReady, dappOSWalletLite, chainId, updatePaydbAddress])
 
+  // vw info loader
   useEffect(() => {
     if (isProtocolReady) {
       initVirtualWalletInfo()
     }
   }, [isProtocolReady, initVirtualWalletInfo])
 
+  // DappOS Protocol loader
   useEffect(() => {
     if (!isInitialConnection) {
       connectProtocol()
@@ -128,6 +130,7 @@ export default function DappOSUpdater(): null {
     }
   }, [isInitialConnection, initProtocol, connectProtocol, dappOSProtocol, updateDappOSProtocol, updateDappOSWalletLite])
 
+  // Currency balance multicall updater
   let timeout
   useEffect(() => {
     async function loadMuticallData() {
@@ -141,6 +144,17 @@ export default function DappOSUpdater(): null {
     loadMuticallData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, chainId])
+
+  // White list loader
+  useEffect(() => {
+    try {
+      loadWhiteList()
+    } catch (error) {
+      console.log('reconnect...')
+      loadWhiteList() // reload
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return null
 }
