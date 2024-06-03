@@ -14,7 +14,7 @@ import { BIG_INT_ZERO } from 'config/constants/exchange'
 import { Bound } from 'config/constants/types'
 import { ReactNode, useMemo } from 'react'
 import { Field } from 'state/mint/actions'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import tryParseCurrencyAmount from 'utils/tryParseCurrencyAmount'
 import { MintState } from 'views/AddLiquidityV3/formViews/V3FormView/form/reducer'
 

@@ -27,7 +27,7 @@ import { Field } from 'state/swap/actions'
 import { useSwapState } from 'state/swap/hooks'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import { useRoutingSettingChanged } from 'state/user/smartRouter'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { warningSeverity } from 'utils/exchange'
 
 import { useActiveChainId } from 'hooks/useActiveChainId'

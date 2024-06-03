@@ -14,7 +14,7 @@ import { limitReducerAtom } from 'state/limitOrders/reducer'
 import { safeGetAddress } from 'utils'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 import getPriceForOneToken from 'views/LimitOrders/utils/getPriceForOneToken'
-import { useCurrencyBalances } from '../wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { replaceLimitOrdersState, selectCurrency, setRateType, switchCurrencies, typeInput } from './actions'
 import { Field, OrderState, Rate } from './types'
 

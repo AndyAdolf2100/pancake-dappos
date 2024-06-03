@@ -6,7 +6,7 @@ import { useCurrency } from 'hooks/Tokens'
 import first from 'lodash/first'
 import { Field } from 'state/swap/actions'
 import { useSwapState } from 'state/swap/hooks'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 
 import { useSlippageAdjustedAmounts } from './useSlippageAdjustedAmounts'
 

@@ -7,7 +7,7 @@ import useTotalSupply from 'hooks/useTotalSupply'
 import { useCallback, useMemo } from 'react'
 import { useAddLiquidityV2FormDispatch, useAddLiquidityV2FormState } from 'state/mint/reducer'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
-import { useCurrencyBalances } from '../wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { Field, typeInput } from './actions'
 
 export function useMintActionHandlers(noLiquidity: boolean | undefined): {

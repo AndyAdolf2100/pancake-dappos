@@ -5,7 +5,7 @@ import tryParseAmount from '@pancakeswap/utils/tryParseAmount'
 import { useQuery } from '@tanstack/react-query'
 import { MutableRefObject, useMemo, useRef } from 'react'
 import { Field } from 'state/swap/actions'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 
 import { safeGetAddress } from 'utils'
 
@@ -120,6 +120,7 @@ export const useMMTrade = (
     account ?? undefined,
     useMemo(() => [inputCurrency ?? undefined, outputCurrency ?? undefined], [inputCurrency, outputCurrency]),
   )
+  console.log('relevantTokenBalances: ', relevantTokenBalances)
   const isExactIn = independentField === Field.INPUT
   const independentCurrency = isExactIn ? inputCurrency : outputCurrency
   const parsedAmount = useMemo(() => {

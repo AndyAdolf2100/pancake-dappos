@@ -5,7 +5,7 @@ import { Currency, CurrencyAmount, Percent } from '@pancakeswap/sdk'
 import { AtomBox, Button, Flex, RowBetween } from '@pancakeswap/uikit'
 import { FeeAmount } from '@pancakeswap/v3-sdk'
 import { memo, useCallback, useMemo, useState } from 'react'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { Address } from 'viem'
 
 import ConnectWalletButton from 'components/ConnectWalletButton'

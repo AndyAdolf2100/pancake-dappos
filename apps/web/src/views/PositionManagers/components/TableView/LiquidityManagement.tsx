@@ -2,7 +2,7 @@ import { useTranslation } from '@pancakeswap/localization'
 
 import { AtomBox, Button, Flex, RowBetween, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { memo, useCallback, useMemo, useState } from 'react'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import NextLink from 'next/link'

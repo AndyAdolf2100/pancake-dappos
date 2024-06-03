@@ -5,10 +5,15 @@ import { Contract, Provider as MulticallProvider } from 'ethers-multicall'
 import { getProvider } from 'dappos/utils/getVirtualWallet'
 import erc20Abi from 'dappos/constant/abis/erc20.json'
 import { AddressZero } from 'dappos/constant/constant'
-import { updateBalanceMap } from './actions'
+import { updateBalanceMap, updateMultiBalanceMap } from './actions'
 
 export const useDappOSCurrencyBalance = () => {
-  const { getValueOfBalanceMap, getBalanceMapOfChain, update: updateCurrencyBalanceMap } = useCurrencyBalanceMap()
+  const {
+    getValueOfBalanceMap,
+    getBalanceMapOfChain,
+    updateMulti: updateMultiCurrencyBalanceMap,
+    update: updateCurrencyBalanceMap,
+  } = useCurrencyBalanceMap()
 
   const loadBalanceMapDataWithMulticall = async (chainId: number) => {
     const ethcallProvider = new MulticallProvider(getProvider(chainId), chainId)
@@ -31,13 +36,15 @@ export const useDappOSCurrencyBalance = () => {
 
     console.log(`[loadBalanceMapDataWithMulticall] chainId: ${chainId}, res:`, res)
 
-    keysArr.forEach(({ account, address }, index) => {
+    const keys = keysArr.map(({ account, address }) => {
       const key = `${address}-${account}`
-      updateCurrencyBalanceMap(chainId, key, res[index])
+      return key
     })
+    updateMultiCurrencyBalanceMap(chainId, keys, res)
   }
   return {
     getValueOfBalanceMap,
+    updateMultiCurrencyBalanceMap,
     updateCurrencyBalanceMap,
     loadBalanceMapDataWithMulticall,
   }
@@ -50,6 +57,13 @@ const useCurrencyBalanceMap = () => {
   const update = useCallback(
     (chainId: number, key: string, value: any) => {
       dispatch(updateBalanceMap({ chainId, key, value }))
+    },
+    [dispatch],
+  )
+
+  const updateMulti = useCallback(
+    (chainId: number, keys: string[], values: any[]) => {
+      dispatch(updateMultiBalanceMap({ chainId, keys, values }))
     },
     [dispatch],
   )
@@ -74,5 +88,6 @@ const useCurrencyBalanceMap = () => {
     getValueOfBalanceMap,
     getBalanceMapOfChain,
     update,
+    updateMulti,
   }
 }

@@ -10,7 +10,7 @@ import { useCurrency } from 'hooks/Tokens'
 import { Field } from 'state/swap/actions'
 import { useDefaultsFromURLSearch, useSwapState } from 'state/swap/hooks'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
-import { useCurrencyBalances } from 'state/wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 

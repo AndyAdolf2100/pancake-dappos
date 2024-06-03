@@ -19,7 +19,7 @@ import { safeGetAddress } from 'utils'
 import { computeSlippageAdjustedAmounts } from 'utils/exchange'
 import { getTokenAddress } from 'views/Swap/components/Chart/utils'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
-import { useCurrencyBalances } from '../wallet/hooks'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
 import { Field, replaceSwapState } from './actions'
 import fetchDerivedPriceData, { getTokenBestTvlProtocol } from './fetch/fetchDerivedPriceData'
 import { normalizeDerivedChartData, normalizeDerivedPairDataByActiveToken } from './normalizers'
