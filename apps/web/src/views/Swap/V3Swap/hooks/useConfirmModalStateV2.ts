@@ -57,18 +57,19 @@ const useCreateConfirmSteps = (amountToApprove: CurrencyAmount<Token> | undefine
 
   return useCallback(() => {
     const steps: ConfirmModalState[] = []
-    if (requireRevoke) {
-      steps.push(ConfirmModalState.RESETTING_APPROVAL)
-    }
-    if (requireApprove) {
-      steps.push(ConfirmModalState.APPROVING_TOKEN)
-    }
-    if (requirePermit) {
-      steps.push(ConfirmModalState.PERMITTING)
-    }
+    // if (requireRevoke) {
+    //   steps.push(ConfirmModalState.RESETTING_APPROVAL)
+    // }
+    // if (requireApprove) {
+    //   steps.push(ConfirmModalState.APPROVING_TOKEN)
+    // }
+    // if (requirePermit) {
+    //   steps.push(ConfirmModalState.PERMITTING)
+    // }
     steps.push(ConfirmModalState.PENDING_CONFIRMATION)
     return steps
-  }, [requireRevoke, requireApprove, requirePermit])
+    // }, [requireRevoke, requireApprove, requirePermit])
+  }, []) // dappOS: only need confirmation step
 }
 
 // define the actions of each step

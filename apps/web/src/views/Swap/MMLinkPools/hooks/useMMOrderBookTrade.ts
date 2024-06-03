@@ -120,7 +120,6 @@ export const useMMTrade = (
     account ?? undefined,
     useMemo(() => [inputCurrency ?? undefined, outputCurrency ?? undefined], [inputCurrency, outputCurrency]),
   )
-  console.log('relevantTokenBalances: ', relevantTokenBalances)
   const isExactIn = independentField === Field.INPUT
   const independentCurrency = isExactIn ? inputCurrency : outputCurrency
   const parsedAmount = useMemo(() => {

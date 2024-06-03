@@ -36,6 +36,7 @@ import { SEO } from '../../next-seo.config'
 import Providers from '../Providers'
 import Menu from '../components/Menu'
 import GlobalStyle from '../style/Global'
+import '@dappos/checkout/style.css' // dappOS
 
 const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
 
