@@ -1,5 +1,9 @@
 import { useAccount } from 'dappos/hooks/useWagmiHooks'
 import { useMemo } from 'react'
+import ConnectWalletButton from 'components/ConnectWalletButton'
+import { Box } from '@pancakeswap/uikit'
+import Trans from 'components/Trans'
+import useAuth from 'hooks/useAuth'
 
 enum IConnector {
   WALLET_CONNECT = 'WalletConnect',
@@ -12,6 +16,8 @@ enum IConnector {
 const DappOSUserMenu = () => {
   const { connector, chainId } = useAccount()
   const connectorName = connector?.name
+  const { eoaAccount: account } = useAccount()
+  const { logout } = useAuth()
   const logo = useMemo(() => {
     if (connectorName === IConnector.METAMASK) {
       return 'https://dappos-public-resource.s3.amazonaws.com/dappLogo/metamask.png'
@@ -39,7 +45,33 @@ const DappOSUserMenu = () => {
     }
   }, [chainId, connectorName, logo])
 
-  return <dappos-wallet-lite connector={connectorInfo} size="sm" position="bottom-end" />
+  if (account) {
+    return (
+      <>
+        <dappos-wallet-lite
+          ref={(e) => {
+            e?.addEventListener('disconnect', () => {
+              logout()
+            })
+          }}
+          connector={connectorInfo}
+          size="sm"
+          position="bottom-end"
+        />
+      </>
+    )
+  }
+
+  return (
+    <ConnectWalletButton scale="sm">
+      <Box display={['none', null, null, 'block']}>
+        <Trans>Connect Wallet</Trans>
+      </Box>
+      <Box display={['block', null, null, 'none']}>
+        <Trans>Connect</Trans>
+      </Box>
+    </ConnectWalletButton>
+  )
 }
 
 export default DappOSUserMenu
