@@ -162,22 +162,31 @@ const useCurrencyBalancesFromCache = (
         isSupportedByDappOSHash[address] = false
       }),
     )
-    setKey(keyHash)
-    setTargetCurrency(targetCurrencyHash)
-    setIsSupportedByDappOS(isSupportedByDappOSHash)
-    updateMultiCurrencyBalanceMap(
-      srcChainId,
-      unhandledKeys,
-      unhandledKeys.map(() => 0),
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (JSON.stringify(keyHash) !== JSON.stringify(key)) setKey(() => ({ ...keyHash }))
+    if (JSON.stringify(targetCurrencyHash) !== JSON.stringify(targetCurrency))
+      setTargetCurrency(() => ({ ...targetCurrencyHash }))
+    if (JSON.stringify(isSupportedByDappOSHash) !== JSON.stringify(isSupportedByDappOS))
+      setIsSupportedByDappOS(() => ({ ...isSupportedByDappOSHash }))
+    if (unhandledKeys.length > 0) {
+      updateMultiCurrencyBalanceMap(
+        srcChainId,
+        unhandledKeys,
+        unhandledKeys.map(() => 0),
+      )
+    }
   }, [
+    addresses,
+    key,
+    targetCurrency,
+    isSupportedByDappOS,
     account,
-    // addresses, // TODO: will cause dead loop
+    findCurrency,
     dstChainId,
     isIsolated,
     getValueOfBalanceMap,
     srcChainId,
+    findTargetChainCurrency,
+    updateMultiCurrencyBalanceMap,
   ])
 
   useEffect(() => {
