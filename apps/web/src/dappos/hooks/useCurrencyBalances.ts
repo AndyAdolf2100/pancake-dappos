@@ -170,9 +170,10 @@ const useCurrencyBalancesFromCache = (
       unhandledKeys,
       unhandledKeys.map(() => 0),
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     account,
-    // addresses,
+    // addresses, // TODO: will cause dead loop
     dstChainId,
     isIsolated,
     getValueOfBalanceMap,
