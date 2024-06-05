@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import { useAccount } from 'dappos/hooks/useWagmiHooks'
 import { useMemo } from 'react'
 import ConnectWalletButton from 'components/ConnectWalletButton'

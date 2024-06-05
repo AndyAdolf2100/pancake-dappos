@@ -6,8 +6,7 @@ import { useRouter } from 'next/router'
 
 const IndexPage = () => {
   // dappOS: replace Home and redirect to swap // TODO style got something wrong when redirect to swap
-  const router = useRouter()
-  router.push('/swap')
+  window.open(`${window.location.origin}/swap`, '_self')
 }
 
 export const getStaticProps: GetStaticProps = async () => {

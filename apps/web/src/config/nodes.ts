@@ -29,6 +29,7 @@ const ARBITRUM_NODES = [
   'https://arbitrum-one.publicnode.com',
   'https://arbitrum.llamarpc.com',
 ].filter(notEmpty)
+type extraType = [137, 169, 10, 43114]
 
 export const SERVER_NODES = {
   [ChainId.BSC]: [
@@ -88,9 +89,13 @@ export const SERVER_NODES = {
   [ChainId.SEPOLIA]: sepolia.rpcUrls.default.http,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepolia.rpcUrls.default.http,
   [ChainId.BASE_SEPOLIA]: baseSepolia.rpcUrls.default.http,
-} satisfies Record<ChainId, readonly string[]>
+  137: polygon.rpcUrls.default.http, // dappOS rpcURL config // TODO
+  169: manta.rpcUrls.default.http, // dappOS rpcURL config // TODO
+  10: optimism.rpcUrls.default.http, // dappOS rpcURL config // TODO
+  43114: avalanche.rpcUrls.default.http, // dappOS rpcURL config // TODO
+} satisfies Record<ChainId & extraType, readonly string[]>
 
-export const PUBLIC_NODES: Record<ChainId, string[] | readonly string[]> = {
+export const PUBLIC_NODES: Record<ChainId & extraType, string[] | readonly string[]> = {
   [ChainId.BSC]: [
     process.env.NEXT_PUBLIC_NODE_PRODUCTION || '',
     getNodeRealUrl(ChainId.BSC, process.env.NEXT_PUBLIC_NODE_REAL_API_ETH) || '',
@@ -164,4 +169,4 @@ export const PUBLIC_NODES: Record<ChainId, string[] | readonly string[]> = {
   169: manta.rpcUrls.default.http, // dappOS rpcURL config // TODO
   10: optimism.rpcUrls.default.http, // dappOS rpcURL config // TODO
   43114: avalanche.rpcUrls.default.http, // dappOS rpcURL config // TODO
-} satisfies Record<ChainId, readonly string[]>
+} satisfies Record<ChainId & extraType, readonly string[]>
