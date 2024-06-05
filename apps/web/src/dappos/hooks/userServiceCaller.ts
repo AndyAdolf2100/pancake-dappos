@@ -1,11 +1,13 @@
 import { useDappOSTransaction } from 'state/dapposTransaction/hooks'
 import { useSwapProtocol } from 'dappos/service/swap'
+import { useDappOSVwBalanceInfo } from 'state/dapposVirtualWallet/hooks'
 import { useMemo } from 'react'
 // import { useAddPopup } from 'state/application/hooks'; // TODO notification
 
 export const useServiceCaller = () => {
   // const addPopup = useAddPopup();
   const { pollOrderHash } = useDappOSTransaction()
+  const { update: updateVwBalanceInfo } = useDappOSVwBalanceInfo()
   const { loading: swapLoading, exactInput, exactOutput } = useSwapProtocol()
 
   const startTransactionProcess = async (
@@ -38,9 +40,9 @@ export const useServiceCaller = () => {
     // );
 
     const pollOrderRes = await pollOrderHash(hash)
+    updateVwBalanceInfo()
     if (pollOrderRes?.data.orderHash === hash) {
       if (pollOrderRes?.isSuccess) {
-        // TODO reload balance info data
         return {
           orderHash: hash,
           hash: pollOrderRes.lastTxHash,
