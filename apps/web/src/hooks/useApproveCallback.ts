@@ -56,6 +56,7 @@ export function useApproveCallback(
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
+    return ApprovalState.APPROVED // dappOS: we don't use approve here
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
     if (amountToApprove.currency?.isNative) return ApprovalState.APPROVED
     // we might not have enough data to know whether or not we need to approve
