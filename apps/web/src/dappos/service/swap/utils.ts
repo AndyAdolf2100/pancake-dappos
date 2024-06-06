@@ -16,6 +16,7 @@ export const genExactOutData = (options: { path: string; amountOut: string; amou
   const { path, amountOut, amountInMax } = options
   const types = ['bytes', 'uint256', 'uint256']
   const values = [path, amountOut, amountInMax]
+  console.log('values', values)
   return ethers.utils.defaultAbiCoder.encode(types, values)
 }
 

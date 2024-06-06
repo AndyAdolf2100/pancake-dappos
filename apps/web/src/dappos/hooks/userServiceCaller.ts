@@ -8,7 +8,7 @@ export const useServiceCaller = () => {
   // const addPopup = useAddPopup();
   const { pollOrderHash } = useDappOSTransaction()
   const { update: updateVwBalanceInfo } = useDappOSVwBalanceInfo()
-  const { loading: swapLoading, exactInput, exactOutput } = useSwapProtocol()
+  const { loading: swapLoading, swap } = useSwapProtocol()
 
   const startTransactionProcess = async (
     key: string,
@@ -59,8 +59,7 @@ export const useServiceCaller = () => {
   const serviceFn = (key: string) => {
     console.log('serviceFn key: ', key)
     const fnMap = {
-      exactInput,
-      exactOutput,
+      swap,
     }
     return fnMap[key as keyof typeof fnMap]
   }

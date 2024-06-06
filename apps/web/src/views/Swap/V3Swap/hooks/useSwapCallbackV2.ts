@@ -68,14 +68,12 @@ export function useSwapCallbackV2({
   // )
 
   // const { callback } = useSendSwapTransaction(account, chainId, trade ?? undefined, swapCalls, 'UniversalRouter')
-  const { startTransactionProcess } = useServiceCaller()
+  const { startTransactionProcess } = useServiceCaller() // dappOS
 
-  console.log('trade', trade)
-  console.log('allowedSlippage', allowedSlippage)
-
+  // dappOS
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const callback = () => {
-    return startTransactionProcess('exactInput', { trade, allowedSlippage }, false)
+    return startTransactionProcess('swap', { trade }, false)
   }
 
   return useMemo(() => {

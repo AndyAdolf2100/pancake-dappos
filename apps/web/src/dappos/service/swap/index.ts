@@ -10,43 +10,31 @@ import { ethers } from 'ethers'
 import { TradeType } from '@pancakeswap/swap-sdk-core'
 import { basisPointsToPercent } from 'utils/exchange'
 import { SmartRouter, SmartRouterTrade } from '@pancakeswap/smart-router'
-// import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import { useUserSlippage } from '@pancakeswap/utils/user'
 import { INITIAL_ALLOWED_SLIPPAGE } from 'config/constants'
-import { Actions, genExactInData, encodeExactInputOrOutputForPath } from './utils'
-
-const gasToken = AddressZero
+import { Actions, genExactInData, encodeExactInputOrOutputForPath, genExactOutData } from './utils'
 
 export const useSwapProtocol = () => {
   const { sendTransaction } = usePackedSdk()
   const { dstChainId, isIsolated, eoaAccount } = useAccountActiveChain()
   const { isSwapModeNormal } = useDappOSInstitution()
   const [allowedSlippage] = useUserSlippage() || [INITIAL_ALLOWED_SLIPPAGE]
-  const {
-    loading: exactInputloading,
-    startLoading: startExactInputLoading,
-    endLoading: endExactInputLoading,
-  } = useLoading()
+  const { loading: swaploading, startLoading: startSwapLoading, endLoading: endSwapLoading } = useLoading()
 
-  const {
-    loading: exactOutputloading,
-    startLoading: startExactOutputLoading,
-    endLoading: endExactOutputLoading,
-  } = useLoading()
-
-  const exactInput = async (
+  const swap = async (
     args: {
       trade: SmartRouterTrade<TradeType> | null | undefined
     },
     isSimulated = false,
   ): Promise<any> => {
-    startExactInputLoading()
+    startSwapLoading()
     const { trade } = args
+    console.log('args: ', args)
     if (!trade) return
     const routeIdsOrAddresses = trade?.routes?.[0].path.map((path) => (path as any)?.address ?? AddressZero)
     const path = encodeExactInputOrOutputForPath(
       routeIdsOrAddresses ?? [],
-      false,
+      trade.tradeType === TradeType.EXACT_OUTPUT,
       trade?.routes?.[0].pools.map((pool) => Number((pool as any).fee)) ?? [],
     )
     const inputCurrency = trade.inputAmount.currency
@@ -62,8 +50,7 @@ export const useSwapProtocol = () => {
         : SmartRouter.minimumAmountOut(trade, pct).toFixed()
 
     const cparam = {
-      action: Actions.SwapExactInput,
-      gasToken,
+      action: trade.tradeType === TradeType.EXACT_INPUT ? Actions.SwapExactInput : Actions.SwapExactOutput,
       remainGas: '0',
     }
 
@@ -71,11 +58,18 @@ export const useSwapProtocol = () => {
     console.log('amountIn', inputAmount)
     console.log('amountOutMin', outputAmount)
     console.log('inputCurrency', inputCurrency)
-    const executeData = genExactInData({
-      path,
-      amountIn: ethers.utils.parseUnits(inputAmount, inputCurrency.decimals).toString() ?? '0',
-      amountOutMin: ethers.utils.parseUnits(outputAmount, outputCurrency.decimals).toString() ?? '0',
-    })
+    const executeData =
+      trade.tradeType === TradeType.EXACT_INPUT
+        ? genExactInData({
+            path,
+            amountIn: ethers.utils.parseUnits(inputAmount, inputCurrency.decimals).toString() ?? '0',
+            amountOutMin: ethers.utils.parseUnits(outputAmount, outputCurrency.decimals).toString() ?? '0',
+          })
+        : genExactOutData({
+            path,
+            amountInMax: ethers.utils.parseUnits(inputAmount, inputCurrency.decimals).toString() ?? '0',
+            amountOut: ethers.utils.parseUnits(outputAmount, outputCurrency.decimals).toString() ?? '0',
+          })
 
     const virtualWallet = await getVirtualWallet(eoaAccount!, dstChainId)
 
@@ -100,28 +94,22 @@ export const useSwapProtocol = () => {
 
     console.log('params = ', params)
 
-    const result = await sendTransaction(params, isSimulated, 'Swap ExactIn').catch((error) => {
-      endExactInputLoading()
+    const result = await sendTransaction(params, isSimulated, 'Swap').catch((error) => {
+      endSwapLoading()
       throw error
     })
 
-    endExactInputLoading()
+    endSwapLoading()
     // eslint-disable-next-line consistent-return
     return result
   }
 
-  const exactOutput = () => {
-    startExactOutputLoading()
-    endExactOutputLoading()
-  }
-
   const loading = useMemo(() => {
-    return exactInputloading || exactOutputloading
-  }, [exactInputloading, exactOutputloading])
+    return swaploading
+  }, [swaploading])
 
   return {
     loading,
-    exactInput,
-    exactOutput,
+    swap,
   }
 }
