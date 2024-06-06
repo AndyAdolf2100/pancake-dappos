@@ -34,7 +34,7 @@ export const useDappOSCurrencyBalance = () => {
     })
     const res = await ethcallProvider.all(requests)
 
-    console.log(`[loadBalanceMapDataWithMulticall] chainId: ${chainId}, res:`, res)
+    // console.log(`[loadBalanceMapDataWithMulticall] chainId: ${chainId}, res:`, res)
 
     const keys = keysArr.map(({ account, address }) => {
       const key = `${address}-${account}`

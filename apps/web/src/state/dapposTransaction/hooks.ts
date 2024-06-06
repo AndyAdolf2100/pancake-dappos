@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from 'state'
 import { useDappOSProtocol } from 'state/dappos/hooks'
 // import { useAddPopup, useRemovePopup } from 'state/application/hooks'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 import { ERROR_CODE } from 'dappos/constant/error-code'
 import { calculateOrderProgress } from 'dappos/utils/order-progress'
 import axios from 'axios'
@@ -26,7 +26,7 @@ export const useDappOSTransaction = () => {
   const { update: updateProcess } = useProcess()
   const { isPolling, update: updateIsPolling } = useIsPolling()
   const { pendingCount, update: updatePendingCount } = usePendingCount()
-  const { transactions, push: pTransaction, shift: sTransaction } = useTransactions()
+  const { currentProcess, transactions, push: pTransaction, shift: sTransaction } = useTransactions()
   const { hashSet, update: updateHashSet, del: deleteHashSet } = useHashSet()
   const { dappOSProtocol } = useDappOSProtocol()
 
@@ -58,19 +58,28 @@ export const useDappOSTransaction = () => {
     }
   }
 
-  const shiftTransaction = () => {
+  const shiftTransaction = useCallback(() => {
     const hash = transactions[0]?.hash
+    console.log('[shiftTransaction] hash transactions', hash, transactions)
     if (hash) {
       sTransaction()
       deleteHashSet(hash)
     }
+    console.log('[shiftTransaction] transactions.length', transactions.length)
     updatePendingCount(transactions.length)
     if (transactions.length) {
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const { hash, options } = transactions[0]
       pollOrderHash(hash, options)
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transactions])
+
+  useEffect(() => {
+    if (!isPolling && currentProcess === 100) {
+      shiftTransaction()
+    }
+  }, [isPolling, currentProcess, shiftTransaction])
 
   const getOrderInfo = async (orderHash: string): Promise<IOrderInfo> => {
     const url = `${BASE_URL}/supernode/v2/orders/action/get_order_by_hash`
@@ -221,7 +230,6 @@ export const useDappOSTransaction = () => {
           // }, 8000)
           transactionFinish()
           resolve({ ...pollOrderRes, lastTxHash })
-          shiftTransaction()
         } else if (attempts < maxAttempts) {
           attempts++
           timer = setTimeout(poll, interval)
@@ -277,12 +285,14 @@ const usePendingCount = () => {
 
 const useTransactions = () => {
   const transactions = useSelector((state: AppState) => state.dappOSTransaction.transactions)
+  const currentProcess = useSelector((state: AppState) => state.dappOSTransaction.process)
 
   const dispatch = useDispatch<AppDispatch>()
   const shift = useCallback(() => dispatch(shiftTransactionAction()), [dispatch])
   const push = useCallback((obj: any) => dispatch(pushTransactionAction(obj)), [dispatch])
 
   return {
+    currentProcess,
     transactions,
     shift,
     push,

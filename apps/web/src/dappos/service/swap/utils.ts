@@ -25,6 +25,8 @@ export function encodeExactInputOrOutputForPath(routeAddresses: string[], isExac
   if (isExactOut) {
     // eslint-disable-next-line no-param-reassign
     routeAddresses = routeAddresses.reverse()
+    // eslint-disable-next-line no-param-reassign
+    feeAmountArr = feeAmountArr.reverse()
     console.log('reverse routeAddresses: ', routeAddresses)
   }
 

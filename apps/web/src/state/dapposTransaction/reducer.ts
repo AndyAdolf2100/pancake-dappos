@@ -37,7 +37,7 @@ export default createReducer(initialState, (builder) =>
       state.pendingCount = action.payload
     })
     .addCase(shiftTransaction, (state) => {
-      return state.transactions.shift()
+      state.transactions.shift()
     })
     .addCase(pushTransaction, (state, action) => {
       state.transactions.push(action.payload)

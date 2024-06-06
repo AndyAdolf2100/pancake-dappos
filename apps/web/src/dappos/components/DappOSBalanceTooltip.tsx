@@ -49,13 +49,13 @@ const DappOSBalanceTooltip = ({ currency, children }) => {
   const vwBalanceCurrencyAmount = useVwBalance(currency)
   const eoaBalanceCurrencyAmount = useEoaBalance(currency)
 
-  useEffect(() => {
-    console.log('vwBalanceCurrencyAmount', vwBalanceCurrencyAmount?.toSignificant(6))
-  }, [vwBalanceCurrencyAmount])
+  // useEffect(() => {
+  //   console.log('vwBalanceCurrencyAmount', vwBalanceCurrencyAmount?.toSignificant(6))
+  // }, [vwBalanceCurrencyAmount])
 
-  useEffect(() => {
-    console.log('eoaBalanceCurrencyAmount', eoaBalanceCurrencyAmount?.toSignificant(6))
-  }, [eoaBalanceCurrencyAmount])
+  // useEffect(() => {
+  //   console.log('eoaBalanceCurrencyAmount', eoaBalanceCurrencyAmount?.toSignificant(6))
+  // }, [eoaBalanceCurrencyAmount])
 
   const vwBalance = useMemo(() => {
     return currency ? formatAmount(vwBalanceCurrencyAmount, 6) : 0
