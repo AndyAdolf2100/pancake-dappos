@@ -90,7 +90,7 @@ const DappOSBalanceTooltip = ({ currency, children }) => {
           </div>
           <div className="balance-content">
             <div className="title-part">
-              <img src="dappos/assets/metamask.svg" alt="metamask" />
+              <img src="/dappos/assets/metamask.svg" alt="metamask" />
               MetaMask:
             </div>
             <div>

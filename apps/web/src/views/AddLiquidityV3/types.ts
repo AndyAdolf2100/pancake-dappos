@@ -4,7 +4,7 @@ import { ZOOM_LEVELS, ZoomLevels } from '@pancakeswap/widgets-internal'
 export enum SELECTOR_TYPE {
   V3,
   STABLE,
-  V2,
+  // V2,
 }
 
 interface HandleFeePoolSelectArgs {
