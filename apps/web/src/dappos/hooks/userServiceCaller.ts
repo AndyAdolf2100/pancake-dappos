@@ -40,6 +40,7 @@ export const useServiceCaller = () => {
     // );
 
     const pollOrderRes = await pollOrderHash(hash)
+    // vw reload
     updateVwBalanceInfo()
     if (pollOrderRes?.data.orderHash === hash) {
       if (pollOrderRes?.isSuccess) {
@@ -50,10 +51,11 @@ export const useServiceCaller = () => {
       }
     }
     // TODO failure notification
-    return {
-      orderHash: undefined,
-      hash: undefined,
-    }
+    throw new Error(pollOrderRes?.failureReason)
+    // return {
+    //   orderHash: undefined,
+    //   hash: undefined,
+    // }
   }
 
   const serviceFn = (key: string) => {
