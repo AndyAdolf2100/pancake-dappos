@@ -4,6 +4,7 @@ export const Actions = {
   MintNewPosition: 3,
   IncreaseLiquidity: 4,
   DecreaseLiquidity: 5,
+  Collect: 6,
 }
 
 export const genMintPositionData = (options: {
@@ -45,5 +46,12 @@ export const genDecreasePositionData = (options: {
   const { tokenId, liquidity, amount0Min, amount1Min } = options
   const types = ['uint256', 'uint128', 'uint256', 'uint256']
   const values = [tokenId, liquidity, amount0Min, amount1Min]
+  return ethers.utils.defaultAbiCoder.encode(types, values)
+}
+
+export const genCollectData = (options: { tokenId: string; amount0Min: string; amount1Min: string }) => {
+  const { tokenId, amount0Min, amount1Min } = options
+  const types = ['uint256', 'uint128', 'uint128']
+  const values = [tokenId, amount0Min, amount1Min]
   return ethers.utils.defaultAbiCoder.encode(types, values)
 }

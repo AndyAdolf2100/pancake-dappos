@@ -58,6 +58,7 @@ import { useSendTransaction, useWalletClient } from 'wagmi'
 
 import { transactionErrorToUserReadableMessage } from 'utils/transactionErrorToUserReadableMessage'
 import { useDensityChartData } from 'views/AddLiquidityV3/hooks/useDensityChartData'
+import { useServiceCaller } from 'dappos/hooks/userServiceCaller'
 import LockedDeposit from './components/LockedDeposit'
 import { PositionPreview } from './components/PositionPreview'
 import RangeSelector from './components/RangeSelector'
@@ -254,6 +255,7 @@ export default function V3FormView({
 
   const [allowedSlippage] = useUserSlippage() // custom from users
 
+  const { startTransactionProcess } = useServiceCaller() // dappOS
   const onAdd = useCallback(async () => {
     if (!chainId || !signer || !account || !nftPositionManagerAddress) return
 
@@ -269,78 +271,80 @@ export default function V3FormView({
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
 
-      const { calldata, value } = NonfungiblePositionManager.addCallParameters(position, {
-        slippageTolerance: basisPointsToPercent(allowedSlippage),
-        recipient: account,
-        deadline: deadline.toString(),
-        useNative,
-        createPool: noLiquidity,
-      })
+      // ! dappOS: we don't need to use below
+      // const { calldata, value } = NonfungiblePositionManager.addCallParameters(position, {
+      //   slippageTolerance: basisPointsToPercent(allowedSlippage),
+      //   recipient: account,
+      //   deadline: deadline.toString(),
+      //   useNative,
+      //   createPool: noLiquidity,
+      // })
 
       setAttemptingTxn(true)
-      const txn = {
-        data: calldata,
-        to: nftPositionManagerAddress,
-        value: hexToBigInt(value),
-        account,
-      }
-      getViemClients({ chainId })
-        ?.estimateGas(txn)
-        .then((gas) => {
-          sendTransactionAsync({
-            ...txn,
-            gas: calculateGasMargin(gas),
-          })
-            .then((hash) => {
-              const baseAmount = formatRawAmount(
-                parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
-                baseCurrency.decimals,
-                4,
-              )
-              const quoteAmount = formatRawAmount(
-                parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
-                quoteCurrency.decimals,
-                4,
-              )
+      // const txn = {
+      //   data: calldata,
+      //   to: nftPositionManagerAddress,
+      //   value: hexToBigInt(value),
+      //   account,
+      // }
+      // getViemClients({ chainId })
+      //   ?.estimateGas(txn)
+      //   .then((gas) => {
+      //     sendTransactionAsync({
+      //       ...txn,
+      //       gas: calculateGasMargin(gas),
+      //     })
+      startTransactionProcess('mint', { fee: feeAmount, parsedAmounts, ticks }, false)
+        .then(({ hash }) => {
+          const baseAmount = formatRawAmount(
+            parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
+            baseCurrency.decimals,
+            4,
+          )
+          const quoteAmount = formatRawAmount(
+            parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
+            quoteCurrency.decimals,
+            4,
+          )
 
-              setAttemptingTxn(false)
-              addTransaction(
-                { hash },
-                {
-                  type: 'add-liquidity-v3',
-                  summary: `Add ${baseAmount} ${baseCurrency?.symbol} and ${quoteAmount} ${quoteCurrency?.symbol}`,
-                },
-              )
-              setTxHash(hash)
-              onAddLiquidityCallback(hash)
-            })
-            .catch((error) => {
-              console.error('Failed to send transaction', error)
-              // we only care if the error is something _other_ than the user rejected the tx
-              if (!isUserRejected(error)) {
-                setTxnErrorMessage(transactionErrorToUserReadableMessage(error, t))
-              }
-              setAttemptingTxn(false)
-            })
+          setAttemptingTxn(false)
+          addTransaction(
+            { hash },
+            {
+              type: 'add-liquidity-v3',
+              summary: `Add ${baseAmount} ${baseCurrency?.symbol} and ${quoteAmount} ${quoteCurrency?.symbol}`,
+            },
+          )
+          setTxHash(hash)
+          onAddLiquidityCallback(hash)
         })
+        .catch((error) => {
+          console.error('Failed to send transaction', error)
+          // we only care if the error is something _other_ than the user rejected the tx
+          if (!isUserRejected(error)) {
+            setTxnErrorMessage(transactionErrorToUserReadableMessage(error, t))
+          }
+          setAttemptingTxn(false)
+        })
+      //   })
     }
   }, [
     account,
     addTransaction,
-    allowedSlippage,
     baseCurrency,
     chainId,
     deadline,
+    feeAmount,
     nftPositionManagerAddress,
-    noLiquidity,
     onAddLiquidityCallback,
     parsedAmounts,
     position,
     positionManager,
     quoteCurrency,
-    sendTransactionAsync,
     signer,
+    startTransactionProcess,
     t,
+    ticks,
   ])
 
   const handleDismissConfirmation = useCallback(() => {

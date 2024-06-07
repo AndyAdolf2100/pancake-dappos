@@ -1,5 +1,6 @@
 import { useDappOSTransaction } from 'state/dapposTransaction/hooks'
 import { useSwapProtocol } from 'dappos/service/swap'
+import { useLiquidityProtocol } from 'dappos/service/liquidity'
 import { useDappOSVwBalanceInfo } from 'state/dapposVirtualWallet/hooks'
 import { useMemo } from 'react'
 // import { useAddPopup } from 'state/application/hooks'; // TODO notification
@@ -9,6 +10,7 @@ export const useServiceCaller = () => {
   const { pollOrderHash } = useDappOSTransaction()
   const { update: updateVwBalanceInfo } = useDappOSVwBalanceInfo()
   const { loading: swapLoading, swap } = useSwapProtocol()
+  const { loading: liquidityLoading, mint, increase, decrease, collect } = useLiquidityProtocol()
 
   const startTransactionProcess = async (
     key: string,
@@ -62,13 +64,17 @@ export const useServiceCaller = () => {
     console.log('serviceFn key: ', key)
     const fnMap = {
       swap,
+      mint,
+      increase,
+      decrease,
+      collect,
     }
     return fnMap[key as keyof typeof fnMap]
   }
 
   const loading = useMemo(() => {
-    return swapLoading
-  }, [swapLoading])
+    return swapLoading || liquidityLoading
+  }, [swapLoading, liquidityLoading])
 
   return {
     startTransactionProcess,
