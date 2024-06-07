@@ -1,4 +1,4 @@
-// import { useCurrencyBalance as useCB } from 'state/wallet/hooks'
+import { useCurrencyBalances as useCBS } from 'state/wallet/hooks'
 import { Currency, CurrencyAmount } from '@pancakeswap/sdk'
 import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import { useDappOSVwBalanceInfo } from 'state/dapposVirtualWallet/hooks'
@@ -17,14 +17,14 @@ export const useCurrencyBalances = (
   a?: string, // useless
   currencies?: (Currency | undefined | null)[],
 ): (CurrencyAmount<Currency> | undefined)[] => {
-  const { isSdkReady } = useAccountActiveChain()
+  const { isSdkReady, eoaAccount } = useAccountActiveChain()
   const vwCurrencyBalance = useVwBalances(currencies)
   const eoaCurrencyBalance = useEoaBalances(currencies)
 
-  // TODO need to return 0 when it doesn't connect wallet
   const finalValue = useMemo(() => {
     return (
       currencies?.map((currency) => {
+        if (!eoaAccount && currency) return CurrencyAmount.fromRawAmount(currency, 0) // need to return 0 when it doesn't connect wallet
         return !isSdkReady || !currency
           ? undefined
           : (vwCurrencyBalance?.find((c) => currency === c?.currency) ?? CurrencyAmount.fromRawAmount(currency, 0)).add(
@@ -32,7 +32,7 @@ export const useCurrencyBalances = (
             )
       }) ?? []
     )
-  }, [currencies, eoaCurrencyBalance, isSdkReady, vwCurrencyBalance])
+  }, [currencies, eoaAccount, eoaCurrencyBalance, isSdkReady, vwCurrencyBalance])
 
   return finalValue
 }
@@ -78,7 +78,7 @@ export const useEoaBalances = (
   currencies?: (Currency | undefined | null)[],
 ): (CurrencyAmount<Currency> | undefined)[] => {
   const { eoaAccount } = useAccountActiveChain()
-  const { balances } = useCurrencyBalancesFromCache(eoaAccount, currencies)
+  const { balances } = useCurrencyBalancesFromCache(eoaAccount, currencies, true)
   const finalValue = useMemo(
     () =>
       currencies?.map((currency) => {
@@ -93,6 +93,7 @@ export const useEoaBalances = (
 const useCurrencyBalancesFromCache = (
   account?: string, // eoa or vw address
   currencies?: (Currency | undefined | null)[],
+  hideDstBalance?: boolean, // for eoa shouldn't show dst balance when src chain and dst chain is different
 ): {
   balances: {
     balance: CurrencyAmount<Currency> | undefined
@@ -102,10 +103,11 @@ const useCurrencyBalancesFromCache = (
 } => {
   const { findCurrency, findTargetChainCurrency } = useDappOSWhiteList()
   const { getValueOfBalanceMap, updateMultiCurrencyBalanceMap } = useDappOSCurrencyBalance()
-  const { isSdkReady, isIsolated, dstChainId, srcChainId } = useAccountActiveChain()
+  const { isSdkReady, isIsolated, dstChainId, srcChainId, eoaAccount } = useAccountActiveChain()
   const [key, setKey] = useState({})
   const [isSupportedByDappOS, setIsSupportedByDappOS] = useState({})
   const [targetCurrency, setTargetCurrency] = useState({})
+  const dstChainCurrencyAmounts = useCBS(account, currencies)
 
   const addresses = useMemo(() => {
     return (
@@ -142,7 +144,7 @@ const useCurrencyBalancesFromCache = (
             return
           }
           //   We need to find src chain currency by dst chain currency when it's not isolated.
-          //   That would be a illegal currency (single chain currency in dst chain) if we can't find currency in the below code.
+          //   That would be a single chain currency in dst chain, that means you can't regard it as universal currency in dappOS if we can't find currency in the below code.
           if (dstCurrency) {
             const srcCurrency = await findTargetChainCurrency(srcChainId, dstCurrency)
             if (srcCurrency) {
@@ -196,6 +198,8 @@ const useCurrencyBalancesFromCache = (
   const balances = useMemo(() => {
     return (
       currencies?.map((currency) => {
+        if ((!eoaAccount && currency) || (account === AddressZero && currency))
+          return CurrencyAmount.fromRawAmount(currency, 0)
         const address = currency?.isToken ? currency.address.toLowerCase() : AddressZero
         const getBalance = () => {
           if (!account || !currency || !isSdkReady) {
@@ -215,8 +219,12 @@ const useCurrencyBalancesFromCache = (
           return CurrencyAmount.fromRawAmount(currency, dstBalance)
         }
         const balance = getBalance()
+        // currentCurrencyAmount is for when user's dst chain and src chain are different, we still need to know the amount of dst single chain balance in vw
+        const currentCurrencyAmount = dstChainCurrencyAmounts.find(
+          (currencyAmount) => currency && currencyAmount?.currency === currency, // need to filter when eoa account is AddressZero
+        )
         return {
-          balance,
+          balance: isSupportedByDappOS[address] || hideDstBalance ? balance : currentCurrencyAmount,
           isSupportedByDappOS: isSupportedByDappOS[address],
           srcCurrency: targetCurrency[address],
         }
@@ -225,7 +233,10 @@ const useCurrencyBalancesFromCache = (
   }, [
     account,
     currencies,
+    dstChainCurrencyAmounts,
+    eoaAccount,
     getValueOfBalanceMap,
+    hideDstBalance,
     isIsolated,
     isSdkReady,
     isSupportedByDappOS,
