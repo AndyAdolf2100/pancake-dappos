@@ -199,7 +199,11 @@ const useCurrencyBalancesFromCache = (
     return (
       currencies?.map((currency) => {
         if ((!eoaAccount && currency) || (account === AddressZero && currency))
-          return CurrencyAmount.fromRawAmount(currency, 0)
+          return {
+            balance: CurrencyAmount.fromRawAmount(currency, 0),
+            isSupportedByDappOS: false,
+            srcCurrency: undefined,
+          }
         const address = currency?.isToken ? currency.address.toLowerCase() : AddressZero
         const getBalance = () => {
           if (!account || !currency || !isSdkReady) {

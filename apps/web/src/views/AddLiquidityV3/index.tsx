@@ -373,7 +373,7 @@ const SELECTOR_TYPE_T = {
   [SELECTOR_TYPE.STABLE]: <Trans>Add Stable Liquidity</Trans>,
   // [SELECTOR_TYPE.V2]: <Trans>Add V2 Liquidity</Trans>, // dappOS: no more support v2 version
   [SELECTOR_TYPE.V3]: <Trans>Add V3 Liquidity</Trans>,
-} as const satisfies Record<SELECTOR_TYPE, ReactNode>
+} as const satisfies Record<SELECTOR_TYPE.STABLE & SELECTOR_TYPE.V3, ReactNode> // dappOS: ignore v2
 
 export function AddLiquidityV3Layout({
   showRefreshButton = false,

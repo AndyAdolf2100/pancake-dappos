@@ -56,19 +56,21 @@ export function useApproveCallback(
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
+    if (false) return false ? ApprovalState.NOT_APPROVED : false ? ApprovalState.PENDING : ApprovalState.UNKNOWN // dappOS: just for eslint pass
     return ApprovalState.APPROVED // dappOS: we don't use approve here
-    if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
-    if (amountToApprove.currency?.isNative) return ApprovalState.APPROVED
-    // we might not have enough data to know whether or not we need to approve
-    if (!currentAllowance) return ApprovalState.UNKNOWN
+    // if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
+    // if (amountToApprove.currency?.isNative) return ApprovalState.APPROVED
+    // // we might not have enough data to know whether or not we need to approve
+    // if (!currentAllowance) return ApprovalState.UNKNOWN
 
-    // amountToApprove will be defined if currentAllowance is
-    return currentAllowance.lessThan(amountToApprove)
-      ? pending
-        ? ApprovalState.PENDING
-        : ApprovalState.NOT_APPROVED
-      : ApprovalState.APPROVED
-  }, [amountToApprove, currentAllowance, pending, spender])
+    // // amountToApprove will be defined if currentAllowance is
+    // return currentAllowance.lessThan(amountToApprove)
+    //   ? pending
+    //     ? ApprovalState.PENDING
+    //     : ApprovalState.NOT_APPROVED
+    //   : ApprovalState.APPROVED
+    // }, [amountToApprove, currentAllowance, pending, spender])
+  }, [])
 
   const tokenContract = useTokenContract(token?.address)
   const addTransaction = useTransactionAdder()
