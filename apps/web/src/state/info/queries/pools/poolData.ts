@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { gql } from 'graphql-request'
-import { subgraphTokenSymbol } from 'state/info/constant'
+import { multiChainQueryMainToken, subgraphTokenSymbol } from 'state/info/constant'
 import { Block, PoolData } from 'state/info/types'
 import { getChangeForPeriod } from 'utils/getChangeForPeriod'
 import { getLpFeesAndApr } from 'utils/getLpFeesAndApr'
-import { getAmountChange, getPercentChange } from 'views/Info/utils/infoDataHelpers'
+import { getAmountChange, getPercentChange } from 'utils/infoDataHelpers'
 
 import { safeGetAddress } from 'utils'
 import {
@@ -72,7 +72,7 @@ const POOL_AT_BLOCK = (chainName: MultiChainName, block: number | null, pools: s
   return `pairs(
     where: { id_in: ${addressesString} }
     ${blockString}
-    orderBy: trackedReserveETH
+    orderBy: trackedReserve${multiChainQueryMainToken[chainName]}
     orderDirection: desc
   ) {
     id

@@ -16,10 +16,13 @@ import {
 import { FeeAmount } from '@pancakeswap/v3-sdk'
 import { FarmWidget } from '@pancakeswap/widgets-internal'
 import { GiftTooltip } from 'components/GiftTooltip/GiftTooltip'
+import { SwellTooltip } from 'components/SwellTooltip/SwellTooltip'
 import { TokenPairImage } from 'components/TokenImage'
+import { useHasSwellReward } from 'hooks/useHasSwellReward'
 import { styled } from 'styled-components'
 import { Address, isAddressEqual } from 'viem'
 import { bsc } from 'viem/chains'
+import { useHasCustomFarmLpTooltips } from 'views/Farms/hooks/useHasCustomFarmLpTooltips'
 import { useChainId } from 'dappos/hooks/useWagmiHooks'
 import BoostedTag from '../YieldBooster/components/BoostedTag'
 
@@ -40,6 +43,7 @@ type ExpandableSectionProps = {
   farmCakePerSecond?: string
   totalMultipliers?: string
   merklLink?: string
+  merklUserLink?: string
   hasBothFarmAndMerkl?: boolean
   isBoosted?: boolean
   lpAddress?: Address
@@ -70,6 +74,7 @@ const CardHeading: React.FC<React.PropsWithChildren<ExpandableSectionProps>> = (
   farmCakePerSecond,
   totalMultipliers,
   merklLink,
+  merklUserLink,
   hasBothFarmAndMerkl,
   merklApr,
   lpAddress,
@@ -79,6 +84,9 @@ const CardHeading: React.FC<React.PropsWithChildren<ExpandableSectionProps>> = (
   const { t } = useTranslation()
   const chainId = useChainId()
   const isReady = multiplier !== undefined || bCakeWrapperAddress
+  const hasSwellReward = useHasSwellReward(lpAddress)
+  const customTooltips = useHasCustomFarmLpTooltips(lpAddress)
+
   const multiplierTooltipContent = FarmMultiplierInfo({
     farmCakePerSecond: farmCakePerSecond ?? '-',
     totalMultipliers: totalMultipliers ?? '-',
@@ -107,9 +115,11 @@ const CardHeading: React.FC<React.PropsWithChildren<ExpandableSectionProps>> = (
                   merklLink={merklLink}
                   hasFarm={hasBothFarmAndMerkl}
                   merklApr={merklApr}
+                  merklUserLink={merklUserLink}
                 />
               </Box>
             ) : null}
+
             {chainId === bsc.id &&
             lpAddress &&
             isAddressEqual(lpAddress, '0xdD82975ab85E745c84e497FD75ba409Ec02d4739') ? (
@@ -142,6 +152,8 @@ const CardHeading: React.FC<React.PropsWithChildren<ExpandableSectionProps>> = (
           <Skeleton mb="4px" width={60} height={18} />
         )}
         <AutoRow gap="4px" justifyContent="flex-end">
+          {hasSwellReward && <SwellTooltip />}
+          {customTooltips && customTooltips.tooltips}
           {isReady && isStable ? <StableFarmTag /> : version === 2 ? <V2Tag /> : null}
           {isReady && version === 3 && <V3FeeTag feeAmount={feeAmount} />}
           {isReady && isCommunityFarm && <FarmAuctionTag mr="-4px" />}

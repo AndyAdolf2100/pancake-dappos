@@ -1,5 +1,54 @@
 # @pancakeswap/universal-router-sdk
 
+## 1.0.25
+
+### Patch Changes
+
+- Updated dependencies [b9c91d1]
+  - @pancakeswap/chains@0.4.5
+  - @pancakeswap/permit2-sdk@1.0.8
+  - @pancakeswap/smart-router@6.0.12
+  - @pancakeswap/sdk@5.8.6
+  - @pancakeswap/v3-sdk@3.8.7
+
+## 1.0.24
+
+### Patch Changes
+
+- edc3f30: Upgrade viem and wagmi
+- Updated dependencies [edc3f30]
+  - @pancakeswap/smart-router@6.0.11
+  - @pancakeswap/permit2-sdk@1.0.7
+  - @pancakeswap/sdk@5.8.5
+  - @pancakeswap/v3-sdk@3.8.6
+
+## 1.0.23
+
+### Patch Changes
+
+- Updated dependencies [edf4640]
+  - @pancakeswap/chains@0.4.4
+  - @pancakeswap/permit2-sdk@1.0.6
+  - @pancakeswap/smart-router@6.0.10
+  - @pancakeswap/sdk@5.8.4
+  - @pancakeswap/v3-sdk@3.8.5
+
+## 1.0.22
+
+### Patch Changes
+
+- Updated dependencies [e99c216]
+  - @pancakeswap/sdk@5.8.3
+  - @pancakeswap/smart-router@6.0.9
+  - @pancakeswap/permit2-sdk@1.0.5
+  - @pancakeswap/v3-sdk@3.8.4
+
+## 1.0.21
+
+### Patch Changes
+
+- @pancakeswap/smart-router@6.0.8
+
 ## 1.0.20
 
 ### Patch Changes
