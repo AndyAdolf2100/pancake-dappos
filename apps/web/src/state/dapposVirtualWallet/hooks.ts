@@ -3,6 +3,7 @@ import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from 'state'
 import { useDappOSProtocol, useDappOSProtocolIsReady } from 'state/dappos/hooks'
+import { ethers } from 'ethers'
 import {
   updateDappOSVwBalanceInfo,
   updateDappOSVwIsReady,
@@ -76,28 +77,32 @@ export const useDappOSVirtualWallet = () => {
   const dispatch = useDispatch<AppDispatch>()
   const updateArbitrum = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwArbitrum(address))
+      const addr = ethers.utils.getAddress(address)
+      dispatch(updateDappOSVwArbitrum(addr))
     },
     [dispatch],
   )
 
   const updateEthereum = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwEthereum(address))
+      const addr = ethers.utils.getAddress(address)
+      dispatch(updateDappOSVwEthereum(addr))
     },
     [dispatch],
   )
 
   const updateBinanceSmart = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwBinanceSmart(address))
+      const addr = ethers.utils.getAddress(address)
+      dispatch(updateDappOSVwBinanceSmart(addr))
     },
     [dispatch],
   )
 
   const updateBase = useCallback(
     (address: string) => {
-      dispatch(updateDappOSVwBase(address))
+      const addr = ethers.utils.getAddress(address)
+      dispatch(updateDappOSVwBase(addr))
     },
     [dispatch],
   )
