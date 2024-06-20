@@ -80,6 +80,7 @@ export const useLiquidityProtocol = () => {
     }
 
     console.log(
+      '[mint]',
       currencyA,
       currencyB,
       currencyADesired,
@@ -144,9 +145,83 @@ export const useLiquidityProtocol = () => {
     return result
   }
 
-  const increase = () => {
+  const increase = async (
+    args: {
+      tokenId: string
+      parsedAmounts: {
+        CURRENCY_A?: CurrencyAmount<Currency> | undefined
+        CURRENCY_B?: CurrencyAmount<Currency> | undefined
+      }
+    },
+    isSimulated = false,
+  ) => {
     startIncreaseLoading()
+    const { parsedAmounts, tokenId } = args
+    const currencyAmountA = parsedAmounts[Field.CURRENCY_A]
+    const currencyAmountB = parsedAmounts[Field.CURRENCY_B]
+    if (!currencyAmountA || !currencyAmountB) {
+      throw new Error('Wrong parameters in increase')
+    }
+    const pct = basisPointsToPercent(allowedSlippage)
+    const currencyA = currencyAmountA.currency.isNative
+      ? currencyAmountA.wrapped.currency.address
+      : currencyAmountA.currency.address
+    const currencyB = currencyAmountB.currency.isNative
+      ? currencyAmountB.wrapped.currency.address
+      : currencyAmountB.currency.address
+    const currencyADesired = currencyAmountA.quotient.toString()
+    const currencyBDesired = currencyAmountB.quotient.toString()
+    const currencyAMin = currencyAmountA.subtract(currencyAmountA.multiply(pct)).quotient.toString()
+    const currencyBMin = currencyAmountB.subtract(currencyAmountB.multiply(pct)).quotient.toString()
+
+    console.log('[increase]', currencyA, currencyB, currencyADesired, currencyBDesired, currencyAMin, currencyBMin)
+
+    const executeData = genIncreasePositionData({
+      amount0Desired: currencyADesired,
+      amount1Desired: currencyBDesired,
+      amount0Min: currencyAMin,
+      amount1Min: currencyBMin,
+      tokenId,
+    })
+
+    const virtualWallet = await getVirtualWallet(eoaAccount!, dstChainId)
+
+    const cparam = {
+      action: Actions.IncreaseLiquidity,
+      remainGas: '0',
+    }
+
+    const params = {
+      commonParam: cparam,
+      app: appName,
+      expTime: getExpTime(),
+      service: serviceAddressMap[dstChainId as keyof typeof serviceAddressMap],
+      text: 'Increase Liquidity',
+      isGateWay: 0,
+      data: executeData,
+      gasLimit: '800000',
+      bridgeTokenOuts: [
+        {
+          amountOut: currencyAmountA.toFixed(),
+          address: currencyAmountA.currency.isNative ? AddressZero : currencyAmountA.currency.address,
+        },
+        {
+          amountOut: currencyAmountB.toFixed(),
+          address: currencyAmountB.currency.isNative ? AddressZero : currencyAmountB.currency.address,
+        },
+      ],
+      virtualWallet,
+      useIsolate: isSwapModeNormal && isIsolated,
+    }
+
+    console.log('params = ', params)
+
+    const result = await sendTransaction(params, isSimulated, 'Increase Liquidity').catch((error) => {
+      endIncreaseLoading()
+      throw error
+    })
     endIncreaseLoading()
+    return result
   }
 
   const decrease = () => {

@@ -36,6 +36,7 @@ import { getViemClients } from 'utils/viem'
 import { hexToBigInt } from 'viem'
 
 import { transactionErrorToUserReadableMessage } from 'utils/transactionErrorToUserReadableMessage'
+import { useServiceCaller } from 'dappos/hooks/userServiceCaller'
 import { V3SubmitButton } from './components/V3SubmitButton'
 import LockedDeposit from './formViews/V3FormView/components/LockedDeposit'
 import { PositionPreview } from './formViews/V3FormView/components/PositionPreview'
@@ -48,6 +49,7 @@ interface AddLiquidityV3PropsType {
 }
 
 export default function IncreaseLiquidityV3({ currencyA: baseCurrency, currencyB }: AddLiquidityV3PropsType) {
+  const { startTransactionProcess } = useServiceCaller() // dappOS
   const router = useRouter()
   const { sendTransactionAsync } = useSendTransaction()
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
@@ -182,41 +184,42 @@ export default function IncreaseLiquidityV3({ currencyA: baseCurrency, currencyB
 
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
-      const { calldata, value } =
-        hasExistingPosition && tokenId
-          ? interfaceManager.addCallParameters(position, {
-              tokenId,
-              slippageTolerance: basisPointsToPercent(allowedSlippage),
-              deadline: deadline.toString(),
-              useNative,
-            })
-          : interfaceManager.addCallParameters(position, {
-              slippageTolerance: basisPointsToPercent(allowedSlippage),
-              recipient: account,
-              deadline: deadline.toString(),
-              useNative,
-              createPool: noLiquidity,
-            })
+      // const { calldata, value } =
+      //   hasExistingPosition && tokenId
+      //     ? interfaceManager.addCallParameters(position, {
+      //         tokenId,
+      //         slippageTolerance: basisPointsToPercent(allowedSlippage),
+      //         deadline: deadline.toString(),
+      //         useNative,
+      //       })
+      //     : interfaceManager.addCallParameters(position, {
+      //         slippageTolerance: basisPointsToPercent(allowedSlippage),
+      //         recipient: account,
+      //         deadline: deadline.toString(),
+      //         useNative,
+      //         createPool: noLiquidity,
+      //       })
 
       setAttemptingTxn(true)
-      getViemClients({ chainId })
-        ?.estimateGas({
-          account,
-          to: manager.address,
-          data: calldata,
-          value: hexToBigInt(value),
-        })
-        .then((gasLimit) => {
-          return sendTransactionAsync({
-            account,
-            to: manager.address,
-            data: calldata,
-            value: hexToBigInt(value),
-            gas: calculateGasMargin(gasLimit),
-            chainId,
-          })
-        })
-        .then((response) => {
+      // getViemClients({ chainId })
+      //   ?.estimateGas({
+      //     account,
+      //     to: manager.address,
+      //     data: calldata,
+      //     value: hexToBigInt(value),
+      //   })
+      //   .then((gasLimit) => {
+      //     return sendTransactionAsync({
+      //       account,
+      //       to: manager.address,
+      //       data: calldata,
+      //       value: hexToBigInt(value),
+      //       gas: calculateGasMargin(gasLimit),
+      //       chainId,
+      //     })
+      //   })
+      startTransactionProcess('increase', { tokenId, parsedAmounts }, false)
+        .then(({ hash }) => {
           const baseAmount = formatRawAmount(
             parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
             baseCurrency.decimals,
@@ -230,13 +233,13 @@ export default function IncreaseLiquidityV3({ currencyA: baseCurrency, currencyB
 
           setAttemptingTxn(false)
           addTransaction(
-            { hash: response },
+            { hash },
             {
               type: 'increase-liquidity-v3',
               summary: `Increase ${baseAmount} ${baseCurrency?.symbol} and ${quoteAmount} ${quoteCurrency?.symbol}`,
             },
           )
-          setTxHash(response)
+          setTxHash(hash)
         })
         .catch((err) => {
           // we only care if the error is something _other_ than the user rejected the tx
@@ -248,23 +251,21 @@ export default function IncreaseLiquidityV3({ currencyA: baseCurrency, currencyB
         })
     }
   }, [
-    account,
-    addTransaction,
-    allowedSlippage,
-    baseCurrency,
     chainId,
-    deadline,
-    hasExistingPosition,
+    sendTransactionAsync,
+    account,
     interfaceManager,
     manager,
-    noLiquidity,
-    parsedAmounts,
-    position,
-    positionManager,
-    quoteCurrency,
-    sendTransactionAsync,
-    tokenId,
     tokenIdsInMCv3Loading,
+    positionManager,
+    baseCurrency,
+    quoteCurrency,
+    position,
+    deadline,
+    startTransactionProcess,
+    tokenId,
+    parsedAmounts,
+    addTransaction,
     t,
   ])
 
