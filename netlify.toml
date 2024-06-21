@@ -1,0 +1,5 @@
+[build]
+  command='npm install -g pnpm@8.15.7 && pnpm run build'
+  publish="pancake-frontend/apps/web/.next"
+[build.processing]
+  skip_processing = true
