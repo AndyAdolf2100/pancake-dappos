@@ -1,7 +1,7 @@
+import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
+import { getProvider } from 'dappos/utils/getVirtualWallet'
 import { useMemo } from 'react'
 import { useDappOSProtocolIsReady } from 'state/dappos/hooks' // dappOS
-import { getProvider } from 'dappos/utils/getVirtualWallet'
-import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
 import { useDappOSVwIsReady } from 'state/dapposVirtualWallet/hooks'
 import { useActiveChainId } from './useActiveChainId'
 

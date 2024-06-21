@@ -12,6 +12,7 @@ import { basisPointsToPercent } from 'utils/exchange'
 
 import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import { Address } from 'viem'
+import { useServiceCaller } from 'dappos/hooks/userServiceCaller' // dappOS
 import useSendSwapTransaction from './useSendSwapTransaction'
 import { useSwapCallArguments } from './useSwapCallArguments'
 import type { TWallchainMasterInput, WallchainStatus } from './useWallchain'
@@ -56,6 +57,7 @@ export function useSwapCallback({
   const allowedSlippage = useMemo(() => basisPointsToPercent(allowedSlippageRaw), [allowedSlippageRaw])
   const { recipient: recipientAddress } = useSwapState()
   const recipient = recipientAddress === null ? account : recipientAddress
+  const { startTransactionProcess } = useServiceCaller() // dappOS
 
   const swapCalls = useSwapCallArguments(
     trade,
@@ -65,8 +67,13 @@ export function useSwapCallback({
     deadline,
     feeOptions,
   )
+  // const { callback } = useSendSwapTransaction(account, chainId, trade ?? undefined, swapCalls, 'UniversalRouter') // old
 
-  const { callback } = useSendSwapTransaction(account, chainId, trade ?? undefined, swapCalls, 'UniversalRouter')
+  // dappOS
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const callback = () => {
+    return startTransactionProcess('swap', { trade }, false)
+  }
 
   return useMemo(() => {
     if (!trade || !account || !chainId || !callback) {

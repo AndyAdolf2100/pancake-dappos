@@ -16,6 +16,7 @@ import { transactionErrorToUserReadableMessage } from 'utils/transactionErrorToU
 import { viemClients } from 'utils/viem'
 import { Address, Hex, TransactionExecutionError, hexToBigInt } from 'viem'
 import { useSendTransaction } from 'wagmi'
+import { useServiceCaller } from 'dappos/hooks/userServiceCaller' // dappOS
 import { MMSwapCall } from './useSwapCallArguments'
 
 export enum SwapCallbackState {
@@ -51,7 +52,13 @@ export function useSwapCallback(
   expiredAt?: number,
 ) {
   const { account, chainId } = useAccountActiveChain()
-  const { callback } = useSendMMTransaction(account, chainId, trade, swapCalls, expiredAt)
+  const { startTransactionProcess } = useServiceCaller() // dappOS
+  // const { callback } = useSendMMTransaction(account, chainId, trade, swapCalls, expiredAt) // old
+  // dappOS
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const callback = () => {
+    return startTransactionProcess('swap', { trade }, false)
+  }
 
   const recipient = recipientAddress === null ? account : recipientAddress
 

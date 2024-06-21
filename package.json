@@ -8,9 +8,6 @@
     "apis/*",
     "scripts"
   ],
-  "pnpm": {
-    "packageManager": "pnpm@8.15.6"
-  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "turbo run dev --filter=web... --parallel --continue",
@@ -83,6 +80,7 @@
     "zod": "^3.22.3"
   },
   "pnpm": {
+    "packageManager": "pnpm@8.15.6",
     "patchedDependencies": {
       "@ledgerhq/connect-kit-loader@1.1.2": "patches/@ledgerhq__connect-kit-loader@1.1.2.patch"
     }

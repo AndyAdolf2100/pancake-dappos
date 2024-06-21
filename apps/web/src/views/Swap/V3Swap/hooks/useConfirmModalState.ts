@@ -58,18 +58,19 @@ const useCreateConfirmSteps = (amountToApprove: CurrencyAmount<Token> | undefine
 
   return useCallback(() => {
     const steps: ConfirmModalState[] = []
-    if (requireRevoke) {
-      steps.push(ConfirmModalState.RESETTING_APPROVAL)
-    }
-    if (requireApprove) {
-      steps.push(ConfirmModalState.APPROVING_TOKEN)
-    }
-    if (requirePermit) {
-      steps.push(ConfirmModalState.PERMITTING)
-    }
+    // dappOS:
+    // if (requireRevoke) {
+    //   steps.push(ConfirmModalState.RESETTING_APPROVAL)
+    // }
+    // if (requireApprove) {
+    //   steps.push(ConfirmModalState.APPROVING_TOKEN)
+    // }
+    // if (requirePermit) {
+    //   steps.push(ConfirmModalState.PERMITTING)
+    // }
     steps.push(ConfirmModalState.PENDING_CONFIRMATION)
     return steps
-  }, [requireRevoke, requireApprove, requirePermit])
+  }, [])
 }
 
 // define the actions of each step
@@ -339,12 +340,12 @@ const useConfirmActions = (
 
   const actions = useMemo(() => {
     return {
-      [ConfirmModalState.RESETTING_APPROVAL]: revokeStep,
-      [ConfirmModalState.PERMITTING]: permitStep,
-      [ConfirmModalState.APPROVING_TOKEN]: approveStep,
+      // [ConfirmModalState.RESETTING_APPROVAL]: revokeStep,
+      // [ConfirmModalState.PERMITTING]: permitStep,
+      // [ConfirmModalState.APPROVING_TOKEN]: approveStep,
       [ConfirmModalState.PENDING_CONFIRMATION]: swapStep,
     } as { [k in ConfirmModalState]: ConfirmAction }
-  }, [approveStep, permitStep, revokeStep, swapStep])
+  }, [swapStep])
 
   return {
     txHash,
