@@ -19,11 +19,11 @@ import { ChartPeriod, chainIdToExplorerInfoChainName, explorerApiClient } from '
 import { safeGetAddress } from 'utils'
 import { computeSlippageAdjustedAmounts } from 'utils/exchange'
 import { getTokenAddress } from 'views/Swap/components/Chart/utils'
+import { PairDataTimeWindowEnum } from '@pancakeswap/uikit'
 import { useAccount } from 'dappos/hooks/useWagmiHooks' // dappOS
-import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances'
+import { useCurrencyBalances } from 'dappos/hooks/useCurrencyBalances' // dappOS
 import { Field, replaceSwapState } from './actions'
 import { SwapState, swapReducerAtom } from './reducer'
-import { PairDataTimeWindowEnum } from './types'
 
 export function useSwapState() {
   return useAtomValue(swapReducerAtom)
@@ -293,6 +293,8 @@ type useFetchPairPricesParams = {
 
 const timeWindowToPeriod = (timeWindow: PairDataTimeWindowEnum): ChartPeriod => {
   switch (timeWindow) {
+    case PairDataTimeWindowEnum.HOUR:
+      return '1H'
     case PairDataTimeWindowEnum.DAY:
       return '1D'
     case PairDataTimeWindowEnum.WEEK:
