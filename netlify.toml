@@ -1,5 +1,3 @@
 [build]
   command='pnpm run build'
   publish="pancake-frontend/apps/web/.next"
-[build.processing]
-  skip_processing = true
