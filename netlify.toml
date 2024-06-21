@@ -1,3 +1,13 @@
 [build]
-  command='pnpm -w run build'
-  publish="pancake-frontend/apps/web/.next"
+  command='pnpm run build'
+  publish="./apps/web/.next"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
