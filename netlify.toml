@@ -1,3 +1,3 @@
 [build]
-  command='pnpm run build'
+  command='pnpm -w run build'
   publish="pancake-frontend/apps/web/.next"
