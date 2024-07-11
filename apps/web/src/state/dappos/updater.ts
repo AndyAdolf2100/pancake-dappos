@@ -1,15 +1,15 @@
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
 import DappOSProtocol from '@dappos/checkout'
-import { useCallback, useEffect, useState } from 'react'
+import DappOSWalletLite from '@dappos/wallet-lite'
 import { appName } from 'dappos/constant/constant'
-import { useDappOSVwBalanceInfo, useDappOSVirtualWallet, useDappOSVwIsReady } from 'state/dapposVirtualWallet/hooks'
-import { useDappOSWhiteList } from 'state/dapposWhiteList/hooks'
 import { initDstChainsVw } from 'dappos/utils/getVirtualWallet'
 import { loadingInitialized } from 'dappos/utils/loading'
 import { providers } from 'ethers'
-import DappOSWalletLite from '@dappos/wallet-lite'
+import useAccountActiveChain from 'hooks/useAccountActiveChain'
+import { useCallback, useEffect, useState } from 'react'
 import { useDappOSCurrencyBalance } from 'state/dappOSCurrencyBalance/hooks'
-import { useDappOSWalletLite, useDappOSProtocol, usePaydbAddress, useDappOSProtocolIsReady } from './hooks'
+import { useDappOSVirtualWallet, useDappOSVwBalanceInfo, useDappOSVwIsReady } from 'state/dapposVirtualWallet/hooks'
+import { useDappOSWhiteList } from 'state/dapposWhiteList/hooks'
+import { useDappOSProtocol, useDappOSProtocolIsReady, useDappOSWalletLite, usePaydbAddress } from './hooks'
 
 const { loading, startLoading, endLoading } = loadingInitialized()
 
@@ -80,8 +80,8 @@ export default function DappOSUpdater(): null {
   ])
 
   const connectProtocol = useCallback(async () => {
-    console.log('%cdappOSProtocol connect: ', 'color:#2aae68; font-size: 16px; font-weight: bold;')
     if (!account || !dappOSProtocol || !connector || !connector.getProvider) return
+    console.log('%cdappOSProtocol connect: ', 'color:#2aae68; font-size: 16px; font-weight: bold;')
     updateDappOSProtocolIsReady(false)
     const library = await connector.getProvider()
     const connectorInfo = (() => {

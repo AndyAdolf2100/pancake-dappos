@@ -41,6 +41,7 @@ import { RangePriceSection } from 'components/RangePriceSection'
 import { RangeTag } from 'components/RangeTag'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { Bound } from 'config/constants/types'
+import { useServiceCaller } from 'dappos/hooks/userServiceCaller'
 import dayjs from 'dayjs'
 import { gql } from 'graphql-request'
 import { useToken } from 'hooks/Tokens'
@@ -67,13 +68,12 @@ import { ChainLinkSupportChains } from 'state/info/constant'
 import { useSingleCallResult } from 'state/multicall/hooks'
 import { useIsTransactionPending, useTransactionAdder } from 'state/transactions/hooks'
 import { styled } from 'styled-components'
-import { calculateGasMargin, getBlockExploreLink } from 'utils'
+import { getBlockExploreLink } from 'utils'
 import currencyId from 'utils/currencyId'
 import { formatCurrencyAmount, formatPrice } from 'utils/formatCurrencyAmount'
 import { v3Clients } from 'utils/graphql'
 import { isUserRejected } from 'utils/sentry'
 import { transactionErrorToUserReadableMessage } from 'utils/transactionErrorToUserReadableMessage'
-import { getViemClients } from 'utils/viem'
 import { CHAIN_IDS } from 'utils/wagmi'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 import { hexToBigInt } from 'viem'
@@ -323,6 +323,8 @@ export default function PoolPage() {
     setErrorMessage(undefined)
   }, [])
 
+  const { startTransactionProcess } = useServiceCaller()
+
   const collect = useCallback(() => {
     if (
       tokenIdsInMCv3Loading ||
@@ -354,33 +356,35 @@ export default function PoolPage() {
       chain: signer?.chain,
     }
 
-    getViemClients({ chainId })
-      ?.estimateGas(txn)
-      .then(async (estimate) => {
-        const newTxn = {
-          ...txn,
-          gas: calculateGasMargin(estimate),
-        }
+    // getViemClients({ chainId })
+    //   ?.estimateGas(txn)
+    //   .then(async (estimate) => {
+    //     const newTxn = {
+    //       ...txn,
+    //       gas: calculateGasMargin(estimate),
+    //     }
 
-        return sendTransactionAsync(newTxn).then((hash) => {
-          setCollectMigrationHash(hash)
-          setCollecting(false)
+    //     return sendTransactionAsync(newTxn).then((hash) => {
 
-          const amount0 = feeValue0 ?? CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0)
-          const amount1 = feeValue1 ?? CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0)
+    startTransactionProcess('collect', {}, false)
+      .then(({ hash }) => {
+        setCollectMigrationHash(hash)
+        setCollecting(false)
 
-          addTransaction(
-            { hash },
-            {
-              type: 'collect-fee',
-              summary: `Collect fee ${amount0.toExact()} ${
-                currency0ForFeeCollectionPurposes.symbol
-              } and ${amount1.toExact()} ${currency1ForFeeCollectionPurposes.symbol}`,
-            },
-          )
-        })
+        const amount0 = feeValue0 ?? CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0)
+        const amount1 = feeValue1 ?? CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0)
+
+        addTransaction(
+          { hash },
+          {
+            type: 'collect-fee',
+            summary: `Collect fee ${amount0.toExact()} ${
+              currency0ForFeeCollectionPurposes.symbol
+            } and ${amount1.toExact()} ${currency1ForFeeCollectionPurposes.symbol}`,
+          },
+        )
       })
-      ?.catch((error) => {
+      .catch((error) => {
         if (isUserRejected(error)) {
           setErrorMessage(t('Transaction rejected'))
         } else {
@@ -400,8 +404,8 @@ export default function PoolPage() {
     interfaceManager,
     feeValue0,
     feeValue1,
-    signer,
-    sendTransactionAsync,
+    signer?.chain,
+    startTransactionProcess,
     addTransaction,
     t,
   ])
