@@ -1,18 +1,17 @@
-import { usePackedSdk } from 'dappos/sdk/usePackedSdk'
-import { useLoading } from 'dappos/hooks/useLoading'
-import { useMemo } from 'react'
-import { getVirtualWallet } from 'dappos/utils/getVirtualWallet'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { useDappOSInstitution } from 'state/dapposInstitution/hooks'
-import { serviceAddressMap, appName, AddressZero } from 'dappos/constant/constant'
-import { getExpTime } from 'dappos/utils'
-import { ethers } from 'ethers'
-import { Currency, CurrencyAmount, TradeType } from '@pancakeswap/swap-sdk-core'
-import { basisPointsToPercent } from 'utils/exchange'
+import { Currency, CurrencyAmount } from '@pancakeswap/swap-sdk-core'
 import { useUserSlippage } from '@pancakeswap/utils/user'
 import { INITIAL_ALLOWED_SLIPPAGE } from 'config/constants'
+import { AddressZero, appName, serviceAddressMap } from 'dappos/constant/constant'
+import { useLoading } from 'dappos/hooks/useLoading'
+import { usePackedSdk } from 'dappos/sdk/usePackedSdk'
+import { getExpTime } from 'dappos/utils'
+import { getVirtualWallet } from 'dappos/utils/getVirtualWallet'
+import useAccountActiveChain from 'hooks/useAccountActiveChain'
+import { useMemo } from 'react'
+import { useDappOSInstitution } from 'state/dapposInstitution/hooks'
 import { Field } from 'state/mint/actions'
-import { Actions, genCollectData, genDecreasePositionData, genIncreasePositionData, genMintPositionData } from './utils'
+import { basisPointsToPercent } from 'utils/exchange'
+import { Actions, genCollectData, genIncreasePositionData, genMintPositionData } from './utils'
 
 // V3 Liquidity
 export const useLiquidityProtocol = () => {
@@ -229,9 +228,70 @@ export const useLiquidityProtocol = () => {
     endDecreaseLoading()
   }
 
-  const collect = () => {
+  const collect = async (
+    args: {
+      tokenId: string
+      parsedAmounts: {
+        CURRENCY_A?: CurrencyAmount<Currency> | undefined
+        CURRENCY_B?: CurrencyAmount<Currency> | undefined
+      }
+    },
+    isSimulated = false,
+  ) => {
     startCollectLoading()
+    const { parsedAmounts, tokenId } = args
+    const currencyAmountA = parsedAmounts[Field.CURRENCY_A]
+    const currencyAmountB = parsedAmounts[Field.CURRENCY_B]
+    if (!currencyAmountA || !currencyAmountB) {
+      throw new Error('Wrong parameters in collect')
+    }
+    const pct = basisPointsToPercent(allowedSlippage)
+    const currencyA = currencyAmountA.currency.isNative
+      ? currencyAmountA.wrapped.currency.address
+      : currencyAmountA.currency.address
+    const currencyB = currencyAmountB.currency.isNative
+      ? currencyAmountB.wrapped.currency.address
+      : currencyAmountB.currency.address
+    const currencyAMin = currencyAmountA.subtract(currencyAmountA.multiply(pct)).quotient.toString()
+    const currencyBMin = currencyAmountB.subtract(currencyAmountB.multiply(pct)).quotient.toString()
+
+    console.log('[collect]', tokenId, currencyA, currencyB, currencyAMin, currencyBMin)
+
+    const executeData = genCollectData({
+      amount0Min: currencyAMin, // min amount you collect
+      amount1Min: currencyBMin,
+      tokenId,
+    })
+
+    const virtualWallet = await getVirtualWallet(eoaAccount!, dstChainId)
+
+    const cparam = {
+      action: Actions.Collect,
+      remainGas: '0',
+    }
+
+    const params = {
+      commonParam: cparam,
+      app: appName,
+      expTime: getExpTime(),
+      service: serviceAddressMap[dstChainId as keyof typeof serviceAddressMap],
+      text: 'Collect',
+      isGateWay: 0,
+      data: executeData,
+      gasLimit: '500000',
+      bridgeTokenOuts: [],
+      virtualWallet,
+      useIsolate: isSwapModeNormal && isIsolated,
+    }
+
+    console.log('params = ', params)
+
+    const result = await sendTransaction(params, isSimulated, 'Collect').catch((error) => {
+      endCollectLoading()
+      throw error
+    })
     endCollectLoading()
+    return result
   }
 
   const loading = useMemo(() => {

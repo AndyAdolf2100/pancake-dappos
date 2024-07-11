@@ -366,7 +366,17 @@ export default function PoolPage() {
 
     //     return sendTransactionAsync(newTxn).then((hash) => {
 
-    startTransactionProcess('collect', {}, false)
+    startTransactionProcess(
+      'collect',
+      {
+        tokenId,
+        parsedAmounts: {
+          CURRENCY_A: feeValue0 ?? CurrencyAmount.fromRawAmount(currency0ForFeeCollectionPurposes, 0),
+          CURRENCY_B: feeValue1 ?? CurrencyAmount.fromRawAmount(currency1ForFeeCollectionPurposes, 0),
+        },
+      },
+      false,
+    )
       .then(({ hash }) => {
         setCollectMigrationHash(hash)
         setCollecting(false)
